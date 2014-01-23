@@ -4,3 +4,9 @@ Title:
 	Description:
 	Steps to reproduce: 
 }
+
+Title: Map size is affected by tileset size
+{
+	Description: The grid shows the correct size of the map. However, you can only place tiles on the map within the number of rows and columns set by tileset info.
+	Steps to reproduce: New map, select any tileset, make a map that has more rows/columns than the tileset.
+}
