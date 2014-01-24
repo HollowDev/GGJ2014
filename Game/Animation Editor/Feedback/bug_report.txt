@@ -5,3 +5,9 @@ Title:
 	Steps to reproduce: 
 	Status:
 }
+Title: ManagedDirect3D::Error
+{
+	Description: Exiting controls causes error loop
+	Steps to reproduce: New, select sprite sheet, click exit button
+	Status: Critical
+}
