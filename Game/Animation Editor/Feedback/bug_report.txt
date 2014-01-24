@@ -1,0 +1,7 @@
+Please enter any bugs you encounter here, using this template:
+Title:
+{
+	Description:
+	Steps to reproduce: 
+	Status:
+}
