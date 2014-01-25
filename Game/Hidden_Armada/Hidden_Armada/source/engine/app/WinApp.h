@@ -40,6 +40,7 @@ public:
 	inline int GetWidth( void ) const { return m_WindowWidth; }
 	inline int GetHeight( void ) const { return m_WindowHeight; }
 	inline HWND GetHWND( void ) const { return m_HWND; }
+	inline HINSTANCE GetHINSTANCE(void) const { return m_HInstance; }
 };
 
 #endif

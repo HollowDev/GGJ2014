@@ -17,7 +17,7 @@ public:
 	InputController(void);
 	~InputController(void) { Release(); }
 
-	void Initialize(void);
+	void Initialize(HWND _hWnd, HINSTANCE _hInst);
 	void Release(void);
 
 	void CheckInput(PlayerShip* _player, BaseState* _state);

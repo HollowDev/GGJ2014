@@ -30,7 +30,7 @@ bool MainMenuState::Initialize( WinApp* _app )
 	m_MusicTimer = 0.0f;
 
 	m_Input = new InputController();
-	m_Input->Initialize();
+	m_Input->Initialize(m_App->GetHWND(), m_App->GetHINSTANCE());
 
 	// Load Textures
 	m_Background = TextureManager::GetInstance()->LoadTexture(L"assets/textures/mainmenu_background.png");
