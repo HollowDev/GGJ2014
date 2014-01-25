@@ -79,6 +79,7 @@
     <ClInclude Include="source\game\states\OptionsState.h" />
     <ClInclude Include="source\game\states\PauseState.h" />
     <ClInclude Include="source\game\states\SplashState.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\StateSystem.cpp" />
@@ -93,6 +94,7 @@
     <ClCompile Include="source\game\states\PauseState.cpp" />
     <ClCompile Include="source\game\states\SplashState.cpp" />
     <ClCompile Include="source\WinMain.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
