@@ -77,6 +77,8 @@ void WinApp::Release( void )
 	
 	SAFE_DELETE(m_Timer);
 	SAFE_DELETE(m_StateSystem);
+
+	TextureManager::GetInstance()->Release();
 }
 
 void WinApp::Run( void )

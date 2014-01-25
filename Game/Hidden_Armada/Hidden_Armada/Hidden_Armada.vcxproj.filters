@@ -20,6 +20,9 @@
     <Filter Include="game\states">
       <UniqueIdentifier>{31398c5c-9fbb-4fa8-aca3-a7387f1fbcf0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="engine\sound">
+      <UniqueIdentifier>{a1d5b0b8-0950-41fc-8714-09e9a2d5e4fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\engine\app\WinApp.h">
@@ -66,6 +69,9 @@
     </ClInclude>
     <ClInclude Include="source\engine\app\Timer.h">
       <Filter>engine\app</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\fmod.h">
+      <Filter>engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
