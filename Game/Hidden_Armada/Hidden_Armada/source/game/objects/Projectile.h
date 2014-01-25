@@ -7,6 +7,7 @@ class Projectile : public BaseEntity
 {
 	float m_Damage;
 	float m_Life;
+	IEntity* m_Owner;
 
 public:
 	Projectile( void );
@@ -15,12 +16,16 @@ public:
 	void Initialize( void );
 	virtual void Release( void );
 
-	virtual void Render( int _x, int _y );
-	virtual void Update( float _dt );
-	virtual bool CheckCollision( IEntity* _other );
-	virtual void HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY );
+	void Render( int _x, int _y );
+	void Update( float _dt );
+	bool CheckCollision( IEntity* _other );
+	void HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY );
 
 	virtual Sphere GetSphere( void ) { return Sphere(GetPos(), float(GetSize())); }
+
+	inline void SetOwner( IEntity* _owner ) { m_Owner = _owner; }
+
+	inline IEntity* GetOwner( void ) { return m_Owner; }
 };
 
 #endif

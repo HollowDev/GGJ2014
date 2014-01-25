@@ -5,6 +5,7 @@
 
 #include "../ObjectManager.h"
 #include "../ObjectFactory.h"
+#include "../AIManager.h"
 
 #include "../../engine/app/StateSystem.h"
 #include "MainMenuState.h"
@@ -33,27 +34,25 @@ bool GameplayState::Initialize( WinApp* _app )
 
 	ObjectFactory::GetInstance()->Initialize();
 	int asteroid = TextureManager::GetInstance()->LoadTexture(L"assets/textures/asteroids/asteroid001.png");
-	//for(int i = 0; i < 100; ++i)
-	//{
-	//	ObjectFactory::GetInstance()->Create(&m_AsteroidTest[i], Entity_Asteroid);
-	//	((Asteroids*)m_AsteroidTest[i])->SetImgID(asteroid);
-	//}
+	for(int i = 0; i < 100; ++i)
+	{
+		ObjectFactory::GetInstance()->Create(&m_AsteroidTest[i], Entity_Asteroid);
+		((Asteroids*)m_AsteroidTest[i])->SetImgID(asteroid);
+	}
 
 	int weapon2ID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/playershipeffects/Missile.png");
 
-	RECT enemySource = {0,0,128,128};
+	int smallEnemyID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/enemyships/enemyship1.png");
+	int mediumEnemyID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/enemyships/enemyship2.png");
+	int largeEnemyID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/enemyships/enemyship3.png");
+	AIManager::GetInstance()->Initialize(m_Player1,smallEnemyID,mediumEnemyID,largeEnemyID,weaponID);
 
-	int enemyShipID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/enemyships/enemyship2.png");
-	for(unsigned int i = 0; i < 100; ++i)
-	{
-		ObjectFactory::GetInstance()->Create(&m_EnemyShip[i], Entity_EnemyShip);
-		((EnemyShip*)m_EnemyShip[i])->Initialize("assets/data/ships/ship1.txt",D3DXVECTOR2(i*50,300),weaponID);
-		((EnemyShip*)m_EnemyShip[i])->SetImgID(enemyShipID);
-		((EnemyShip*)m_EnemyShip[i])->SetImgSource(enemySource);
-		((EnemyShip*)m_EnemyShip[i])->SetImgCenter(D3DXVECTOR2(64,64));
-		((EnemyShip*)m_EnemyShip[i])->SetSize(20);
-		((EnemyShip*)m_EnemyShip[i])->SetTarget(m_Player1);
-	}
+	//RECT enemySource = {0,0,128,128};
+	//int enemyShipID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/enemyships/enemyship2.png");
+	//for(unsigned int i = 0; i < 100; ++i)
+	//{
+	//	AIManager::GetInstance()->SpawnEnemy( D3DXVECTOR2(i*50,200) );
+	//}
 	return true;
 }
 

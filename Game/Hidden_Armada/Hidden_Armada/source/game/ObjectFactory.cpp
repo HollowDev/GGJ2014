@@ -55,7 +55,7 @@ bool ObjectFactory::Create( IEntity** _object, Entity_Type _id )
 		{
 			MakeDefault(m_EnemyShipArray[index]);
 			*_object = &m_EnemyShipArray[index];
-			m_OM->AddObject(&m_EnemyShipArray[index],NUM_LAYERS-1);
+			m_OM->AddObject(&m_EnemyShipArray[index],3);
 		}
 		break;
 	}
@@ -94,7 +94,7 @@ bool ObjectFactory::Destroy( IEntity* _object )
 	case Entity_EnemyShip:
 		{
 			test = ((int)_object-(int)&m_EnemyShipArray[0]) / sizeof(EnemyShip);
-			if( test < 0 || test >= MAX_PROJECTILES )
+			if( test < 0 || test >= MAX_ENEMYSHIPS )
 				return false;
 			else if( !IsValid( Entity_EnemyShip, test ) )
 				return false;

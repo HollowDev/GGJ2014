@@ -7,7 +7,7 @@ using std::fstream;
 
 PlayerShip::PlayerShip( void )
 {
-
+	this->m_Type = Entity_PlayerShip;
 }
 
 void PlayerShip::Initialize( const char* _filepath, D3DXVECTOR2 _pos, int _weaponID )
@@ -32,7 +32,7 @@ void PlayerShip::Update( float _dt )
 	// add a trail
 	if(GetAsyncKeyState(VK_LBUTTON))
 	{
-		this->GetWeapon()->Fire();
+		this->GetWeapon()->Fire(this);
 	}
 }
 

@@ -17,7 +17,7 @@ void Projectile::Initialize( void )
 	this->SetSize(8);
 	m_Life = 5.0f;
 	this->SetIsAlive(true);
-	this->SetImgID(6);
+	this->SetImgID(3);
 	this->SetImgCenter(D3DXVECTOR2(8,16));
 }
 
@@ -61,14 +61,21 @@ void Projectile::Update( float _dt )
 
 bool Projectile::CheckCollision( IEntity* _other )
 {
-	if(_other->GetType() != Entity_PlayerShip && _other->GetType() != Entity_Projectile &&
-		_other->GetType() != Entity_EnemyShip )
-		return true;
+	if( _other->GetType() == Entity_EnemyShip && m_Owner->GetType() == Entity_EnemyShip )
+		return false;
 
+	if( _other->GetType() == Entity_Asteroid && m_Owner->GetType() == Entity_EnemyShip )
+		return false;
+
+	if( _other != m_Owner && _other->GetType() != Entity_Projectile )
+		return true;
+	
 	return false;
 }
 void Projectile::HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY )
 {
-	if( _other->GetType() != Entity_PlayerShip && _other->GetType() != Entity_Projectile )
+	if( _other->GetType() == Entity_EnemyShip && m_Owner->GetType() == Entity_EnemyShip )
+		return;
+	if( _other->GetType() != Entity_Projectile && _other != m_Owner )
 		this->SetIsAlive(false);
 }

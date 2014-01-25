@@ -59,7 +59,7 @@ void ObjectManager::CheckCollision( void )
 					IEntity* object2 = m_Objects[y][j];
 					if( object1 != object2 && object1->GetIsAlive() && object2->GetIsAlive() )
 					{
-						if(!m_Objects[x][i]->CheckCollision(m_Objects[y][j]) &&
+						if(!m_Objects[x][i]->CheckCollision(m_Objects[y][j]) ||
 						   !m_Objects[y][j]->CheckCollision(m_Objects[x][i]) )
 						   continue;
 

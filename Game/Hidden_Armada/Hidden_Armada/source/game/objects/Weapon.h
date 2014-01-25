@@ -22,7 +22,7 @@ public:
 	virtual void HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY );
 	virtual Sphere GetSphere( void ) { return Sphere(GetPos(), float(GetSize())); }
 
-	void Fire( void );
+	void Fire( IEntity* _owner );
 
 	// accessors
 	inline float GetROF( void ) { return m_ROF; }

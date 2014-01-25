@@ -148,6 +148,9 @@
     <ClInclude Include="source\game\objects\PlayerShip.h">
       <Filter>game\objects</Filter>
     </ClInclude>
+    <ClInclude Include="source\game\AIManager.h">
+      <Filter>game\managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -240,6 +243,9 @@
     </ClCompile>
     <ClCompile Include="source\game\objects\PlayerShip.cpp">
       <Filter>game\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\AIManager.cpp">
+      <Filter>game\managers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

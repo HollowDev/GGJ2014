@@ -34,7 +34,12 @@ void EnemyShip::Update( float _dt )
 		D3DXVECTOR2 pos = m_Target->GetPos() + m_Target->GetImgCenter();
 		RotateWeaponToMouse((int)pos.x,(int)pos.y);
 
-		this->GetWeapon()->Fire();
+		this->GetWeapon()->Fire(this);
+	}
+
+	if(this->GetHP() <= 0)
+	{
+		this->SetIsAlive(false);
 	}
 }
 
@@ -70,6 +75,11 @@ bool EnemyShip::CheckCollision( IEntity* _other )
 
 void EnemyShip::HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY )
 {
+	if(!_other->GetIsAlive())
+		return;
+
 	if(_other->GetType() != Entity_Projectile)
 		this->SetPos( this->GetPos() + D3DXVECTOR2(_dirX,_dirY) * _dist);
+	else if(_other->GetType() == Entity_Projectile )
+		this->SetHP(this->GetHP()-1);
 }

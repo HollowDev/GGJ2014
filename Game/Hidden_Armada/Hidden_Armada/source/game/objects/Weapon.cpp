@@ -32,7 +32,7 @@ void Weapon::HandleCollision( IEntity* _other, float _dist, float _dirX, float _
 	// no collision
 }
 
-void Weapon::Fire( void )
+void Weapon::Fire( IEntity* _owner )
 {
 	if(m_FireTimer <= 0.0f)
 	{
@@ -45,6 +45,7 @@ void Weapon::Fire( void )
 			((Projectile*)proj)->SetDir(GetDir());
 			((Projectile*)proj)->SetMaxSpeed(500);
 			((Projectile*)proj)->Rotate();
+			((Projectile*)proj)->SetOwner(_owner);
 		}
 		// update fire timer
 		m_FireTimer = m_ROF;

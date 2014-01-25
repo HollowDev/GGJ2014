@@ -1,4 +1,5 @@
 #include "Asteroids.h"
+#include "../AIManager.h"
 
 Asteroids::Asteroids( void )
 {
@@ -37,7 +38,7 @@ void Asteroids::Update( float _dt )
 bool Asteroids::CheckCollision( IEntity* _other )
 {
 	if(_other->GetType() == Entity_Asteroid || _other->GetType() == Entity_PlayerShip ||
-		_other->GetType() == Entity_Projectile )
+		_other->GetType() == Entity_Projectile || _other->GetType() == Entity_EnemyShip )
 		return true;
 
 	return false;
@@ -45,7 +46,8 @@ bool Asteroids::CheckCollision( IEntity* _other )
 
 void Asteroids::HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY )
 {
-	if(_other->GetType() == Entity_Asteroid || _other->GetType() == Entity_PlayerShip )
+	if( _other->GetType() == Entity_Asteroid || _other->GetType() == Entity_PlayerShip ||
+		_other->GetType() == Entity_EnemyShip )
 	{
 		this->SetPos( this->GetPos() + D3DXVECTOR2(_dirX,_dirY) * _dist);
 		D3DXVECTOR2 dir(_dirX,_dirY);
@@ -54,6 +56,8 @@ void Asteroids::HandleCollision( IEntity* _other, float _dist, float _dirX, floa
 	else if(_other->GetType() == Entity_Projectile)
 	{
 		// TODO:: spawn ship, possibly, do animation, spawn particles
+		if(rand()%2 != 0)
+			AIManager::GetInstance()->SpawnEnemy(this->GetPos());
 		this->SetIsAlive(false);
 	}
 }

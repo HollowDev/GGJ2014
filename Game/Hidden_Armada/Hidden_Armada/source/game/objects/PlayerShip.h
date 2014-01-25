@@ -5,6 +5,8 @@
 
 class PlayerShip : public Ship
 {
+	int m_Score;
+
 	// TODO:: Place controller here
 public:
 	PlayerShip( void );
