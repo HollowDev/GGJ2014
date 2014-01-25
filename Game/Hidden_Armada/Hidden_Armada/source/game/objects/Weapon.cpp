@@ -5,7 +5,7 @@
 Weapon::Weapon( void )
 {
 	m_FireTimer = 0.0f;
-	m_ROF = 0.01f;
+	m_ROF = 0.1f;
 	m_Damage = 1;
 	m_Level = 1;
 }
@@ -38,10 +38,14 @@ void Weapon::Fire( void )
 	{
 		// Fire projectile
 		IEntity* proj;
-		ObjectFactory::GetInstance()->Create(&proj,Entity_Projectile);
-		((Projectile*)proj)->SetPos(GetPos() + GetImgCenter());
-		((Projectile*)proj)->SetDir(GetDir());
-		((Projectile*)proj)->SetMaxSpeed(500);
+		if( ObjectFactory::GetInstance()->Create(&proj,Entity_Projectile) )
+		{
+			((Projectile*)proj)->Initialize();
+			((Projectile*)proj)->SetPos(GetPos() + GetImgCenter());
+			((Projectile*)proj)->SetDir(GetDir());
+			((Projectile*)proj)->SetMaxSpeed(500);
+			((Projectile*)proj)->Rotate();
+		}
 		// update fire timer
 		m_FireTimer = m_ROF;
 	}

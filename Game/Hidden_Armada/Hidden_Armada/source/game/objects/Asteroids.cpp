@@ -34,6 +34,15 @@ void Asteroids::Update( float _dt )
 	this->SetVel(m_ConstantVel);
 }
 
+bool Asteroids::CheckCollision( IEntity* _other )
+{
+	if(_other->GetType() == Entity_Asteroid || _other->GetType() == Entity_PlayerShip ||
+		_other->GetType() == Entity_Projectile )
+		return true;
+
+	return false;
+}
+
 void Asteroids::HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY )
 {
 	if(_other->GetType() == Entity_Asteroid || _other->GetType() == Entity_PlayerShip )

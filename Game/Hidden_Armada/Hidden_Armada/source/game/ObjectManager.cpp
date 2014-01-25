@@ -57,6 +57,10 @@ void ObjectManager::CheckCollision( void )
 				{
 					if( m_Objects[x][i] != m_Objects[y][j] )
 					{
+						if(!m_Objects[x][i]->CheckCollision(m_Objects[y][j]) &&
+						   !m_Objects[y][j]->CheckCollision(m_Objects[x][i]) )
+						   continue;
+
 						ColInfo rhs, lhs;
 						if(SphereToSphere(m_Objects[x][i]->GetSphere(), m_Objects[y][j]->GetSphere(), rhs, lhs))
 						{

@@ -17,6 +17,7 @@ public:
 
 	void Render( int _x, int _y );
 	void Update( float _dt );
+	virtual bool CheckCollision( IEntity* _other );
 	void HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY );
 
 	virtual Sphere GetSphere( void ) { return Sphere(GetPos()+this->GetImgCenter(), float(this->GetSize())); }

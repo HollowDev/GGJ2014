@@ -23,6 +23,7 @@ public:
 
 	virtual void Render( int _x, int _y ) = 0;
 	virtual void Update( float _dt ) = 0;
+	virtual bool CheckCollision( IEntity* _other ) = 0;
 	virtual void HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY ) = 0;
 
 	virtual Sphere GetSphere( void ) = 0;

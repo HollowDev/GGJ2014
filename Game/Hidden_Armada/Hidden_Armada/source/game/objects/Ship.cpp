@@ -65,6 +65,14 @@ void Ship::Update( float _dt )
 	}
 }
 
+bool Ship::CheckCollision( IEntity* _other )
+{
+	if(_other->GetType() != Entity_Projectile)
+		return true;
+
+	return false;
+}
+
 void Ship::HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY )
 {
 	if(_other->GetType() != Entity_Projectile)

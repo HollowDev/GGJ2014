@@ -42,8 +42,10 @@ bool GameplayState::Initialize( WinApp* _app )
 	{
 		ObjectFactory::GetInstance()->Create(&m_AsteroidTest[i], Entity_Asteroid);
 		((Asteroids*)m_AsteroidTest[i])->SetImgID(asteroid);
-		
 	}
+
+	weaponID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/playershipeffects/Missile.png");
+
 	return true;
 }
 
@@ -71,6 +73,8 @@ void GameplayState::Update( float _dt )
 {
 	ObjectManager::GetInstance()->Update(_dt);
 	ObjectManager::GetInstance()->CheckCollision();
+
+	ObjectFactory::GetInstance()->ProcessDestroy();
 }
 
 bool GameplayState::Input( void )

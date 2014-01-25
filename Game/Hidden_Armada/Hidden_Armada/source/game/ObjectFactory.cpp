@@ -66,19 +66,17 @@ bool ObjectFactory::Destroy( IEntity* _object )
 				return false;
 
 			m_Destroyed[Entity_Asteroid].push_back(&m_AsteroidArray[test]);
-			m_OM->RemoveObject(_object,NUM_LAYERS-1);
 		}
 		break;
 	case Entity_Projectile:
 		{
 			test = ((int)_object-(int)&m_ProjectileArray[0]) / sizeof(Projectile);
-			if( test < 0 || test >= MAX_ASTEROIDS )
+			if( test < 0 || test >= MAX_PROJECTILES )
 				return false;
 			else if( !IsValid( Entity_Projectile, test ) )
 				return false;
 
 			m_Destroyed[Entity_Projectile].push_back(&m_ProjectileArray[test]);
-			m_OM->RemoveObject(_object,NUM_LAYERS-1);
 		}
 		break;
 	}
