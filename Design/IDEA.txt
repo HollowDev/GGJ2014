@@ -1,0 +1,42 @@
+Name: #TEAM
+
+Top-view: revealing ships game.
+
+YOLO #HIDDEN_ARMADA
+
+Ship abilities:
+	- Movement: boost, speed determined based on ship size.
+	- Shield: recharges after short period after not being hit.
+	- Reveal: Reveals enemies that are hidden inside of asteriods.
+	- Shoot: 
+		- Machine Gun:
+			- Machine gun
+			- Chain gun
+			- Multi chain bullets with chain twice
+		- Laser: Pierce
+			- Laser beam
+			- Wider
+			- 360 no scope
+		- Rockets:
+			- Rocket 
+			- Homing
+			- Raptor
+			
+	- Enemy Parts
+		- thrusters
+		- hull
+		- shield
+		- every weapon player can have
+		- sentry ability: reveals asteriods
+		- rebound ability: rebounds projectiles
+		- teleport ability: they fucking teleport #TELESWAG #DUH
+	
+	- MODES:
+		- SINGLE AND MULTI
+			- GGJ14 mode: the stupid theme mode
+			- MAN MODE: (NO ASTEROIDS, JUST SHIPS)
+			- SURVIVAL MODE: YOLO
+			- BOOST MODE: BOOST FOREVER
+		- MULTI
+			- TEATHER MODE: you're fucking stuck to eachother #DEEP 
+			
