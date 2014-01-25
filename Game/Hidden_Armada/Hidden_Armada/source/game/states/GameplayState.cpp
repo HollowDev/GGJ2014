@@ -6,6 +6,9 @@
 #include "../ObjectManager.h"
 #include "../ObjectFactory.h"
 
+#include "../../engine/app/StateSystem.h"
+#include "MainMenuState.h"
+
 GameplayState::GameplayState( void )
 {
 
@@ -111,6 +114,12 @@ bool GameplayState::Input( void )
 	else if(GetAsyncKeyState(VK_RIGHT))
 	{
 		m_Player2->SetVel(m_Player2->GetVel() + D3DXVECTOR2(m_Player2->GetMaxSpeed(),0));
+	}
+
+	if(GetAsyncKeyState(VK_ESCAPE))
+	{
+		StateSystem::GetInstance()->ChangeState(new MainMenuState());
+		while(GetAsyncKeyState(VK_ESCAPE));
 	}
 
 	return true;
