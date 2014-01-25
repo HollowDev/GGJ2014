@@ -119,6 +119,8 @@ void WinApp::Update( void )
 		m_Active = false;
 	// Update state
 	m_StateSystem->Update(deltaTime);
+	// Update sounds
+	SoundManager::GetInstance()->Update();
 }
 
 void WinApp::Render( void )

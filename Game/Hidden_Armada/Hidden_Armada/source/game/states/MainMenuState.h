@@ -2,18 +2,28 @@
 #define _MAIN_MENU_STATE_H_
 
 #include "../../engine/app/BaseState.h"
-
-#include "../../engine/windows.h"
 #include <vector>
 
 class MainMenuState : public BaseState
 {
-	int m_TestImg;
 	int m_TextImg;
+	int m_Background;
 	int m_TestMusic;
-	std::vector<RECT> m_Buttons;
+	int m_MenuLoopMusic;
+	int m_MoveSFX;
+	std::vector<spriteButtons*> m_Buttons;
 
-	enum Button{ PLAY_GAME, OPTIONS, EXIT_GAME };
+	bool	isTitle;
+	float	m_FlashTimer;
+	bool	m_IsInvis;
+	bool	m_IsMoving;
+	float	m_MoveTimer;
+	float	m_MusicTimer;
+
+	int		m_Selected;
+	
+
+	enum Button{ PLAY_GAME, OPTIONS, EXIT_GAME, BACKGROUND, PRESS_START };
 
 public:
 	MainMenuState( void );

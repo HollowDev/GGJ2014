@@ -4,35 +4,81 @@
 #include "../../engine/sound/SoundManager.h"
 #include "GameplayState.h"
 #include "../../engine/app/StateSystem.h"
+#include "../../engine/app/WinApp.h"
+#include "OptionsState.h"
+
+float lerp(float _start, float _end, float _percent)
+{
+	return (_start + _percent * (_end - _start));
+}
 
 MainMenuState::MainMenuState( void )
 {
-	m_TestImg = -1;
 }
 
 bool MainMenuState::Initialize( WinApp* _app )
 {
 	m_App = _app;
+	isTitle = true;
+	m_IsInvis = true;
+	m_FlashTimer = 1.0f;
+	m_Selected = PLAY_GAME;
+	m_IsMoving = false;
+	m_MoveTimer = 0.0f;
+	m_MusicTimer = 0.0f;
 
-	m_TestImg = TextureManager::GetInstance()->LoadTexture(L"assets/textures/HollowDev.png");
-	m_TextImg = TextureManager::GetInstance()->LoadTexture(L"assets/textures/MainMenuText.png");
+	// Load Textures
+	m_Background = TextureManager::GetInstance()->LoadTexture(L"assets/textures/mainmenu_background.png");
+	m_TextImg = TextureManager::GetInstance()->LoadTexture(L"assets/textures/mainmenu_options_text.png");
 
-	RECT temp = { 0, 0, 300, 60 };
-	m_Buttons.push_back(temp);
+	// PLAY GAME
+	spriteButtons* newButton = new spriteButtons();
+	newButton->color = D3DCOLOR_ARGB(255, 255, 255, 255);
+	newButton->posX = (m_App->GetWidth() / 2) - (256 / 2);
+	newButton->posY = (m_App->GetHeight() / 2) + (33 / 2);
+	newButton->sourceRect.left = 0;		newButton->sourceRect.top = 33;
+	newButton->sourceRect.right = 256;	newButton->sourceRect.bottom = 66;
+	m_Buttons.push_back(newButton);
 
-	temp.left = 300;
-	temp.top = 0;
-	temp.bottom = 60;
-	temp.right = 600;
-	m_Buttons.push_back(temp);
+	// OPTIONS
+	newButton = new spriteButtons();
+	newButton->color = D3DCOLOR_ARGB(255/4, 255, 255, 255);
+	newButton->posX = (m_App->GetWidth() / 2) - (256 / 2);
+	newButton->posY = (m_App->GetHeight() / 2) + (33 / 2) + 50;
+	newButton->sourceRect.left = 0;		newButton->sourceRect.top = 65;
+	newButton->sourceRect.right = 256;	newButton->sourceRect.bottom = 97;
+	m_Buttons.push_back(newButton);
 
-	temp.left = 600;
-	temp.top = 0;
-	temp.bottom = 60;
-	temp.right = 900;
-	m_Buttons.push_back(temp);
+	// EXIT GAME
+	newButton = new spriteButtons();
+	newButton->color = D3DCOLOR_ARGB(255/4, 255, 255, 255);
+	newButton->posX = (m_App->GetWidth() / 2) - (256 / 2);
+	newButton->posY = (m_App->GetHeight() / 2) + (33 / 2) - 50;
+	newButton->sourceRect.left = 0;		newButton->sourceRect.top = 97;
+	newButton->sourceRect.right = 256;	newButton->sourceRect.bottom = 129;
+	m_Buttons.push_back(newButton);
+
+	// BACKGROUND
+	newButton = new spriteButtons();
+	newButton->color = D3DCOLOR_ARGB(255, 255, 255, 255);
+	newButton->posX = 0;
+	newButton->posY = 0;
+	newButton->sourceRect.left = 0;		newButton->sourceRect.top = 0;
+	newButton->sourceRect.right = 1024;	newButton->sourceRect.bottom = 768;
+	m_Buttons.push_back(newButton);
+
+	// PRESS START
+	newButton = new spriteButtons();
+	newButton->color = D3DCOLOR_ARGB(255, 255, 255, 255);
+	newButton->posX = (m_App->GetWidth() / 2) - (256 / 2);
+	newButton->posY = (m_App->GetHeight() / 2) + (33 / 2);
+	newButton->sourceRect.left = 0;		newButton->sourceRect.top = 0;
+	newButton->sourceRect.right = 256;	newButton->sourceRect.bottom = 33;
+	m_Buttons.push_back(newButton);
 
 	m_TestMusic = SoundManager::GetInstance()->LoadMusic("assets/sounds/music/main_intro.mp3");
+	m_MoveSFX = SoundManager::GetInstance()->LoadSFX("assets/sounds/sfx/menu_move.wav");
+	m_MenuLoopMusic = SoundManager::GetInstance()->LoadMusic("assets/sounds/music/main_loop.mp3");
 	SoundManager::GetInstance()->Play(m_TestMusic, false);
 
 	return true;
@@ -41,6 +87,12 @@ bool MainMenuState::Initialize( WinApp* _app )
 void MainMenuState::Release( void )
 {
 	SoundManager::GetInstance()->Pause(m_TestMusic);
+	SoundManager::GetInstance()->Pause(m_MenuLoopMusic);
+
+	for(unsigned int i = 0; i < m_Buttons.size(); ++i)
+	{
+		delete m_Buttons[i];
+	}
 }
 
 void MainMenuState::Render( void )
@@ -50,13 +102,19 @@ void MainMenuState::Render( void )
 	{
 		D3D9Handler::m_Sprite->Begin( D3DXSPRITE_ALPHABLEND );
 		{
-			if(m_TestImg != -1)
-			{
-				TextureManager::GetInstance()->Draw(m_TestImg,0,0);
-				TextureManager::GetInstance()->Draw(m_TextImg, 0, 0, 1.0f, 1.0f, &m_Buttons[PLAY_GAME]);
-				TextureManager::GetInstance()->Draw(m_TextImg, 0, 100, 1.0f, 1.0f, &m_Buttons[OPTIONS]);
-				TextureManager::GetInstance()->Draw(m_TextImg, 0, 200, 1.0f, 1.0f, &m_Buttons[EXIT_GAME]);
-			}
+				TextureManager::GetInstance()->Draw(m_Background, m_Buttons[BACKGROUND]->posX, m_Buttons[BACKGROUND]->posY, 1.0f, 1.0f, &m_Buttons[BACKGROUND]->sourceRect);
+				if(!isTitle)
+				{
+					TextureManager::GetInstance()->Draw(m_TextImg, m_Buttons[PLAY_GAME]->posX, m_Buttons[PLAY_GAME]->posY, 1.0f, 1.0f, &m_Buttons[PLAY_GAME]->sourceRect
+														, 0.0f, 0.0f, 0.0f, m_Buttons[PLAY_GAME]->color);
+					TextureManager::GetInstance()->Draw(m_TextImg, m_Buttons[OPTIONS]->posX, m_Buttons[OPTIONS]->posY, 1.0f, 1.0f, &m_Buttons[OPTIONS]->sourceRect
+														, 0.0f, 0.0f, 0.0f, m_Buttons[OPTIONS]->color);
+					TextureManager::GetInstance()->Draw(m_TextImg, m_Buttons[EXIT_GAME]->posX, m_Buttons[EXIT_GAME]->posY, 1.0f, 1.0f, &m_Buttons[EXIT_GAME]->sourceRect
+														, 0.0f, 0.0f, 0.0f, m_Buttons[EXIT_GAME]->color);
+				}
+				else
+					TextureManager::GetInstance()->Draw(m_TextImg, m_Buttons[PRESS_START]->posX, m_Buttons[PRESS_START]->posY, 1.0f, 1.0f, &m_Buttons[PRESS_START]->sourceRect
+														, 0.0f, 0.0f, 0.0f, m_Buttons[PRESS_START]->color);
 		}
 		D3D9Handler::m_Sprite->End();
 	}
@@ -66,15 +124,148 @@ void MainMenuState::Render( void )
 
 void MainMenuState::Update( float _dt )
 {
+	if(isTitle)
+	{
+		// Still on the title screen, blink the Press Start message
+		m_FlashTimer += _dt;
+		if(m_FlashTimer >= 1.0f)
+		{
+			m_IsInvis = !m_IsInvis;
+			m_FlashTimer = 0.0f;
+		}
+
+		if(m_IsInvis)
+			m_Buttons[PRESS_START]->color = D3DCOLOR_ARGB(0, 255, 255, 255);
+		else 
+			m_Buttons[PRESS_START]->color = D3DCOLOR_ARGB(255, 255, 255, 255);
+	}
+	else
+	{
+		// On the main menu, track the options.
+		if(m_IsMoving)
+		{
+			// options are moving and changing alpha
+			switch(m_Selected)
+			{
+			case PLAY_GAME:
+				{
+					m_Buttons[EXIT_GAME]->posY = (m_App->GetHeight() / 2) + (33 / 2) - 50;
+					m_Buttons[EXIT_GAME]->color = D3DCOLOR_ARGB((int)lerp(255.0f, 255.0f / 4.0f, m_MoveTimer), 255, 255, 255);
+
+					m_Buttons[PLAY_GAME]->posY = (m_App->GetHeight() / 2) + (33 / 2);
+					m_Buttons[PLAY_GAME]->color = D3DCOLOR_ARGB((int)lerp(255/4, 255.0f, m_MoveTimer), 255, 255, 255);
+
+					m_Buttons[OPTIONS]->posY = (m_App->GetHeight() / 2) + (33 / 2) + 50;
+					m_Buttons[OPTIONS]->color = D3DCOLOR_ARGB((int)lerp(0.0f, 255.0f / 4.0f, m_MoveTimer), 255, 255, 255);
+				}
+				break;
+
+			case OPTIONS:
+				{
+					m_Buttons[PLAY_GAME]->posY = (m_App->GetHeight() / 2) + (33 / 2) - 50;
+					m_Buttons[PLAY_GAME]->color = D3DCOLOR_ARGB((int)lerp(255.0f, 255.0f / 4.0f, m_MoveTimer), 255, 255, 255);
+
+					m_Buttons[OPTIONS]->posY = (m_App->GetHeight() / 2) + (33 / 2);
+					m_Buttons[OPTIONS]->color = D3DCOLOR_ARGB((int)lerp(255/4, 255.0f, m_MoveTimer), 255, 255, 255);
+
+					m_Buttons[EXIT_GAME]->posY = (m_App->GetHeight() / 2) + (33 / 2) + 50;
+					m_Buttons[EXIT_GAME]->color = D3DCOLOR_ARGB((int)lerp(0, 255.0f / 4, m_MoveTimer), 255, 255, 255);
+				}
+				break;
+
+			case EXIT_GAME:
+				{
+					m_Buttons[OPTIONS]->posY = (m_App->GetHeight() / 2) + (33 / 2) - 50;
+					m_Buttons[OPTIONS]->color = D3DCOLOR_ARGB((int)lerp(255.0f, 255.0f / 4.0f, m_MoveTimer), 255, 255, 255);
+
+					m_Buttons[EXIT_GAME]->posY = (m_App->GetHeight() / 2) + (33 / 2);
+					m_Buttons[EXIT_GAME]->color = D3DCOLOR_ARGB((int)lerp(255/4, 255.0f, m_MoveTimer), 255, 255, 255);
+
+					m_Buttons[PLAY_GAME]->posY = (m_App->GetHeight() / 2) + (33 / 2) + 50;
+					m_Buttons[PLAY_GAME]->color = D3DCOLOR_ARGB((int)lerp(0, 255.0f / 4, m_MoveTimer), 255, 255, 255);
+				}
+				break;
+			}
+
+			m_MoveTimer += _dt;
+			if(m_MoveTimer > 1.0f)
+			{
+				m_IsMoving = false;
+				m_MoveTimer = 0.0f;
+			}
+
+		}
+	}
+
+	m_MusicTimer += _dt;
+	if(m_MusicTimer > 27.0f)
+	{
+		SoundManager::GetInstance()->Play(m_MenuLoopMusic, true);
+	}
 }
 
 bool MainMenuState::Input( void )
 {
 	if(GetAsyncKeyState(VK_ESCAPE))
-		return false;
+	{
+		m_Selected = EXIT_GAME;
+		m_IsMoving = true;
+		m_MoveTimer = 0.0f;
+		SoundManager::GetInstance()->Play(m_MoveSFX, false);
+		while(GetAsyncKeyState(VK_ESCAPE));
+	}
 
-	if(GetAsyncKeyState(VK_RETURN))
-		StateSystem::GetInstance()->ChangeState(new GameplayState());
+	if(isTitle)
+	{
+		if(GetAsyncKeyState(VK_RETURN))
+		{
+			isTitle = false;
+			while(GetAsyncKeyState(VK_RETURN));
+		}
+	}
+	else
+	{
+		if(GetAsyncKeyState(VK_RETURN))
+		{
+			switch(m_Selected)
+			{
+			case PLAY_GAME:
+				StateSystem::GetInstance()->ChangeState(new GameplayState());
+				break;
+
+			case OPTIONS:
+				StateSystem::GetInstance()->AddState(new OptionsState());
+				break;
+
+			case EXIT_GAME:
+				return false;
+			};
+			
+			while(GetAsyncKeyState(VK_RETURN));
+		}
+
+		if(GetAsyncKeyState(VK_DOWN))
+		{
+			m_Selected--;
+			if(m_Selected < 0)
+				m_Selected = 2;
+			m_IsMoving = true;
+			m_MoveTimer = 0.0f;
+			SoundManager::GetInstance()->Play(m_MoveSFX, false);
+			while(GetAsyncKeyState(VK_DOWN));
+		}
+
+		if(GetAsyncKeyState(VK_UP))
+		{
+			m_Selected++;
+			if(m_Selected > 2)
+				m_Selected = 0;
+			m_IsMoving = true;
+			m_MoveTimer = 0.0f;
+			SoundManager::GetInstance()->Play(m_MoveSFX, false);
+			while(GetAsyncKeyState(VK_UP));
+		}
+	}
 
 	return true;
 }

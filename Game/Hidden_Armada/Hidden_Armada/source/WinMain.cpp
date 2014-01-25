@@ -11,6 +11,10 @@
 #define GAME_WIDTH	1024
 #define GAME_HEIGHT	768
 
+#ifdef _DEBUG
+#include <vld.h>
+#endif
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 Summary: Application entry point
 Parameters:

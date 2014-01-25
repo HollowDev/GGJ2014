@@ -2,6 +2,8 @@
 #include "../../engine/app/WinApp.h"
 #include "../../engine/renderer/D3D9Handler.h"
 #include "../../engine/renderer/TextureManager.h"
+#include "MainMenuState.h"
+#include "../../engine/app/StateSystem.h"
 
 GameplayState::GameplayState( void )
 {
@@ -50,6 +52,12 @@ bool GameplayState::Input( void )
 	GetCursorPos(&mouse);
 	ScreenToClient(m_App->GetHWND(),&mouse);
 	m_Player1.RotateToMouse((int)mouse.x,(int)mouse.y);
+
+	if(GetAsyncKeyState(VK_ESCAPE))
+	{
+		StateSystem::GetInstance()->ChangeState(new MainMenuState());
+		while(GetAsyncKeyState(VK_ESCAPE));
+	}
 
 	return true;
 }

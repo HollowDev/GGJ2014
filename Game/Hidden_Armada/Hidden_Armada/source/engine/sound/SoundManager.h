@@ -12,6 +12,7 @@ struct Sounds
 	bool			isSFX;
 	FMOD::Sound*	sound;
 	FMOD::Channel*	channel;
+	char*			filename;
 };
 
 class SoundManager
@@ -60,6 +61,8 @@ public:
 	void UnpauseAllSFX();
 	void Pause(int _soundID);
 	void Unpause(int _soundID);
+
+	bool IsPlaying(int _soundID);
 };
 
 #endif

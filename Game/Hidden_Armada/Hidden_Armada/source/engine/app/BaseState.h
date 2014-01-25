@@ -1,7 +1,16 @@
 #ifndef _BASE_STATE_H_
 #define _BASE_STATE_H_
-
+#include "windows.h"
 class WinApp;
+
+struct spriteButtons
+{
+	RECT	sourceRect;
+	int		posX;
+	int		posY;
+	DWORD	color;
+};
+
 class BaseState
 {
 protected:
