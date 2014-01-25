@@ -1,6 +1,5 @@
 #include "Timer.h"
 
-
 Timer::Timer(void)
 {
 	m_FPS = 0;

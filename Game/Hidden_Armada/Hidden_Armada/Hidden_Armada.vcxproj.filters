@@ -64,7 +64,9 @@
     <ClInclude Include="source\game\states\MainMenuState.h">
       <Filter>game\states</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h" />
+    <ClInclude Include="source\engine\app\Timer.h">
+      <Filter>engine\app</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -101,6 +103,8 @@
     <ClCompile Include="source\game\states\MainMenuState.cpp">
       <Filter>game\states</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="source\engine\app\Timer.cpp">
+      <Filter>engine\app</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

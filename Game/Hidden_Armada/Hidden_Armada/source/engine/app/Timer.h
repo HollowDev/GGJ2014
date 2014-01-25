@@ -1,12 +1,12 @@
 #ifndef _TIMER_H_
 #define _TIMER_H_
+
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <time.h>
 
 class Timer
 {
-private:
 	// Data members
 	int				m_FPS;
 	float			m_TimeStart;

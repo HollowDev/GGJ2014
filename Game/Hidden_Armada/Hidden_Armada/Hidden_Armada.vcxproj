@@ -67,6 +67,7 @@
   <ItemGroup>
     <ClInclude Include="source\engine\app\BaseState.h" />
     <ClInclude Include="source\engine\app\StateSystem.h" />
+    <ClInclude Include="source\engine\app\Timer.h" />
     <ClInclude Include="source\engine\app\WinApp.h" />
     <ClInclude Include="source\engine\directx9.h" />
     <ClInclude Include="source\engine\memory_macros.h" />
@@ -79,10 +80,10 @@
     <ClInclude Include="source\game\states\OptionsState.h" />
     <ClInclude Include="source\game\states\PauseState.h" />
     <ClInclude Include="source\game\states\SplashState.h" />
-    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\StateSystem.cpp" />
+    <ClCompile Include="source\engine\app\Timer.cpp" />
     <ClCompile Include="source\engine\app\WinApp.cpp" />
     <ClCompile Include="source\engine\renderer\D3D9Handler.cpp" />
     <ClCompile Include="source\engine\renderer\TextureManager.cpp" />
@@ -94,7 +95,6 @@
     <ClCompile Include="source\game\states\PauseState.cpp" />
     <ClCompile Include="source\game\states\SplashState.cpp" />
     <ClCompile Include="source\WinMain.cpp" />
-    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

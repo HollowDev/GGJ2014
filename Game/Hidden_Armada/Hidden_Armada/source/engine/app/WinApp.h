@@ -10,6 +10,7 @@
 
 class BaseState;
 class StateSystem;
+class Timer;
 class WinApp
 {
 	HWND			m_HWND;
@@ -21,6 +22,7 @@ class WinApp
 	bool			m_IsClosing;
 
 	StateSystem*	m_StateSystem;
+	Timer*			m_Timer;
 
 	LRESULT CALLBACK WndProc( HWND _hWnd, UINT _message, 
 		WPARAM _wParam, LPARAM _lParam );

@@ -1,8 +1,10 @@
 #include "WinApp.h"
 #include "BaseState.h"
 #include "StateSystem.h"
+#include "Timer.h"
 #include "../renderer/D3D9Handler.h"
 #include "../renderer/TextureManager.h"
+#include "../memory_macros.h"
 
 WinApp::WinApp( void )
 {
@@ -64,11 +66,17 @@ void WinApp::Initialize( LPCWSTR _title, HINSTANCE _HInstance, BaseState* _start
 	StateSystem::GetInstance()->Initialize(this,_startState);
 	m_StateSystem = StateSystem::GetInstance();
 
+	m_Timer = new Timer();
+	m_Timer->Init();
+	m_Timer->Reset();
 }
 
 void WinApp::Release( void )
 {
 	m_IsClosing = true;
+	
+	SAFE_DELETE(m_Timer);
+	SAFE_DELETE(m_StateSystem);
 }
 
 void WinApp::Run( void )
@@ -95,7 +103,9 @@ void WinApp::Run( void )
 
 void WinApp::Update( void )
 {
-	float deltaTime = 0.0f;
+	m_Timer->Update();
+
+	float deltaTime = m_Timer->GetDeltaTime();
 	if(deltaTime > 0.125f)
 		deltaTime = 0.125f;
 	
