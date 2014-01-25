@@ -187,7 +187,7 @@ int SoundManager::LoadSFX( const char* _fileName )
 	return m_CurrSounds++;
 }
 
-void SoundManager::Play( int _soundID, bool _isLooping )
+void SoundManager::Play( int _soundID, bool _isLooping, bool _startOver )
 {
 	Sounds* temp = m_Sounds[_soundID];
 
@@ -205,7 +205,7 @@ void SoundManager::Play( int _soundID, bool _isLooping )
 	temp->channel->getPaused(&paused);
 	isplaying = IsPlaying(_soundID);
 
-	if(paused == false && isplaying == false)
+	if((paused == false && isplaying == false) || _startOver == true)
 	{
 		int index = 0;
 		temp->channel->getIndex(&index);

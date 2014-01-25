@@ -79,7 +79,7 @@ bool MainMenuState::Initialize( WinApp* _app )
 	m_TestMusic = SoundManager::GetInstance()->LoadMusic("assets/sounds/music/main_intro.mp3");
 	m_MoveSFX = SoundManager::GetInstance()->LoadSFX("assets/sounds/sfx/menu_move.wav");
 	m_MenuLoopMusic = SoundManager::GetInstance()->LoadMusic("assets/sounds/music/main_loop.mp3");
-	SoundManager::GetInstance()->Play(m_TestMusic, false);
+	SoundManager::GetInstance()->Play(m_TestMusic, false, true);
 
 	return true;
 }
@@ -200,7 +200,7 @@ void MainMenuState::Update( float _dt )
 	m_MusicTimer += _dt;
 	if(m_MusicTimer > 27.0f)
 	{
-		SoundManager::GetInstance()->Play(m_MenuLoopMusic, true);
+		SoundManager::GetInstance()->Play(m_MenuLoopMusic, true, false);
 	}
 }
 
@@ -211,7 +211,7 @@ bool MainMenuState::Input( void )
 		m_Selected = EXIT_GAME;
 		m_IsMoving = true;
 		m_MoveTimer = 0.0f;
-		SoundManager::GetInstance()->Play(m_MoveSFX, false);
+		SoundManager::GetInstance()->Play(m_MoveSFX, false, false);
 		while(GetAsyncKeyState(VK_ESCAPE));
 	}
 
@@ -251,7 +251,7 @@ bool MainMenuState::Input( void )
 				m_Selected = 2;
 			m_IsMoving = true;
 			m_MoveTimer = 0.0f;
-			SoundManager::GetInstance()->Play(m_MoveSFX, false);
+			SoundManager::GetInstance()->Play(m_MoveSFX, false, false);
 			while(GetAsyncKeyState(VK_DOWN));
 		}
 
@@ -262,7 +262,7 @@ bool MainMenuState::Input( void )
 				m_Selected = 0;
 			m_IsMoving = true;
 			m_MoveTimer = 0.0f;
-			SoundManager::GetInstance()->Play(m_MoveSFX, false);
+			SoundManager::GetInstance()->Play(m_MoveSFX, false, false);
 			while(GetAsyncKeyState(VK_UP));
 		}
 	}

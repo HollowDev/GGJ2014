@@ -79,6 +79,9 @@
     <ClInclude Include="source\engine\collision\CollisionVolume.h" />
     <ClInclude Include="source\engine\directx9.h" />
     <ClInclude Include="source\engine\memory_macros.h" />
+    <ClInclude Include="source\engine\particles\Emitter.h" />
+    <ClInclude Include="source\engine\particles\Particle.h" />
+    <ClInclude Include="source\engine\particles\ParticleManager.h" />
     <ClInclude Include="source\engine\renderer\D3D9Handler.h" />
     <ClInclude Include="source\engine\renderer\TextureManager.h" />
     <ClInclude Include="source\engine\sound\SoundManager.h" />
@@ -104,6 +107,9 @@
     <ClCompile Include="source\engine\app\Timer.cpp" />
     <ClCompile Include="source\engine\app\WinApp.cpp" />
     <ClCompile Include="source\engine\collision\CollisionLibrary.cpp" />
+    <ClCompile Include="source\engine\particles\Emitter.cpp" />
+    <ClCompile Include="source\engine\particles\Particle.cpp" />
+    <ClCompile Include="source\engine\particles\ParticleManager.cpp" />
     <ClCompile Include="source\engine\renderer\D3D9Handler.cpp" />
     <ClCompile Include="source\engine\renderer\TextureManager.cpp" />
     <ClCompile Include="source\engine\sound\SoundManager.cpp" />

@@ -32,6 +32,9 @@
     <Filter Include="game\managers">
       <UniqueIdentifier>{6a469842-639c-4a2c-9ea1-1ca1568b4ece}</UniqueIdentifier>
     </Filter>
+    <Filter Include="engine\particles">
+      <UniqueIdentifier>{420071d8-08e3-402f-b8ae-4c35fc2f19dd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\engine\app\WinApp.h">
@@ -115,6 +118,15 @@
     <ClInclude Include="source\game\objects\Projectile.h">
       <Filter>game\objects</Filter>
     </ClInclude>
+    <ClInclude Include="source\engine\particles\ParticleManager.h">
+      <Filter>engine\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\particles\Emitter.h">
+      <Filter>engine\particles</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\particles\Particle.h">
+      <Filter>engine\particles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -180,6 +192,15 @@
     </ClCompile>
     <ClCompile Include="source\game\objects\Weapon.cpp">
       <Filter>game\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\particles\ParticleManager.cpp">
+      <Filter>engine\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\particles\Emitter.cpp">
+      <Filter>engine\particles</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\particles\Particle.cpp">
+      <Filter>engine\particles</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

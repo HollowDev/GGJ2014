@@ -54,7 +54,7 @@ public:
 	int LoadMusic(const char* _fileName);
 	int LoadSFX(const char* _fileName);
 
-	void Play(int _soundID, bool _isLooping);
+	void Play(int _soundID, bool _isLooping, bool _startOver);
 	void PauseAllMusic();
 	void UnpauseAllMusic();
 	void PauseAllSFX();
