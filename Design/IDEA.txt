@@ -40,3 +40,5 @@ Ship abilities:
 		- MULTI
 			- TEATHER MODE: you're fucking stuck to eachother #DEEP 
 			
+BOSS:
+	Scrolling text on edge of screen - Warning
