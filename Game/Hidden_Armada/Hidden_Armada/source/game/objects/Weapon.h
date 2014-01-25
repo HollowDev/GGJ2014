@@ -23,6 +23,16 @@ public:
 	virtual Sphere GetSphere( void ) { return Sphere(GetPos(), float(GetSize())); }
 
 	void Fire( void );
+
+	// accessors
+	inline float GetROF( void ) { return m_ROF; }
+	inline int GetDamage( void ) { return m_Damage; }
+	inline int GetLevel( void ) { return m_Level; }
+
+	// mutators
+	inline void SetROF( float _rof ) { m_ROF = _rof; }
+	inline void SetDamage( int _damage ) { m_Damage = _damage; }
+	inline void SetLevel( int _level ) { m_Level = _level; }
 };
 
 #endif

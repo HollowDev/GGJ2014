@@ -1,15 +1,14 @@
-#ifndef _ENEMY_SHIP_H_
-#define _ENEMY_SHIP_H_
+#ifndef _PLAYER_SHIP_H_
+#define _PLAYER_SHIP_H_
 
 #include "Ship.h"
 
-class EnemyShip : public Ship
+class PlayerShip : public Ship
 {
-	BaseEntity* m_Target;
-
+	// TODO:: Place controller here
 public:
-	EnemyShip( void );
-	~EnemyShip( void ) { Release(); }
+	PlayerShip( void );
+	~PlayerShip( void ) { Release(); }
 
 	void Initialize( const char* _filepath, D3DXVECTOR2 _pos, int _weaponID );
 	virtual void Release( void );
@@ -19,13 +18,8 @@ public:
 	virtual bool CheckCollision( IEntity* _other );
 	virtual void HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY );
 
-	void TurnToTarget( float _dt );
+	virtual Sphere GetSphere( void ) { return Sphere(GetPos()+this->GetImgCenter(), float(this->GetSize())); }
 
-	// Accessors
-	inline BaseEntity* GetTarget( void ) { return m_Target; }
-
-	// Mutators
-	inline void SetTarget( BaseEntity* _target ) { m_Target = _target; }
 };
 
 #endif

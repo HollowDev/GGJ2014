@@ -19,6 +19,11 @@ void ObjectFactory::Initialize( void )
 		m_OpenList[Entity_Projectile].push_back(i);
 		m_ProjectileArray[i].Initialize();
 	}
+
+	for(i = 0; i < MAX_ENEMYSHIPS; ++i)
+	{
+		m_OpenList[Entity_EnemyShip].push_back(i);
+	}
 }
 
 
@@ -44,6 +49,13 @@ bool ObjectFactory::Create( IEntity** _object, Entity_Type _id )
 			MakeDefault(m_ProjectileArray[index]);
 			*_object = &m_ProjectileArray[index];
 			m_OM->AddObject(&m_ProjectileArray[index],NUM_LAYERS-1);
+		}
+		break;
+	case Entity_EnemyShip:
+		{
+			MakeDefault(m_EnemyShipArray[index]);
+			*_object = &m_EnemyShipArray[index];
+			m_OM->AddObject(&m_EnemyShipArray[index],NUM_LAYERS-1);
 		}
 		break;
 	}
@@ -79,6 +91,17 @@ bool ObjectFactory::Destroy( IEntity* _object )
 			m_Destroyed[Entity_Projectile].push_back(&m_ProjectileArray[test]);
 		}
 		break;
+	case Entity_EnemyShip:
+		{
+			test = ((int)_object-(int)&m_EnemyShipArray[0]) / sizeof(EnemyShip);
+			if( test < 0 || test >= MAX_PROJECTILES )
+				return false;
+			else if( !IsValid( Entity_EnemyShip, test ) )
+				return false;
+
+			m_Destroyed[Entity_EnemyShip].push_back(&m_EnemyShipArray[test]);
+		}
+		break;
 	}
 
 	return true;
@@ -105,6 +128,15 @@ void ObjectFactory::ProcessDestroy( void )
 		m_OM->RemoveObject(m_Destroyed[Entity_Projectile][i],NUM_LAYERS-1);
 	}
 	m_Destroyed[Entity_Projectile].clear();
+
+	size = m_Destroyed[Entity_EnemyShip].size();
+	for(i = 0; i < size; ++i)
+	{
+		index = ((int)m_Destroyed[Entity_EnemyShip][i]-(int)&m_EnemyShipArray[0])/sizeof(EnemyShip);
+		m_OpenList[Entity_EnemyShip].push_back(index);
+		m_OM->RemoveObject(m_Destroyed[Entity_EnemyShip][i],3);
+	}
+	m_Destroyed[Entity_EnemyShip].clear();
 }
 
 
@@ -123,6 +155,5 @@ bool ObjectFactory::IsValid( int _id, int _index )
 
 void ObjectFactory::MakeDefault( IEntity& _object )
 {
-	
 }
 

@@ -61,7 +61,8 @@ void Projectile::Update( float _dt )
 
 bool Projectile::CheckCollision( IEntity* _other )
 {
-	if(_other->GetType() != Entity_PlayerShip && _other->GetType() != Entity_Projectile)
+	if(_other->GetType() != Entity_PlayerShip && _other->GetType() != Entity_Projectile &&
+		_other->GetType() != Entity_EnemyShip )
 		return true;
 
 	return false;

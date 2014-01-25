@@ -9,6 +9,8 @@
 #include "../../engine/app/StateSystem.h"
 #include "MainMenuState.h"
 
+#include "../objects/EnemyShip.h"
+
 GameplayState::GameplayState( void )
 {
 
@@ -22,30 +24,36 @@ bool GameplayState::Initialize( WinApp* _app )
 	int weaponID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/weapons/machinegun2.png");
 	RECT source = {0,0,128,128};
 
-	m_Player1 = new Ship();
-	m_Player1->Initialize("assets/data/ships/ship1.txt",D3DXVECTOR2(0,0),weaponID);
+	m_Player1 = new PlayerShip();
+	m_Player1->Initialize("assets/data/ships/ship1.txt",D3DXVECTOR2(400,400),weaponID);
 	m_Player1->SetImgID(p1ID);
 	m_Player1->SetImgSource(source);
 
-	p1ID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/ships/Playership2.png");
-	m_Player2 = new Ship();
-	m_Player2->Initialize("assets/data/ships/ship1.txt",D3DXVECTOR2(0,0),weaponID);
-	m_Player2->SetImgID(p1ID);
-	m_Player2->SetImgSource(source);
-
 	ObjectManager::GetInstance()->AddObject(m_Player1,2);
-	ObjectManager::GetInstance()->AddObject(m_Player2,2);
 
 	ObjectFactory::GetInstance()->Initialize();
 	int asteroid = TextureManager::GetInstance()->LoadTexture(L"assets/textures/asteroids/asteroid001.png");
-	for(int i = 0; i < 100; ++i)
+	//for(int i = 0; i < 100; ++i)
+	//{
+	//	ObjectFactory::GetInstance()->Create(&m_AsteroidTest[i], Entity_Asteroid);
+	//	((Asteroids*)m_AsteroidTest[i])->SetImgID(asteroid);
+	//}
+
+	int weapon2ID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/playershipeffects/Missile.png");
+
+	RECT enemySource = {0,0,128,128};
+
+	int enemyShipID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/enemyships/enemyship2.png");
+	for(unsigned int i = 0; i < 100; ++i)
 	{
-		ObjectFactory::GetInstance()->Create(&m_AsteroidTest[i], Entity_Asteroid);
-		((Asteroids*)m_AsteroidTest[i])->SetImgID(asteroid);
+		ObjectFactory::GetInstance()->Create(&m_EnemyShip[i], Entity_EnemyShip);
+		((EnemyShip*)m_EnemyShip[i])->Initialize("assets/data/ships/ship1.txt",D3DXVECTOR2(i*50,300),weaponID);
+		((EnemyShip*)m_EnemyShip[i])->SetImgID(enemyShipID);
+		((EnemyShip*)m_EnemyShip[i])->SetImgSource(enemySource);
+		((EnemyShip*)m_EnemyShip[i])->SetImgCenter(D3DXVECTOR2(64,64));
+		((EnemyShip*)m_EnemyShip[i])->SetSize(20);
+		((EnemyShip*)m_EnemyShip[i])->SetTarget(m_Player1);
 	}
-
-	weaponID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/playershipeffects/Missile.png");
-
 	return true;
 }
 
@@ -100,24 +108,6 @@ bool GameplayState::Input( void )
 	else if(GetAsyncKeyState('D'))
 	{
 		m_Player1->SetVel(m_Player1->GetVel() + D3DXVECTOR2(m_Player1->GetMaxSpeed(),0));
-	}
-
-	if(GetAsyncKeyState(VK_UP))
-	{
-		m_Player2->SetVel(m_Player2->GetVel() + D3DXVECTOR2(0,-m_Player2->GetMaxSpeed()));
-	}
-	else if(GetAsyncKeyState(VK_DOWN))
-	{
-		m_Player2->SetVel(m_Player2->GetVel() + D3DXVECTOR2(0,m_Player2->GetMaxSpeed()));
-	}
-
-	if(GetAsyncKeyState(VK_LEFT))
-	{
-		m_Player2->SetVel(m_Player2->GetVel() + D3DXVECTOR2(-m_Player2->GetMaxSpeed(),0));
-	}
-	else if(GetAsyncKeyState(VK_RIGHT))
-	{
-		m_Player2->SetVel(m_Player2->GetVel() + D3DXVECTOR2(m_Player2->GetMaxSpeed(),0));
 	}
 
 	if(GetAsyncKeyState(VK_ESCAPE))

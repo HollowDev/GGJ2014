@@ -39,14 +39,14 @@ void BaseEntity::Render( int _x, int _y )
 	}
 
 #if _DEBUG
-	// RENDER DEBUG LINES
-	D3D9Handler::m_Sprite->Flush();
-	D3DXVECTOR2 center = m_Pos + m_ImgCenter;
-	RECT collisionRect = {center.x-m_Size,center.y-m_Size,center.x+m_Size,center.y+m_Size};
-	D3D9Handler::DrawEmptyRect(collisionRect, 255, 0, 0);
-
-	RECT centerRect = {center.x-1,center.y-1,center.x+1,center.y+1};
-	D3D9Handler::DrawRect(centerRect,255,0,0);
+	//// RENDER DEBUG LINES
+	//D3D9Handler::m_Sprite->Flush();
+	//D3DXVECTOR2 center = m_Pos + m_ImgCenter;
+	//RECT collisionRect = {center.x-m_Size,center.y-m_Size,center.x+m_Size,center.y+m_Size};
+	//D3D9Handler::DrawEmptyRect(collisionRect, 255, 0, 0);
+	//
+	//RECT centerRect = {center.x-1,center.y-1,center.x+1,center.y+1};
+	//D3D9Handler::DrawRect(centerRect,255,0,0);
 #endif
 }
 

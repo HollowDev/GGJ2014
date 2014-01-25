@@ -31,9 +31,11 @@ void Ship::Initialize( const char* _filepath, D3DXVECTOR2 _pos, int _weaponID )
 	}
 
 	this->SetSize(20);
+	this->SetPos(_pos);
 
 	RECT source = {0,0,64,64};
-	m_Weapon.Initialize(_weaponID,source,D3DXVECTOR2(32,32),D3DXVECTOR2(0,0),0,0);
+	m_Weapon = new Weapon();
+	m_Weapon->Initialize(_weaponID,source,D3DXVECTOR2(32,32),D3DXVECTOR2(0,0),0,0);
 }
 
 void Ship::Release( void )
@@ -46,7 +48,7 @@ void Ship::Render( int _x, int _y )
 	BaseEntity::Render(_x,_y);
 	
 	// render the weapon
-	m_Weapon.Render(_x,_y);
+	m_Weapon->Render(_x,_y);
 }
 
 void Ship::Update( float _dt )
@@ -54,15 +56,9 @@ void Ship::Update( float _dt )
 	BaseEntity::Update(_dt);
 
 	// Update weapon, for it's dir
-	m_Weapon.Update(_dt);
+	m_Weapon->Update(_dt);
 	D3DXVECTOR2 offset = this->GetPos() + this->GetImgCenter()/2;
-	m_Weapon.SetPos(offset);
-
-	// add a trail
-	if(GetAsyncKeyState(VK_LBUTTON))
-	{
-		m_Weapon.Fire();
-	}
+	m_Weapon->SetPos(offset);
 }
 
 bool Ship::CheckCollision( IEntity* _other )
@@ -85,19 +81,19 @@ void Ship::RotateWeaponToMouse( int _mouseX, int _mouseY )
 	D3DXVECTOR2 vToTarget(0,0);
 	D3DXVECTOR2 tDefault(0,-1);
 
-	vToTarget.x = _mouseX - (m_Weapon.GetPos().x + m_Weapon.GetImgCenter().x);
-	vToTarget.y = _mouseY - (m_Weapon.GetPos().y + m_Weapon.GetImgCenter().y);
+	vToTarget.x = _mouseX - (m_Weapon->GetPos().x + m_Weapon->GetImgCenter().x);
+	vToTarget.y = _mouseY - (m_Weapon->GetPos().y + m_Weapon->GetImgCenter().y);
 
 	// Calculate forward vector
-	D3DXVECTOR2 forward = Rotate2D( tDefault, m_Weapon.GetRot() );
+	D3DXVECTOR2 forward = Rotate2D( tDefault, m_Weapon->GetRot() );
 	// calculate the angle between the vectors
 	float angle = AngleBetweenVectors( vToTarget, forward );
 
 	if(Steering(forward, vToTarget) < 0.0f)
-		m_Weapon.SetRot(m_Weapon.GetRot() - angle);
+		m_Weapon->SetRot(m_Weapon->GetRot() - angle);
 	else
-		m_Weapon.SetRot(m_Weapon.GetRot() + angle);
+		m_Weapon->SetRot(m_Weapon->GetRot() + angle);
 
 	D3DXVec2Normalize(&vToTarget,&vToTarget);
-	m_Weapon.SetDir(vToTarget);
+	m_Weapon->SetDir(vToTarget);
 }

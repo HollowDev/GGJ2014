@@ -142,6 +142,12 @@
     <ClInclude Include="source\engine\input\InputController.h">
       <Filter>engine\input manager</Filter>
     </ClInclude>
+    <ClInclude Include="source\game\objects\EnemyShip.h">
+      <Filter>game\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\objects\PlayerShip.h">
+      <Filter>game\objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -228,6 +234,12 @@
     </ClCompile>
     <ClCompile Include="source\engine\input\InputController.cpp">
       <Filter>engine\input manager</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\objects\EnemyShip.cpp">
+      <Filter>game\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\objects\PlayerShip.cpp">
+      <Filter>game\objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

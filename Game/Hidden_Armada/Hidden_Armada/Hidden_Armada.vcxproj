@@ -94,7 +94,9 @@
     <ClInclude Include="source\game\ObjectManager.h" />
     <ClInclude Include="source\game\objects\Asteroids.h" />
     <ClInclude Include="source\game\objects\BaseEntity.h" />
+    <ClInclude Include="source\game\objects\EnemyShip.h" />
     <ClInclude Include="source\game\objects\IEntity.h" />
+    <ClInclude Include="source\game\objects\PlayerShip.h" />
     <ClInclude Include="source\game\objects\Projectile.h" />
     <ClInclude Include="source\game\objects\Ship.h" />
     <ClInclude Include="source\game\objects\Weapon.h" />
@@ -125,6 +127,8 @@
     <ClCompile Include="source\game\ObjectManager.cpp" />
     <ClCompile Include="source\game\objects\Asteroids.cpp" />
     <ClCompile Include="source\game\objects\BaseEntity.cpp" />
+    <ClCompile Include="source\game\objects\EnemyShip.cpp" />
+    <ClCompile Include="source\game\objects\PlayerShip.cpp" />
     <ClCompile Include="source\game\objects\Projectile.cpp" />
     <ClCompile Include="source\game\objects\Ship.cpp" />
     <ClCompile Include="source\game\objects\Weapon.cpp" />

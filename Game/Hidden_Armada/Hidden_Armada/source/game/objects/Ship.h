@@ -6,7 +6,7 @@
 
 class Ship : public BaseEntity
 {
-	Weapon m_Weapon;
+	Weapon* m_Weapon;
 
 	int m_HP;
 	int m_MaxHP;
@@ -15,7 +15,7 @@ public:
 	Ship( void );
 	~Ship( void ) { Release(); }
 
-	void Initialize( const char* _filepath, D3DXVECTOR2 _pos, int _weaponID );
+	virtual void Initialize( const char* _filepath, D3DXVECTOR2 _pos, int _weaponID );
 	virtual void Release( void );
 
 	virtual void Render( int _x, int _y );
@@ -30,12 +30,12 @@ public:
 	// accessors
 	inline int GetHP( void ) { return m_HP; }
 	inline int GetMaxHP( void ) { return m_MaxHP; }
-	inline Weapon GetWeapon( void ) { return m_Weapon; }
+	inline Weapon* GetWeapon( void ) { return m_Weapon; }
 
 	// mutators
 	inline void SetHP( int _hp ) { m_HP = _hp; }
 	inline void SetMaxHP( int _maxHP ) { m_MaxHP = _maxHP; }
-	inline void SetWeapon( Weapon _weapon ) { m_Weapon = _weapon; }
+	inline void SetWeapon( Weapon* _weapon ) { m_Weapon = _weapon; }
 };
 
 #endif
