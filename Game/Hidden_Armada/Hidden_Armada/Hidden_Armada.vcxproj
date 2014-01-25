@@ -40,7 +40,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(SolutionDir)\Lib\directx9\Include;$(SolutionDir)\Lib\fmod\Inc;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Lib\directx9\Lib\x86;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\Lib\fmod\lib;$(SolutionDir)\Lib\directx9\Lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)\Lib\directx9\Include;$(SolutionDir)\Lib\fmod\Inc;$(IncludePath)</IncludePath>
@@ -53,7 +53,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmodex_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -67,7 +67,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>fmodex_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -79,6 +79,7 @@
     <ClInclude Include="source\engine\memory_macros.h" />
     <ClInclude Include="source\engine\renderer\D3D9Handler.h" />
     <ClInclude Include="source\engine\renderer\TextureManager.h" />
+    <ClInclude Include="source\engine\sound\SoundManager.h" />
     <ClInclude Include="source\engine\windows.h" />
     <ClInclude Include="source\game\states\CreditsState.h" />
     <ClInclude Include="source\game\states\GameModeState.h" />
@@ -94,6 +95,7 @@
     <ClCompile Include="source\engine\app\WinApp.cpp" />
     <ClCompile Include="source\engine\renderer\D3D9Handler.cpp" />
     <ClCompile Include="source\engine\renderer\TextureManager.cpp" />
+    <ClCompile Include="source\engine\sound\SoundManager.cpp" />
     <ClCompile Include="source\game\states\CreditsState.cpp" />
     <ClCompile Include="source\game\states\GameModeState.cpp" />
     <ClCompile Include="source\game\states\GameplayState.cpp" />

@@ -3,9 +3,17 @@
 
 #include "../../engine/app/BaseState.h"
 
+#include "../../engine/windows.h"
+#include <vector>
+
 class MainMenuState : public BaseState
 {
 	int m_TestImg;
+	int m_TextImg;
+	std::vector<RECT> m_Buttons;
+
+	enum Button{ PLAY_GAME, OPTIONS, EXIT_GAME };
+
 public:
 	MainMenuState( void );
 	~MainMenuState( void ) { Release(); }

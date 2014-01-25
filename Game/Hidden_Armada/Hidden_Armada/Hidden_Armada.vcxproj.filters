@@ -76,6 +76,9 @@
     <ClInclude Include="source\engine\windows.h">
       <Filter>engine</Filter>
     </ClInclude>
+    <ClInclude Include="source\engine\sound\SoundManager.h">
+      <Filter>engine\sound</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -114,6 +117,9 @@
     </ClCompile>
     <ClCompile Include="source\engine\app\Timer.cpp">
       <Filter>engine\app</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\sound\SoundManager.cpp">
+      <Filter>engine\sound</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
