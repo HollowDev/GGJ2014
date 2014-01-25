@@ -133,7 +133,15 @@
     <ClInclude Include="source\engine\input\InputManager.h">
       <Filter>engine\input manager</Filter>
     </ClInclude>
-    <ClInclude Include="source\engine\input\InputController.h" />
+    <ClInclude Include="source\engine\input\Gamepad.h">
+      <Filter>engine\input manager</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\input\Keyboard.h">
+      <Filter>engine\input manager</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\input\InputController.h">
+      <Filter>engine\input manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -212,6 +220,14 @@
     <ClCompile Include="source\engine\input\InputManager.cpp">
       <Filter>engine\input manager</Filter>
     </ClCompile>
-    <ClCompile Include="source\engine\input\InputController.cpp" />
+    <ClCompile Include="source\engine\input\Gamepad.cpp">
+      <Filter>engine\input manager</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\input\Keyboard.cpp">
+      <Filter>engine\input manager</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\input\InputController.cpp">
+      <Filter>engine\input manager</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

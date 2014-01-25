@@ -78,8 +78,10 @@
     <ClInclude Include="source\engine\collision\CollisionLibrary.h" />
     <ClInclude Include="source\engine\collision\CollisionVolume.h" />
     <ClInclude Include="source\engine\directx9.h" />
+    <ClInclude Include="source\engine\input\Gamepad.h" />
     <ClInclude Include="source\engine\input\InputController.h" />
     <ClInclude Include="source\engine\input\InputManager.h" />
+    <ClInclude Include="source\engine\input\Keyboard.h" />
     <ClInclude Include="source\engine\memory_macros.h" />
     <ClInclude Include="source\engine\particles\Emitter.h" />
     <ClInclude Include="source\engine\particles\Particle.h" />
@@ -109,8 +111,10 @@
     <ClCompile Include="source\engine\app\Timer.cpp" />
     <ClCompile Include="source\engine\app\WinApp.cpp" />
     <ClCompile Include="source\engine\collision\CollisionLibrary.cpp" />
+    <ClCompile Include="source\engine\input\Gamepad.cpp" />
     <ClCompile Include="source\engine\input\InputController.cpp" />
     <ClCompile Include="source\engine\input\InputManager.cpp" />
+    <ClCompile Include="source\engine\input\Keyboard.cpp" />
     <ClCompile Include="source\engine\particles\Emitter.cpp" />
     <ClCompile Include="source\engine\particles\Particle.cpp" />
     <ClCompile Include="source\engine\particles\ParticleManager.cpp" />
