@@ -79,6 +79,7 @@
     <ClInclude Include="source\engine\memory_macros.h" />
     <ClInclude Include="source\engine\renderer\D3D9Handler.h" />
     <ClInclude Include="source\engine\renderer\TextureManager.h" />
+    <ClInclude Include="source\engine\windows.h" />
     <ClInclude Include="source\game\states\CreditsState.h" />
     <ClInclude Include="source\game\states\GameModeState.h" />
     <ClInclude Include="source\game\states\GameplayState.h" />
