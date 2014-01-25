@@ -44,7 +44,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(SolutionDir)\Lib\directx9\Include;$(SolutionDir)\Lib\fmod\Inc;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Lib\directx9\Lib\x86;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\Lib\directx9\Lib\x86;$(SolutionDir)\Lib\fmod\Lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -75,14 +75,21 @@
     <ClInclude Include="source\engine\app\StateSystem.h" />
     <ClInclude Include="source\engine\app\Timer.h" />
     <ClInclude Include="source\engine\app\WinApp.h" />
+    <ClInclude Include="source\engine\collision\CollisionLibrary.h" />
+    <ClInclude Include="source\engine\collision\CollisionVolume.h" />
     <ClInclude Include="source\engine\directx9.h" />
     <ClInclude Include="source\engine\memory_macros.h" />
     <ClInclude Include="source\engine\renderer\D3D9Handler.h" />
     <ClInclude Include="source\engine\renderer\TextureManager.h" />
     <ClInclude Include="source\engine\sound\SoundManager.h" />
     <ClInclude Include="source\engine\windows.h" />
+    <ClInclude Include="source\game\ObjectFactory.h" />
+    <ClInclude Include="source\game\ObjectManager.h" />
+    <ClInclude Include="source\game\objects\Asteroids.h" />
     <ClInclude Include="source\game\objects\BaseEntity.h" />
     <ClInclude Include="source\game\objects\IEntity.h" />
+    <ClInclude Include="source\game\objects\Ship.h" />
+    <ClInclude Include="source\game\objects\Weapon.h" />
     <ClInclude Include="source\game\states\CreditsState.h" />
     <ClInclude Include="source\game\states\GameModeState.h" />
     <ClInclude Include="source\game\states\GameplayState.h" />
@@ -95,10 +102,15 @@
     <ClCompile Include="source\engine\app\StateSystem.cpp" />
     <ClCompile Include="source\engine\app\Timer.cpp" />
     <ClCompile Include="source\engine\app\WinApp.cpp" />
+    <ClCompile Include="source\engine\collision\CollisionLibrary.cpp" />
     <ClCompile Include="source\engine\renderer\D3D9Handler.cpp" />
     <ClCompile Include="source\engine\renderer\TextureManager.cpp" />
     <ClCompile Include="source\engine\sound\SoundManager.cpp" />
+    <ClCompile Include="source\game\ObjectFactory.cpp" />
+    <ClCompile Include="source\game\ObjectManager.cpp" />
+    <ClCompile Include="source\game\objects\Asteroids.cpp" />
     <ClCompile Include="source\game\objects\BaseEntity.cpp" />
+    <ClCompile Include="source\game\objects\Ship.cpp" />
     <ClCompile Include="source\game\states\CreditsState.cpp" />
     <ClCompile Include="source\game\states\GameModeState.cpp" />
     <ClCompile Include="source\game\states\GameplayState.cpp" />

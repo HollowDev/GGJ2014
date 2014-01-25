@@ -26,6 +26,12 @@
     <Filter Include="game\objects">
       <UniqueIdentifier>{d5edfae2-66f4-4016-9053-e383d5bb150d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="engine\collision">
+      <UniqueIdentifier>{9a52f474-dd6f-4d87-9d49-c67dfc6894eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\managers">
+      <UniqueIdentifier>{6a469842-639c-4a2c-9ea1-1ca1568b4ece}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\engine\app\WinApp.h">
@@ -85,6 +91,27 @@
     <ClInclude Include="source\game\objects\BaseEntity.h">
       <Filter>game\objects</Filter>
     </ClInclude>
+    <ClInclude Include="source\engine\collision\CollisionLibrary.h">
+      <Filter>engine\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\collision\CollisionVolume.h">
+      <Filter>engine\collision</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\objects\Asteroids.h">
+      <Filter>game\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\objects\Ship.h">
+      <Filter>game\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\objects\Weapon.h">
+      <Filter>game\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\ObjectFactory.h">
+      <Filter>game\managers</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\ObjectManager.h">
+      <Filter>game\managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -129,6 +156,21 @@
     </ClCompile>
     <ClCompile Include="source\game\objects\BaseEntity.cpp">
       <Filter>game\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\collision\CollisionLibrary.cpp">
+      <Filter>engine\collision</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\objects\Asteroids.cpp">
+      <Filter>game\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\objects\Ship.cpp">
+      <Filter>game\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\ObjectFactory.cpp">
+      <Filter>game\managers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\ObjectManager.cpp">
+      <Filter>game\managers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
