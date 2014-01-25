@@ -7,15 +7,14 @@ BaseEntity::BaseEntity( void )
 	m_ImgID = -1;
 	m_Pos = D3DXVECTOR2(0,0);
 	m_Vel = D3DXVECTOR2(0,0);
-	m_Dir = D3DXVECTOR2(0,0);
+	m_ImgCenter = D3DXVECTOR2(0,0);
+	m_Dir = D3DXVECTOR2(0,-1);
 	m_MaxSpeed = 0.0f;
-	m_CurrSpeed = 0.0f;
 	m_Size = 0;
 	m_Rot = 0.0f;
-	m_ImgCenter = 0;
 }
 
-void BaseEntity::Initialize( int _imgID, RECT _imgSource, int _imgCenter, D3DXVECTOR2 _pos, float _maxSpeed, int _size )
+void BaseEntity::Initialize( int _imgID, RECT _imgSource, D3DXVECTOR2 _imgCenter, D3DXVECTOR2 _pos, float _maxSpeed, int _size )
 {
 	m_ImgID = _imgID;
 	m_ImgSource = _imgSource;
@@ -34,15 +33,18 @@ void BaseEntity::Render( int _x, int _y )
 {
 	if( m_ImgID != -1 )
 	{
-		TextureManager::GetInstance()->Draw(m_ImgID,int(m_Pos.x)+_x,int(m_Pos.y)+_y,1.0f,1.0f,&m_ImgSource,float(m_ImgCenter),float(m_ImgCenter),m_Rot);
+		TextureManager::GetInstance()->Draw(m_ImgID,int(m_Pos.x)+_x,int(m_Pos.y)+_y,1.0f,1.0f,&m_ImgSource,m_ImgCenter.x,m_ImgCenter.x,m_Rot);
 	}
 
 #if _DEBUG
 	// RENDER DEBUG LINES
 	D3D9Handler::m_Sprite->Flush();
-	D3DXVECTOR2 center = m_Pos + D3DXVECTOR2(float(m_ImgCenter),float(m_ImgCenter));
-	RECT collisionRect = {center.x-m_Size/2,center.y-m_Size/2,center.x+m_Size/2,center.y+m_Size/2};
+	D3DXVECTOR2 center = m_Pos + m_ImgCenter;
+	RECT collisionRect = {center.x-m_Size,center.y-m_Size,center.x+m_Size,center.y+m_Size};
 	D3D9Handler::DrawEmptyRect(collisionRect, 255, 0, 0);
+
+	RECT centerRect = {center.x-1,center.y-1,center.x+1,center.y+1};
+	D3D9Handler::DrawRect(centerRect,255,0,0);
 #endif
 }
 
@@ -50,9 +52,8 @@ void BaseEntity::Update( float _dt )
 {
 	// Add the current velocity to the position.
 	m_Pos += m_Vel * _dt;
+	m_Vel *= 0.99f;
 	
-	// Add the current speed, in the direction we're heading, to the velocity.
-	m_Vel += m_Dir * m_CurrSpeed;
 	// Cap max speed
 	if(D3DXVec2Length(&m_Vel) > m_MaxSpeed)
 	{
@@ -60,13 +61,15 @@ void BaseEntity::Update( float _dt )
 		m_Vel *= m_MaxSpeed;
 	}
 
+	// Set the new heading to the velocity
+	if(D3DXVec2Length(&m_Vel) > 0.1f)
+		D3DXVec2Normalize(&m_Dir,&m_Vel);
+
 	// calculate new rotation, if we need to
 	if(m_PrevDir != m_Dir)
 	{
 		// calculate rotation
-		D3DXVECTOR2 tDefault(0,-1);
-
-		
+		Rotate();
 	}
 
 	m_PrevDir = m_Dir;
@@ -77,24 +80,19 @@ void BaseEntity::HandleCollision( IEntity* _other, float _dist, float _dirX, flo
 
 }
 
-void BaseEntity::RotateToMouse( int _mouseX, int _mouseY )
+void BaseEntity::Rotate( void )
 {
-	D3DXVECTOR2 toTarget(0,0);
 	D3DXVECTOR2 tDefault(0,-1);
-
-	toTarget = D3DXVECTOR2(float(_mouseX),float(_mouseY)) - m_Pos;
-	D3DXVec2Normalize(&toTarget,&toTarget);
 
 	// Calculate forward vector
 	D3DXVECTOR2 forward = Rotate2D( tDefault, this->GetRot() );
-
 	// calculate the angle between the vectors
-	float angle = AngleBetweenVectors( tDefault, forward );
+	float angle = AngleBetweenVectors( m_Dir, forward );
 
-	if(Steering(forward, toTarget) < 0.0f)
+	if(Steering(forward, m_Dir) < 0.0f)
 		this->SetRot(this->GetRot() - angle);
 	else
-		this->SetRot(this->GetRot() - angle);
+		this->SetRot(this->GetRot() + angle);
 }
 
 float BaseEntity::Steering( D3DXVECTOR2 _orientation, D3DXVECTOR2 _toTarget )

@@ -2,11 +2,13 @@
 #define _GAMEPLAY_STATE_H_
 
 #include "../../engine/app/BaseState.h"
-#include "../objects/BaseEntity.h"
+#include "../objects/Ship.h"
 
 class GameplayState : public BaseState
 {
-	BaseEntity m_Player1;
+	Ship* m_Player1, *m_Player2;
+
+	IEntity* m_AsteroidTest[100];
 
 public:
 	GameplayState( void );
