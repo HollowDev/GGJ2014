@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="engine">
+      <UniqueIdentifier>{b882f28d-d539-4c04-96e3-0a527466dbf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game">
+      <UniqueIdentifier>{d3926f6c-5123-4d5a-b23f-080daa42c45b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\app">
+      <UniqueIdentifier>{c5fe0318-1210-45c0-8c40-21ab635732e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="engine\renderer">
+      <UniqueIdentifier>{3ce79758-8501-4527-8a6d-fd705a89bd9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\states">
+      <UniqueIdentifier>{31398c5c-9fbb-4fa8-aca3-a7387f1fbcf0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="source\engine\app\WinApp.h">
+      <Filter>engine\app</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\memory_macros.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\app\BaseState.h">
+      <Filter>engine\app</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\app\StateSystem.h">
+      <Filter>engine\app</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\renderer\D3D9Handler.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\directx9.h">
+      <Filter>engine</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\renderer\TextureManager.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\states\SplashState.h">
+      <Filter>game\states</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\states\OptionsState.h">
+      <Filter>game\states</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\states\CreditsState.h">
+      <Filter>game\states</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\states\GameModeState.h">
+      <Filter>game\states</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\states\GameplayState.h">
+      <Filter>game\states</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\states\PauseState.h">
+      <Filter>game\states</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\states\MainMenuState.h">
+      <Filter>game\states</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\engine\app\WinApp.cpp">
+      <Filter>engine\app</Filter>
+    </ClCompile>
+    <ClCompile Include="source\WinMain.cpp" />
+    <ClCompile Include="source\engine\app\StateSystem.cpp">
+      <Filter>engine\app</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\renderer\D3D9Handler.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\renderer\TextureManager.cpp">
+      <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\states\SplashState.cpp">
+      <Filter>game\states</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\states\OptionsState.cpp">
+      <Filter>game\states</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\states\CreditsState.cpp">
+      <Filter>game\states</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\states\GameModeState.cpp">
+      <Filter>game\states</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\states\GameplayState.cpp">
+      <Filter>game\states</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\states\PauseState.cpp">
+      <Filter>game\states</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\states\MainMenuState.cpp">
+      <Filter>game\states</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
