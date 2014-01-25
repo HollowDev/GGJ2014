@@ -114,6 +114,18 @@ void D3D9Handler::DrawRect(RECT _area, unsigned char _r, unsigned char _g, unsig
 	m_Device->Clear(1, &d3dRect, D3DCLEAR_TARGET, D3DCOLOR_XRGB(_r, _g, _b), 1.0f, 0);
 }
 
+void D3D9Handler::DrawEmptyRect( RECT _area, unsigned char _r, unsigned char _g, unsigned char _b )
+{
+	D3DXVECTOR2 points[4][2];
+	points[0][0] = D3DXVECTOR2((float)_area.left,(float)_area.top);		points[0][1] = D3DXVECTOR2((float)_area.right,(float)_area.top);
+	points[1][0] = D3DXVECTOR2((float)_area.left,(float)_area.bottom);	points[1][1] = D3DXVECTOR2((float)_area.right,(float)_area.bottom);
+	points[2][0] = D3DXVECTOR2((float)_area.left,(float)_area.top);		points[2][1] = D3DXVECTOR2((float)_area.left,(float)_area.bottom);
+	points[3][0] = D3DXVECTOR2((float)_area.right,(float)_area.top);	points[3][1] = D3DXVECTOR2((float)_area.right,(float)_area.bottom);
+
+	for(int i = 0; i < 4; ++i)
+		DrawLine(points[i][0], points[i][1], _r, _g, _b);
+}
+
 void D3D9Handler::DrawLine(D3DXVECTOR2 p1, D3DXVECTOR2 p2, unsigned char _r, unsigned char _g, unsigned char _b)
 {
 	D3DXVECTOR2 verts[2];

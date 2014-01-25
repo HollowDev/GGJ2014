@@ -2,9 +2,12 @@
 #define _GAMEPLAY_STATE_H_
 
 #include "../../engine/app/BaseState.h"
+#include "../objects/BaseEntity.h"
 
 class GameplayState : public BaseState
 {
+	BaseEntity m_Player1;
+
 public:
 	GameplayState( void );
 	~GameplayState( void ) { Release(); }

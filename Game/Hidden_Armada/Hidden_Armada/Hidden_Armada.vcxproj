@@ -81,6 +81,8 @@
     <ClInclude Include="source\engine\renderer\TextureManager.h" />
     <ClInclude Include="source\engine\sound\SoundManager.h" />
     <ClInclude Include="source\engine\windows.h" />
+    <ClInclude Include="source\game\objects\BaseEntity.h" />
+    <ClInclude Include="source\game\objects\IEntity.h" />
     <ClInclude Include="source\game\states\CreditsState.h" />
     <ClInclude Include="source\game\states\GameModeState.h" />
     <ClInclude Include="source\game\states\GameplayState.h" />
@@ -96,6 +98,7 @@
     <ClCompile Include="source\engine\renderer\D3D9Handler.cpp" />
     <ClCompile Include="source\engine\renderer\TextureManager.cpp" />
     <ClCompile Include="source\engine\sound\SoundManager.cpp" />
+    <ClCompile Include="source\game\objects\BaseEntity.cpp" />
     <ClCompile Include="source\game\states\CreditsState.cpp" />
     <ClCompile Include="source\game\states\GameModeState.cpp" />
     <ClCompile Include="source\game\states\GameplayState.cpp" />

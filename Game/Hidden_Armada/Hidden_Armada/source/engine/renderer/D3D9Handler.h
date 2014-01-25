@@ -23,8 +23,9 @@ public:
 	static void Release( void );
 	static BOOL BuildPresentParameters( void );
 
-	static void DrawRect(RECT _area, unsigned char _r, unsigned char _g, unsigned char _b);
-	static void DrawLine(D3DXVECTOR2 p1, D3DXVECTOR2 p2, unsigned char _r, unsigned char _g, unsigned char _b);
+	static void DrawRect( RECT _area, unsigned char _r, unsigned char _g, unsigned char _b );
+	static void DrawEmptyRect( RECT _area, unsigned char _r, unsigned char _g, unsigned char _b );
+	static void DrawLine( D3DXVECTOR2 p1, D3DXVECTOR2 p2, unsigned char _r, unsigned char _g, unsigned char _b );
 };
 
 #endif

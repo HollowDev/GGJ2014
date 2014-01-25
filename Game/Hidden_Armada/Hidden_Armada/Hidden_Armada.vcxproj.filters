@@ -23,7 +23,7 @@
     <Filter Include="engine\sound">
       <UniqueIdentifier>{a1d5b0b8-0950-41fc-8714-09e9a2d5e4fc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="game\NewFilter1">
+    <Filter Include="game\objects">
       <UniqueIdentifier>{d5edfae2-66f4-4016-9053-e383d5bb150d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -79,6 +79,12 @@
     <ClInclude Include="source\engine\sound\SoundManager.h">
       <Filter>engine\sound</Filter>
     </ClInclude>
+    <ClInclude Include="source\game\objects\IEntity.h">
+      <Filter>game\objects</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\objects\BaseEntity.h">
+      <Filter>game\objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -120,6 +126,9 @@
     </ClCompile>
     <ClCompile Include="source\engine\sound\SoundManager.cpp">
       <Filter>engine\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\objects\BaseEntity.cpp">
+      <Filter>game\objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
