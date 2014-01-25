@@ -13,9 +13,9 @@ bool SphereToSphere( Sphere& _rhs, Sphere& _lhs, ColInfo& _rhsResult, ColInfo& _
 		D3DXVec2Normalize(&toTarget,&toTarget);
 		
 		_rhsResult.dir = toTarget;
-		_rhsResult.offset = offset;
+		_rhsResult.offset = -offset;
 
-		_lhsResult.dir = -toTarget;
+		_lhsResult.dir = toTarget;
 		_lhsResult.offset = offset;
 
 		return true;

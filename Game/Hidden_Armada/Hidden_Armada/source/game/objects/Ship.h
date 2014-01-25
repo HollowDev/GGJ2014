@@ -30,10 +30,12 @@ public:
 	// accessors
 	inline int GetHP( void ) { return m_HP; }
 	inline int GetMaxHP( void ) { return m_MaxHP; }
+	inline Weapon GetWeapon( void ) { return m_Weapon; }
 
 	// mutators
 	inline void SetHP( int _hp ) { m_HP = _hp; }
 	inline void SetMaxHP( int _maxHP ) { m_MaxHP = _maxHP; }
+	inline void SetWeapon( Weapon _weapon ) { m_Weapon = _weapon; }
 };
 
 #endif

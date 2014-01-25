@@ -51,21 +51,23 @@ void ObjectManager::CheckCollision( void )
 	{
 		for(unsigned int i = 0; i < m_Objects[x].size(); ++i)
 		{
+			IEntity* object1 = m_Objects[x][i];
 			for(unsigned int y = 0; y < NUM_LAYERS; ++y)
 			{
 				for(unsigned int j = 0; j < m_Objects[y].size(); ++j)
 				{
-					if( m_Objects[x][i] != m_Objects[y][j] )
+					IEntity* object2 = m_Objects[y][j];
+					if( object1 != object2 && object1->GetIsAlive() && object2->GetIsAlive() )
 					{
-						if(!m_Objects[x][i]->CheckCollision(m_Objects[y][j]) &&
-						   !m_Objects[y][j]->CheckCollision(m_Objects[x][i]) )
-						   continue;
+						//if(!m_Objects[x][i]->CheckCollision(m_Objects[y][j]) &&
+						//   !m_Objects[y][j]->CheckCollision(m_Objects[x][i]) )
+						//   continue;
 
 						ColInfo rhs, lhs;
-						if(SphereToSphere(m_Objects[x][i]->GetSphere(), m_Objects[y][j]->GetSphere(), rhs, lhs))
+						if(SphereToSphere(object1->GetSphere(), object2->GetSphere(), rhs, lhs))
 						{
-							m_Objects[x][i]->HandleCollision(m_Objects[y][j], rhs.offset, rhs.dir.x, rhs.dir.y);
-							m_Objects[y][j]->HandleCollision(m_Objects[x][i], lhs.offset, lhs.dir.x, lhs.dir.y);
+							object1->HandleCollision(object2, rhs.offset, rhs.dir.x, rhs.dir.y);
+							object2->HandleCollision(object1, lhs.offset, lhs.dir.x, lhs.dir.y);
 						}
 					}
 				}
