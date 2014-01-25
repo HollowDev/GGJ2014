@@ -35,6 +35,9 @@
     <Filter Include="engine\particles">
       <UniqueIdentifier>{420071d8-08e3-402f-b8ae-4c35fc2f19dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="engine\input manager">
+      <UniqueIdentifier>{3fded92d-b74a-4646-8d4d-2f74fc196900}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\engine\app\WinApp.h">
@@ -127,6 +130,10 @@
     <ClInclude Include="source\engine\particles\Particle.h">
       <Filter>engine\particles</Filter>
     </ClInclude>
+    <ClInclude Include="source\engine\input\InputManager.h">
+      <Filter>engine\input manager</Filter>
+    </ClInclude>
+    <ClInclude Include="source\engine\input\InputController.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -202,5 +209,9 @@
     <ClCompile Include="source\engine\particles\Particle.cpp">
       <Filter>engine\particles</Filter>
     </ClCompile>
+    <ClCompile Include="source\engine\input\InputManager.cpp">
+      <Filter>engine\input manager</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\input\InputController.cpp" />
   </ItemGroup>
 </Project>
