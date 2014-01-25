@@ -7,6 +7,8 @@
 #include "../../engine/app/WinApp.h"
 #include "OptionsState.h"
 
+#include "../../engine/input/InputController.h"
+
 float lerp(float _start, float _end, float _percent)
 {
 	return (_start + _percent * (_end - _start));
@@ -26,6 +28,9 @@ bool MainMenuState::Initialize( WinApp* _app )
 	m_IsMoving = false;
 	m_MoveTimer = 0.0f;
 	m_MusicTimer = 0.0f;
+
+	m_Input = new InputController();
+	m_Input->Initialize();
 
 	// Load Textures
 	m_Background = TextureManager::GetInstance()->LoadTexture(L"assets/textures/mainmenu_background.png");
@@ -124,6 +129,7 @@ void MainMenuState::Render( void )
 
 void MainMenuState::Update( float _dt )
 {
+	m_Input->CheckInput(nullptr, this);
 	if(isTitle)
 	{
 		// Still on the title screen, blink the Press Start message
@@ -206,26 +212,38 @@ void MainMenuState::Update( float _dt )
 
 bool MainMenuState::Input( void )
 {
-	if(GetAsyncKeyState(VK_ESCAPE))
+	/*if(GetAsyncKeyState(VK_ESCAPE))
 	{
 		m_Selected = EXIT_GAME;
 		m_IsMoving = true;
 		m_MoveTimer = 0.0f;
 		SoundManager::GetInstance()->Play(m_MoveSFX, false, false);
 		while(GetAsyncKeyState(VK_ESCAPE));
+	}*/
+
+	if(m_Input->Input_Cancel())
+	{
+		m_Selected = EXIT_GAME;
+		m_IsMoving = true;
+		m_MoveTimer = 0.0f;
+		SoundManager::GetInstance()->Play(m_MoveSFX, false, false);
 	}
 
 	if(isTitle)
 	{
-		if(GetAsyncKeyState(VK_RETURN))
+		/*if(GetAsyncKeyState(VK_RETURN))
+		{
+		isTitle = false;
+		while(GetAsyncKeyState(VK_RETURN));
+		}*/
+		if(m_Input->Input_StartPressed())
 		{
 			isTitle = false;
-			while(GetAsyncKeyState(VK_RETURN));
 		}
 	}
 	else
 	{
-		if(GetAsyncKeyState(VK_RETURN))
+		if(m_Input->Input_Confirm())//GetAsyncKeyState(VK_RETURN))
 		{
 			switch(m_Selected)
 			{
@@ -240,11 +258,11 @@ bool MainMenuState::Input( void )
 			case EXIT_GAME:
 				return false;
 			};
-			
-			while(GetAsyncKeyState(VK_RETURN));
+
+			//while(GetAsyncKeyState(VK_RETURN));
 		}
 
-		if(GetAsyncKeyState(VK_DOWN))
+		if(m_Input->Input_DownDown())//GetAsyncKeyState(VK_DOWN))
 		{
 			m_Selected--;
 			if(m_Selected < 0)
@@ -252,10 +270,10 @@ bool MainMenuState::Input( void )
 			m_IsMoving = true;
 			m_MoveTimer = 0.0f;
 			SoundManager::GetInstance()->Play(m_MoveSFX, false, false);
-			while(GetAsyncKeyState(VK_DOWN));
+			//while(m_Input->Input_DownDown());
 		}
 
-		if(GetAsyncKeyState(VK_UP))
+		if(m_Input->Input_UpDown())//GetAsyncKeyState(VK_UP))
 		{
 			m_Selected++;
 			if(m_Selected > 2)
@@ -263,7 +281,7 @@ bool MainMenuState::Input( void )
 			m_IsMoving = true;
 			m_MoveTimer = 0.0f;
 			SoundManager::GetInstance()->Play(m_MoveSFX, false, false);
-			while(GetAsyncKeyState(VK_UP));
+			//while(m_Input->Input_UpDown());
 		}
 	}
 

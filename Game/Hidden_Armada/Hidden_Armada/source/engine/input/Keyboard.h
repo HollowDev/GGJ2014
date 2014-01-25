@@ -1,8 +1,7 @@
 #ifndef _KEYBOARD_H_
 #define _KEYBOARD_H_
-#include "InputController.h"
 
-class Keyboard : public InputController
+class Keyboard
 {
 private:
 

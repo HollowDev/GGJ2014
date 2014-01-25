@@ -4,6 +4,8 @@
 #include "../../engine/app/BaseState.h"
 #include <vector>
 
+class InputController;
+
 class MainMenuState : public BaseState
 {
 	int m_TextImg;
@@ -21,6 +23,8 @@ class MainMenuState : public BaseState
 	float	m_MusicTimer;
 
 	int		m_Selected;
+
+	InputController* m_Input;
 	
 
 	enum Button{ PLAY_GAME, OPTIONS, EXIT_GAME, BACKGROUND, PRESS_START };
