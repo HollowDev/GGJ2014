@@ -4,6 +4,7 @@
 #include "Timer.h"
 #include "../renderer/D3D9Handler.h"
 #include "../renderer/TextureManager.h"
+#include "../sound/SoundManager.h"
 #include "../memory_macros.h"
 
 WinApp::WinApp( void )
@@ -63,6 +64,7 @@ void WinApp::Initialize( LPCWSTR _title, HINSTANCE _HInstance, BaseState* _start
 	// TODO:: Initialize handlers
 	D3D9Handler::Initialize(m_HWND, _windowed);
 	TextureManager::GetInstance()->Initialize(D3D9Handler::m_Device, D3D9Handler::m_Sprite);
+	SoundManager::GetInstance()->Initialize();
 	StateSystem::GetInstance()->Initialize(this,_startState);
 	m_StateSystem = StateSystem::GetInstance();
 
@@ -76,9 +78,10 @@ void WinApp::Release( void )
 	m_IsClosing = true;
 	
 	SAFE_DELETE(m_Timer);
-	SAFE_DELETE(m_StateSystem);
+	m_StateSystem->Release();
 
 	TextureManager::GetInstance()->Release();
+	SoundManager::GetInstance()->Release();
 }
 
 void WinApp::Run( void )

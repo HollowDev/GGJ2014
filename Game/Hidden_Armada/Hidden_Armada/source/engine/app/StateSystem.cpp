@@ -55,6 +55,7 @@ void StateSystem::CheckChanges( void )
 		m_States.clear();
 		m_ChangeState->Initialize(m_App);
 		m_States.push_back(m_ChangeState);
+		m_ChangeState = nullptr;
 	}
 	else if(m_AddStates.size() > 0)
 	{

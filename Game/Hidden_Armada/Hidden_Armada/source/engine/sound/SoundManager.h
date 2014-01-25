@@ -3,17 +3,16 @@
 
 #include "../../../../Lib/fmod/inc/fmod.hpp"
 #include "../../../../Lib/fmod/inc/fmod_errors.h"
+#include "../../engine/memory_macros.h"
 #include <tchar.h>
 #include <vector>
 
-bool FMODErrorCheck(FMOD_RESULT _result)
+struct Sounds
 {
-	if(_result != FMOD_OK)
-	{
-		return false;
-	}
-	return true;
-}
+	bool			isSFX;
+	FMOD::Sound*	sound;
+	FMOD::Channel*	channel;
+};
 
 class SoundManager
 {
@@ -25,24 +24,42 @@ private:
 	FMOD::ChannelGroup*	m_ChannelMusic;
 	FMOD::ChannelGroup*	m_ChannelSFX;
 
-	std::vector<FMOD::Sound*> m_Music;
-	std::vector<FMOD::Sound*> m_SFX;
+	std::vector<Sounds*> m_Sounds;
+
+	int m_CurrSounds;
+
+	static SoundManager m_Instance;
+
+	bool inline FMODCheckError(FMOD_RESULT _result)
+	{
+		if(_result != FMOD_OK)
+		{
+			return false;
+		}
+		return true;
+	}
 
 public:
 	SoundManager(void);
 	~SoundManager(void);
 
+	static SoundManager* GetInstance(void) { return &m_Instance; }
+
 	bool Initialize(void);
 	void Release(void);
-	int LoadMusic(const TCHAR* _fileName);
-	int LoadSFX(const TCHAR* _fileName);
-	void UnloadMusic(int _musicID);
-	void UnloadSFX(int _sfxID);
 
-	void PlayMusic(int _musicID, bool _isLooping);
-	void StopMusic(int _musicID);
-	void PlaySFX(int _sfxID, bool _isLooping);
-	void StopSFX(int _sfxID);
+	void Update(void);
+
+	int LoadMusic(const char* _fileName);
+	int LoadSFX(const char* _fileName);
+
+	void Play(int _soundID, bool _isLooping);
+	void PauseAllMusic();
+	void UnpauseAllMusic();
+	void PauseAllSFX();
+	void UnpauseAllSFX();
+	void Pause(int _soundID);
+	void Unpause(int _soundID);
 };
 
 #endif

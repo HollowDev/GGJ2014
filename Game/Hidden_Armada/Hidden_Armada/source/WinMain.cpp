@@ -6,7 +6,7 @@
 #include <crtdbg.h>
 
 #include "engine\app\WinApp.h"
-#include "game\states\GameplayState.h"
+#include "game\states\MainMenuState.h"
 
 #define GAME_WIDTH	1024
 #define GAME_HEIGHT	768
@@ -27,9 +27,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	WinApp app;
 #if _DEBUG
-	app.Initialize(L"Hidden Armada - Debug", hInstance, new GameplayState(), GAME_WIDTH, GAME_HEIGHT);
+	app.Initialize(L"Hidden Armada - Debug", hInstance, new MainMenuState(), GAME_WIDTH, GAME_HEIGHT);
 #else
-	app.Initialize(L"Hidden Armada", hInstance, new GameplayState(), GAME_WIDTH, GAME_HEIGHT);
+	app.Initialize(L"Hidden Armada", hInstance, new MainMenuState(), GAME_WIDTH, GAME_HEIGHT);
 #endif
 
 	app.Run();

@@ -1,6 +1,9 @@
 #include "MainMenuState.h"
 #include "../../engine/renderer/D3D9Handler.h"
 #include "../../engine/renderer/TextureManager.h"
+#include "../../engine/sound/SoundManager.h"
+#include "GameplayState.h"
+#include "../../engine/app/StateSystem.h"
 
 MainMenuState::MainMenuState( void )
 {
@@ -29,13 +32,15 @@ bool MainMenuState::Initialize( WinApp* _app )
 	temp.right = 900;
 	m_Buttons.push_back(temp);
 
+	m_TestMusic = SoundManager::GetInstance()->LoadMusic("assets/sounds/music/main_intro.mp3");
+	SoundManager::GetInstance()->Play(m_TestMusic, false);
+
 	return true;
 }
 
 void MainMenuState::Release( void )
 {
-	//TextureManager::GetInstance()->UnloadTexture(m_TestImg);
-	//TextureManager::GetInstance()->UnloadTexture(m_TextImg);
+	SoundManager::GetInstance()->Pause(m_TestMusic);
 }
 
 void MainMenuState::Render( void )
@@ -65,5 +70,11 @@ void MainMenuState::Update( float _dt )
 
 bool MainMenuState::Input( void )
 {
+	if(GetAsyncKeyState(VK_ESCAPE))
+		return false;
+
+	if(GetAsyncKeyState(VK_RETURN))
+		StateSystem::GetInstance()->ChangeState(new GameplayState());
+
 	return true;
 }

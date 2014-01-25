@@ -10,6 +10,7 @@ class MainMenuState : public BaseState
 {
 	int m_TestImg;
 	int m_TextImg;
+	int m_TestMusic;
 	std::vector<RECT> m_Buttons;
 
 	enum Button{ PLAY_GAME, OPTIONS, EXIT_GAME };
