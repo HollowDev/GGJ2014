@@ -5,7 +5,23 @@
 
 class Weapon : public BaseEntity
 {
+	float m_FireTimer;
+	float m_ROF;
+	int m_Damage;
+	int m_Level;
+
 public:
+	Weapon( void );
+	~Weapon( void ) { Release(); }
+
+	virtual void Release( void );
+
+	virtual void Render( int _x, int _y );
+	virtual void Update( float _dt );
+	virtual void HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY );
+	virtual Sphere GetSphere( void ) { return Sphere(GetPos(), float(GetSize())); }
+
+	void Fire( void );
 };
 
 #endif

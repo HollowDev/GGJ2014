@@ -2,8 +2,13 @@
 #include <fstream>
 using std::fstream;
 
+#include "../ObjectFactory.h"
+#include "Projectile.h"
+
 Ship::Ship( void )
 {
+	m_Type = Entity_PlayerShip;
+
 	m_HP = 0;
 	m_MaxHP = 0;
 }
@@ -41,7 +46,7 @@ void Ship::Render( int _x, int _y )
 	BaseEntity::Render(_x,_y);
 	
 	// render the weapon
-	//m_Weapon.Render(_x,_y);
+	m_Weapon.Render(_x,_y);
 }
 
 void Ship::Update( float _dt )
@@ -49,15 +54,21 @@ void Ship::Update( float _dt )
 	BaseEntity::Update(_dt);
 
 	// Update weapon, for it's dir
+	m_Weapon.Update(_dt);
 	D3DXVECTOR2 offset = this->GetPos() + this->GetImgCenter()/2;
 	m_Weapon.SetPos(offset);
 
 	// add a trail
+	if(GetAsyncKeyState(VK_LBUTTON))
+	{
+		m_Weapon.Fire();
+	}
 }
 
 void Ship::HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY )
 {
-	this->SetPos( this->GetPos() + D3DXVECTOR2(_dirX,_dirY) * _dist);
+	if(_other->GetType() != Entity_Projectile)
+		this->SetPos( this->GetPos() + D3DXVECTOR2(_dirX,_dirY) * _dist);
 }
 
 void Ship::RotateWeaponToMouse( int _mouseX, int _mouseY )
@@ -71,7 +82,6 @@ void Ship::RotateWeaponToMouse( int _mouseX, int _mouseY )
 
 	// Calculate forward vector
 	D3DXVECTOR2 forward = Rotate2D( tDefault, m_Weapon.GetRot() );
-
 	// calculate the angle between the vectors
 	float angle = AngleBetweenVectors( vToTarget, forward );
 
@@ -79,4 +89,7 @@ void Ship::RotateWeaponToMouse( int _mouseX, int _mouseY )
 		m_Weapon.SetRot(m_Weapon.GetRot() - angle);
 	else
 		m_Weapon.SetRot(m_Weapon.GetRot() + angle);
+
+	D3DXVec2Normalize(&vToTarget,&vToTarget);
+	m_Weapon.SetDir(vToTarget);
 }

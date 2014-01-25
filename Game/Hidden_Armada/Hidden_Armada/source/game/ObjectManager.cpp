@@ -1,5 +1,6 @@
 #include "ObjectManager.h"
 #include "../engine/collision/CollisionLibrary.h"
+#include "ObjectFactory.h"
 
 ObjectManager ObjectManager::m_Instance;
 
@@ -31,8 +32,15 @@ void ObjectManager::Render( int _x, int _y )
 void ObjectManager::Update( float _dt )
 {
 	for(unsigned int x = 0; x < NUM_LAYERS; ++x)
+	{
 		for(unsigned int i = 0; i < m_Objects[x].size(); ++i)
-			m_Objects[x][i]->Update(_dt);
+		{
+			if(m_Objects[x][i]->GetIsAlive())
+				m_Objects[x][i]->Update(_dt);
+			else
+				ObjectFactory::GetInstance()->Destroy(m_Objects[x][i]);
+		}
+	}
 
 	CheckChanges();
 }

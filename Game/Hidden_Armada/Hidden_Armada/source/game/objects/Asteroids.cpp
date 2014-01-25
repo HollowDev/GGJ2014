@@ -2,6 +2,7 @@
 
 Asteroids::Asteroids( void )
 {
+	this->m_Type = Entity_Asteroid;
 	m_HP = 2;
 }
 
@@ -35,7 +36,15 @@ void Asteroids::Update( float _dt )
 
 void Asteroids::HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY )
 {
-	this->SetPos( this->GetPos() + D3DXVECTOR2(_dirX,_dirY) * _dist);
-	D3DXVECTOR2 dir(_dirX,_dirY);
-	D3DXVec2Scale(&m_ConstantVel,&dir,-50.0f);
+	if(_other->GetType() == Entity_Asteroid || _other->GetType() == Entity_PlayerShip )
+	{
+		this->SetPos( this->GetPos() + D3DXVECTOR2(_dirX,_dirY) * _dist);
+		D3DXVECTOR2 dir(_dirX,_dirY);
+		D3DXVec2Scale(&m_ConstantVel,&dir,-50.0f);
+	}
+	else if(_other->GetType() == Entity_Projectile)
+	{
+		// TODO:: spawn ship, possibly, do animation, spawn particles
+		this->SetIsAlive(false);
+	}
 }

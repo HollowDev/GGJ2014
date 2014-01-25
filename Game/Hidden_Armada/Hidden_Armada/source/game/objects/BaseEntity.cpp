@@ -4,6 +4,8 @@
 
 BaseEntity::BaseEntity( void )
 {
+	this->SetIsAlive(true);
+
 	m_ImgID = -1;
 	m_Pos = D3DXVECTOR2(0,0);
 	m_Vel = D3DXVECTOR2(0,0);

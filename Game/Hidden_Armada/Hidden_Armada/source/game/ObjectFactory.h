@@ -5,8 +5,10 @@
 using std::vector;
 
 #include "objects\Asteroids.h"
+#include "objects\Projectile.h"
 
 #define MAX_ASTEROIDS	200
+#define MAX_PROJECTILES	200
 
 class ObjectManager;
 class ObjectFactory
@@ -17,6 +19,7 @@ class ObjectFactory
 	vector<IEntity*> m_Destroyed[Entity_NumTypes];
 
 	Asteroids m_AsteroidArray[MAX_ASTEROIDS];
+	Projectile m_ProjectileArray[MAX_PROJECTILES];
 
 	static ObjectFactory m_Instance;
 

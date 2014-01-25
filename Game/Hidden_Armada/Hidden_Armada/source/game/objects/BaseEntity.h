@@ -31,7 +31,7 @@ public:
 	virtual void Update( float _dt );
 	virtual void HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY );
 
-	Sphere GetSphere( void ) { return Sphere(m_Pos, float(m_Size)); }
+	virtual Sphere GetSphere( void ) { return Sphere(m_Pos, float(m_Size)); }
 
 	void Rotate( void );
 	float AngleBetweenVectors( D3DXVECTOR2 _v1, D3DXVECTOR2 _v2 );

@@ -13,6 +13,12 @@ void ObjectFactory::Initialize( void )
 		m_OpenList[Entity_Asteroid].push_back(i);
 		m_AsteroidArray[i].Initialize();
 	}
+
+	for(i = 0; i < MAX_PROJECTILES; ++i)
+	{
+		m_OpenList[Entity_Projectile].push_back(i);
+		m_ProjectileArray[i].Initialize();
+	}
 }
 
 
@@ -31,6 +37,13 @@ bool ObjectFactory::Create( IEntity** _object, Entity_Type _id )
 			MakeDefault(m_AsteroidArray[index]);
 			*_object = &m_AsteroidArray[index];
 			m_OM->AddObject(&m_AsteroidArray[index],NUM_LAYERS-1);
+		}
+		break;
+	case Entity_Projectile:
+		{
+			MakeDefault(m_ProjectileArray[index]);
+			*_object = &m_ProjectileArray[index];
+			m_OM->AddObject(&m_ProjectileArray[index],NUM_LAYERS-1);
 		}
 		break;
 	}
@@ -53,6 +66,19 @@ bool ObjectFactory::Destroy( IEntity* _object )
 				return false;
 
 			m_Destroyed[Entity_Asteroid].push_back(&m_AsteroidArray[test]);
+			m_OM->RemoveObject(_object,NUM_LAYERS-1);
+		}
+		break;
+	case Entity_Projectile:
+		{
+			test = ((int)_object-(int)&m_ProjectileArray[0]) / sizeof(Projectile);
+			if( test < 0 || test >= MAX_ASTEROIDS )
+				return false;
+			else if( !IsValid( Entity_Projectile, test ) )
+				return false;
+
+			m_Destroyed[Entity_Projectile].push_back(&m_ProjectileArray[test]);
+			m_OM->RemoveObject(_object,NUM_LAYERS-1);
 		}
 		break;
 	}
@@ -72,6 +98,15 @@ void ObjectFactory::ProcessDestroy( void )
 		m_OM->RemoveObject(m_Destroyed[Entity_Asteroid][i],NUM_LAYERS-1);
 	}
 	m_Destroyed[Entity_Asteroid].clear();
+
+	size = m_Destroyed[Entity_Projectile].size();
+	for(i = 0; i < size; ++i)
+	{
+		index = ((int)m_Destroyed[Entity_Projectile][i]-(int)&m_ProjectileArray[0])/sizeof(Projectile);
+		m_OpenList[Entity_Projectile].push_back(index);
+		m_OM->RemoveObject(m_Destroyed[Entity_Projectile][i],NUM_LAYERS-1);
+	}
+	m_Destroyed[Entity_Projectile].clear();
 }
 
 

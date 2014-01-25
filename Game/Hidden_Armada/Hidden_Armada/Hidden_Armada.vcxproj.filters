@@ -112,6 +112,9 @@
     <ClInclude Include="source\game\ObjectManager.h">
       <Filter>game\managers</Filter>
     </ClInclude>
+    <ClInclude Include="source\game\objects\Projectile.h">
+      <Filter>game\objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -171,6 +174,12 @@
     </ClCompile>
     <ClCompile Include="source\game\ObjectManager.cpp">
       <Filter>game\managers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\objects\Projectile.cpp">
+      <Filter>game\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\objects\Weapon.cpp">
+      <Filter>game\objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

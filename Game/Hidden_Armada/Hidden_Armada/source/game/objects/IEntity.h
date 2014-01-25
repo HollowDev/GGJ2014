@@ -14,6 +14,8 @@ class IEntity
 {
 protected:
 	Entity_Type m_Type;
+	bool m_IsAlive;
+
 public:
 	virtual ~IEntity( void ) = 0 {}
 	// The Interface
@@ -24,8 +26,11 @@ public:
 	virtual void HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY ) = 0;
 
 	virtual Sphere GetSphere( void ) = 0;
-
+	
 	inline Entity_Type GetType( void ) { return m_Type; }
+	inline bool GetIsAlive( void ) { return m_IsAlive; }
+
+	inline void SetIsAlive( bool _isAlive ) { m_IsAlive = _isAlive; }
 };
 
 #endif

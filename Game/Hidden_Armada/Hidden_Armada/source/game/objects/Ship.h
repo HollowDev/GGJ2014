@@ -2,10 +2,11 @@
 #define _SHIP_H_
 
 #include "BaseEntity.h"
+#include "Weapon.h"
 
 class Ship : public BaseEntity
 {
-	BaseEntity m_Weapon;
+	Weapon m_Weapon;
 
 	int m_HP;
 	int m_MaxHP;
