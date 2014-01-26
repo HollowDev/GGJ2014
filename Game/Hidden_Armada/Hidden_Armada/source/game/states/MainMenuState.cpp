@@ -101,7 +101,7 @@ void MainMenuState::Release( void )
 		delete m_Buttons[i];
 	}
 
-	m_Input->Release();
+	//m_Input->Release();
 	delete m_Input;
 }
 

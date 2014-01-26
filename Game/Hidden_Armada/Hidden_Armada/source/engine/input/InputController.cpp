@@ -23,7 +23,8 @@ void InputController::Initialize( HWND _hWnd, HINSTANCE _hInst )
 void InputController::Release( void )
 {
 	SAFE_DELETE(m_Gamepad);
-	SAFE_RELEASE(m_Keyboard);
+	m_Keyboard->Release();
+	delete m_Keyboard;
 }
 
 void InputController::CheckInput( PlayerShip* _player, BaseState* _state, Camera* _camera )

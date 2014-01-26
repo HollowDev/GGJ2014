@@ -25,10 +25,14 @@ class GameplayState : public BaseState
 	int		m_ShieldBarID;
 	int		m_HealthBarID;
 	
+	bool	m_QuitGame;
+
 	spriteButtons m_ShieldBar;
 	spriteButtons m_HudBackground;
 
 	spriteButtons m_HealthBar1;
+
+	bool m_isPaused;
 
 	int		m_BGMusic;
 

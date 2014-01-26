@@ -14,6 +14,9 @@
 #include "../AssetManager.h"
 #include "../../engine/sound/SoundManager.h"
 
+#include "PauseState.h"
+#include "../../engine/memory_macros.h"
+
 GameplayState::GameplayState( void )
 {
 
@@ -22,6 +25,7 @@ GameplayState::GameplayState( void )
 bool GameplayState::Initialize( WinApp* _app )
 {
 	m_App = _app;
+	m_QuitGame = false;
 
 	m_Input = new InputController();
 	m_Input->Initialize(m_App->GetHWND(), m_App->GetHINSTANCE());
@@ -98,59 +102,85 @@ bool GameplayState::Initialize( WinApp* _app )
 	m_BGMusic = SoundManager::GetInstance()->LoadMusic("assets/sounds/music/NormalGame_Loop.mp3");
 	SoundManager::GetInstance()->Play(m_BGMusic,true,false);
 
+	m_isPaused = false;
+
 	return true;
 }
 
 void GameplayState::Release( void )
 {
-
+	SAFE_DELETE(m_Player1);
+	SAFE_DELETE(m_Camera);
+	SAFE_DELETE(m_Input);
 }
 
 void GameplayState::Render( void )
 {
-	D3D9Handler::m_Device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0,0,0), 1.0f, 0);
-	D3D9Handler::m_Device->BeginScene();
+	if(!m_isPaused)
 	{
-		D3D9Handler::m_Sprite->Begin( D3DXSPRITE_ALPHABLEND );
+		D3D9Handler::m_Device->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(0,0,0), 1.0f, 0);
+		D3D9Handler::m_Device->BeginScene();
 		{
-			m_AsteroidManager.Render(-(int)m_Camera->GetPos().x, -(int)m_Camera->GetPos().y);
-
-			ObjectManager::GetInstance()->Render(-(int)m_Camera->GetPos().x, -(int)m_Camera->GetPos().y);
-
-			TextureManager::GetInstance()->Draw(m_HudBackgroundID, m_HudBackground.posX, m_HudBackground.posY, 1.15f, 1.15f, nullptr, 0.0f, 0.0f, 0.0f, m_HudBackground.color);
-			TextureManager::GetInstance()->Draw(m_ShieldBarID, m_ShieldBar.posX, m_ShieldBar.posY, 1.15f, 1.15f, &m_ShieldBar.sourceRect, 0.0f, 0.0f, 0.0f, m_ShieldBar.color);
-			for(int i = 0; i < m_Player1->GetHP(); ++i)
+			D3D9Handler::m_Sprite->Begin( D3DXSPRITE_ALPHABLEND );
 			{
-				TextureManager::GetInstance()->Draw(m_HealthBarID, m_HealthBar1.posX + (17 * i), m_HealthBar1.posY, 1.15f, 1.15f, nullptr, 0.0f, 0.0f, 0.0f, m_HealthBar1.color);
-			}
+				m_AsteroidManager.Render(-(int)m_Camera->GetPos().x, -(int)m_Camera->GetPos().y);
 
-			char score[256];
-			sprintf_s(score, "%i", m_Player1->GetScore());
-			m_Font.Print(score, 155, m_App->GetHeight() - 131, D3DCOLOR_ARGB(255, 255, 255, 255));
+				ObjectManager::GetInstance()->Render(-(int)m_Camera->GetPos().x, -(int)m_Camera->GetPos().y);
+
+				TextureManager::GetInstance()->Draw(m_HudBackgroundID, m_HudBackground.posX, m_HudBackground.posY, 1.15f, 1.15f, nullptr, 0.0f, 0.0f, 0.0f, m_HudBackground.color);
+				TextureManager::GetInstance()->Draw(m_ShieldBarID, m_ShieldBar.posX, m_ShieldBar.posY, 1.15f, 1.15f, &m_ShieldBar.sourceRect, 0.0f, 0.0f, 0.0f, m_ShieldBar.color);
+				for(int i = 0; i < m_Player1->GetHP(); ++i)
+				{
+					TextureManager::GetInstance()->Draw(m_HealthBarID, m_HealthBar1.posX + (17 * i), m_HealthBar1.posY, 1.15f, 1.15f, nullptr, 0.0f, 0.0f, 0.0f, m_HealthBar1.color);
+				}
+
+				char score[256];
+				sprintf_s(score, "%i", m_Player1->GetScore());
+				m_Font.Print(score, 155, m_App->GetHeight() - 131, D3DCOLOR_ARGB(255, 255, 255, 255));
+			}
+			D3D9Handler::m_Sprite->End();
 		}
-		D3D9Handler::m_Sprite->End();
+		D3D9Handler::m_Device->EndScene();
+		D3D9Handler::m_Device->Present(0,0,0,0);
 	}
-	D3D9Handler::m_Device->EndScene();
-	D3D9Handler::m_Device->Present(0,0,0,0);
 }
 
 void GameplayState::Update( float _dt )
 {
-	ObjectManager::GetInstance()->Update(_dt);
-	ObjectManager::GetInstance()->CheckCollision();
+	if(!m_isPaused)
+	{
+		ObjectManager::GetInstance()->Update(_dt);
+		ObjectManager::GetInstance()->CheckCollision();
 
-	ObjectFactory::GetInstance()->ProcessDestroy();
+		ObjectFactory::GetInstance()->ProcessDestroy();
 
-	m_Camera->Update(_dt, m_Player1, m_App, m_AsteroidManager.GetRows(), m_AsteroidManager.GetCols());
+		m_Camera->Update(_dt, m_Player1, m_App, m_AsteroidManager.GetRows(), m_AsteroidManager.GetCols());
 
-	m_AsteroidManager.Update(_dt);
+		m_AsteroidManager.Update(_dt);
+	}
+
+	if(m_QuitGame)
+	{
+		StateSystem::GetInstance()->ChangeState(new MainMenuState());
+	}
 }
 
 bool GameplayState::Input( void )
 {
-	if(m_Input->Input_Cancel())
+	if(!m_isPaused)
 	{
-		StateSystem::GetInstance()->ChangeState(new MainMenuState());
+		if(m_Input->Input_Cancel() || m_Input->Input_StartPressed())
+		{
+			if(!m_isPaused)
+			{
+				m_isPaused = true;
+				StateSystem::GetInstance()->AddState(new PauseState(m_Input, m_isPaused, m_QuitGame));
+			}
+			else
+			{
+				m_isPaused = false;
+			}
+		}
 	}
 
 	return true;
