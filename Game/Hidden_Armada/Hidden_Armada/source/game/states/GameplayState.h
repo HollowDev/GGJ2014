@@ -33,8 +33,9 @@ class GameplayState : public BaseState
 	spriteButtons m_HealthBar1;
 
 	bool m_isPaused;
-
 	int		m_BGMusic;
+
+	float m_EndGameTimer;
 
 public:
 	GameplayState( void );

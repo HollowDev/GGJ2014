@@ -17,6 +17,9 @@
 #include "PauseState.h"
 #include "../../engine/memory_macros.h"
 
+#include <sstream>
+using std::stringstream;
+
 GameplayState::GameplayState( void )
 {
 
@@ -107,6 +110,7 @@ bool GameplayState::Initialize( WinApp* _app )
 	SoundManager::GetInstance()->Play(m_BGMusic,true,false);
 
 	m_isPaused = false;
+	m_EndGameTimer = 5.0f * 60.0f;;
 
 	return true;
 }
@@ -141,6 +145,11 @@ void GameplayState::Render( void )
 				char score[256];
 				sprintf_s(score, "%i", m_Player1->GetScore());
 				m_Font.Print(score, 155, m_App->GetHeight() - 131, D3DCOLOR_ARGB(255, 255, 255, 255));
+
+				stringstream ss;
+				ss << "Time Left: " << int(m_EndGameTimer/60.0f) << ":" << int(m_EndGameTimer)%60;
+				m_Font.Print(ss.str().c_str(),m_App->GetWidth()-200.0f,32.0f, D3DCOLOR_ARGB(255,255,255,255));
+
 			}
 			D3D9Handler::m_Sprite->End();
 		}
@@ -170,6 +179,8 @@ void GameplayState::Update( float _dt )
 	{
 		StateSystem::GetInstance()->ChangeState(new MainMenuState());
 	}
+
+	m_EndGameTimer -= _dt;
 }
 
 bool GameplayState::Input( void )
