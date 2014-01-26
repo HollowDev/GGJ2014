@@ -27,6 +27,8 @@ public:
 	virtual Sphere GetSphere( void ) { return Sphere(GetPos(), float(GetSize())); }
 
 	virtual void Fire( IEntity* _owner );
+
+	inline LaserBeam* GetLaserBeam( void ) { return m_LaserBeam; }
 };
 
 #endif

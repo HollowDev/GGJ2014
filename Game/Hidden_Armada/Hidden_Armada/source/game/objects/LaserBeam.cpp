@@ -1,8 +1,9 @@
 #include "LaserBeam.h"
 
 #include "../../engine/renderer/TextureManager.h"
-#include "../../engine/renderer/D3D9Handler.h"
 #include "../AssetManager.h"
+#include "../ObjectFactory.h"
+#include "Explosion.h"
 
 LaserBeam::LaserBeam( void )
 {
@@ -37,23 +38,35 @@ void LaserBeam::Update( float _dt )
 	D3DXVECTOR2 toEnd = m_Segment.end - m_Segment.start;
 	float dist = D3DXVec2Length(&toEnd);
 	
+	D3DXVECTOR2 endpos;
 	int length = int(dist/32.0f);
 	for(unsigned int i = 0; i < length; ++i)
 	{
 		D3DXVECTOR2 pos = this->GetPos();
 		pos += GetDir() * 14 + GetDir() * (i*32);
 		m_Laser.push_back(pos);
+		endpos = pos;
 	}
 
 	m_Segment.start = GetPos() + GetDir()*14 + D3DXVECTOR2(28,32);
 	m_Segment.end = m_Segment.start + GetDir()*1280;
 
 	m_PrevDist = FLT_MAX;
+
+	if(m_CanDamage <= 0.0f)
+	{
+		m_CanDamage = 0.5f;
+	}
+
+	m_CanDamage -= _dt;
 }
 
 bool LaserBeam::CheckCollision( IEntity* _other ) 
 { 
-	if(_other != m_Owner && _other->GetType() != m_Owner->GetType())
+	if(_other->GetType() == Entity_Asteroid)
+		return true;
+
+	if(_other != m_Owner && _other->GetType() != m_Owner->GetType() && m_CanDamage <= 0.0f)
 		return true;
 
 	return false; 
@@ -64,5 +77,14 @@ void LaserBeam::HandleCollision( IEntity* _other, float _dist, float _dirX, floa
 	{
 		m_Segment.end = m_Segment.start + GetDir()*_dist;
 		m_PrevDist = _dist;
+	}
+	else if(_other->GetType() == Entity_EnemyShip)
+	{
+		D3DXVECTOR2 offset(rand()%20-10,rand()%20-10);
+
+		IEntity* explosion;
+		ObjectFactory::GetInstance()->Create(&explosion,Entity_Explosion);
+		((Explosion*)explosion)->Initialize(false);
+		((BaseEntity*)explosion)->SetPos( ((BaseEntity*)_other)->GetPos()+((BaseEntity*)_other)->GetImgCenter()+offset - ((BaseEntity*)explosion)->GetImgCenter() );
 	}
 }

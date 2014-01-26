@@ -97,8 +97,8 @@ void EnemyShip::HandleCollision( IEntity* _other, float _dist, float _dirX, floa
 	if(!_other->GetIsAlive())
 		return;
 
-	if(_other->GetType() != Entity_Projectile)
+	if(_other->GetType() != Entity_Projectile && _other->GetType() != Entity_LaserBeam)
 		this->SetPos( this->GetPos() + D3DXVECTOR2(_dirX,_dirY) * _dist);
-	else if(_other->GetType() == Entity_Projectile )
+	else if(_other->GetType() == Entity_Projectile || _other->GetType() == Entity_LaserBeam )
 		this->SetHP(this->GetHP()-1);
 }

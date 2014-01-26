@@ -11,6 +11,7 @@ Ship::Ship( void )
 
 	m_HP = 0;
 	m_MaxHP = 0;
+	m_Weapon = nullptr;
 }
 
 void Ship::Initialize( const char* _filepath, D3DXVECTOR2 _pos, int _weaponID )
@@ -102,6 +103,11 @@ void Ship::RotateWeaponToMouse( int _mouseX, int _mouseY )
 
 void Ship::SwitchWeapons( int _weaponID )
 {
+	if(m_Weapon && m_Weapon->GetWeaponType() == Weapon_Laser)
+	{
+		m_LaserGun.GetLaserBeam()->SetIsAlive(false);
+	}
+
 	if(_weaponID == Weapon_MachineGun)
 	{
 		m_MachineGun.SetLevel(1);
