@@ -25,6 +25,9 @@ private:
 
 	int m_MouseX, m_MouseY;
 
+	HWND m_hWnd;
+	HINSTANCE m_hInst;
+
 public:
 	Keyboard(void);
 	~Keyboard(void);

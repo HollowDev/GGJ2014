@@ -18,6 +18,9 @@ bool Keyboard::Initialize(HWND _hWnd, HINSTANCE _hInst)
 	m_MouseX = 0;
 	m_MouseY = 0;
 
+	m_hWnd = _hWnd;
+	m_hInst	= _hInst;
+
 	hr = DirectInput8Create(_hInst, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&m_DirectInput, NULL);
 	if(FAILED(hr))
 		return false;
@@ -164,6 +167,9 @@ bool Keyboard::KeyUp(unsigned char _key)
 
 void Keyboard::GetMouseLocation( int& _mouseX, int& _mouseY )
 {
-	_mouseX = m_MouseX;
-	_mouseY = m_MouseY;
+	POINT mouse;
+	GetCursorPos(&mouse);
+	ScreenToClient(m_hWnd, &mouse);
+	_mouseX = (int)mouse.x;
+	_mouseY = (int)mouse.y;
 }

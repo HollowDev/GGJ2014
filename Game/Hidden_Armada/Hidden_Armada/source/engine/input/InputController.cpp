@@ -73,6 +73,12 @@ void InputController::CheckInput( PlayerShip* _player, BaseState* _state )
 			if(!m_Keyboard->Update())
 				return;
 			int x, y;
+
+			//POINT mouse;
+			//GetCursorPos(&mouse);
+			//ScreenToClient(m_App->GetHWND(),&mouse);
+			//m_Player1->RotateWeaponToMouse((int)mouse.x,(int)mouse.y);
+
 			m_Keyboard->GetMouseLocation(x, y);
 			_player->RotateWeaponToMouse(x, y);
 
