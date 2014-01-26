@@ -13,6 +13,7 @@ using std::vector;
 #include "objects\Shield.h"
 #include "objects\Reveal.h"
 #include "objects\BoostTrail.h"
+#include "objects\BossEnemy.h"
 
 #define MAX_ASTEROIDS	1000
 #define MAX_ENEMYSHIPS	1000
@@ -23,6 +24,7 @@ using std::vector;
 #define MAX_SHIELDS		50
 #define MAX_REVEAL		50
 #define MAX_BOOST_TRAIL	100
+#define MAX_BOSSES		10
 
 class ObjectManager;
 class ObjectFactory
@@ -41,6 +43,7 @@ class ObjectFactory
 	Shield m_ShieldArray[MAX_SHIELDS];
 	Reveal m_RevealArray[MAX_REVEAL];
 	BoostTrail m_BoostTrailArray[MAX_BOOST_TRAIL];
+	BossEnemy m_BossArray[MAX_BOSSES];
 
 	static ObjectFactory m_Instance;
 

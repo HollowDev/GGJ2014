@@ -78,27 +78,27 @@ void Ship::HandleCollision( IEntity* _other, float _dist, float _dirX, float _di
 		this->SetPos( this->GetPos() + D3DXVECTOR2(_dirX,_dirY) * _dist);
 }
 
-void Ship::RotateWeaponToMouse( int _mouseX, int _mouseY )
+void Ship::RotateWeaponToMouse( Weapon* _weapon, int _mouseX, int _mouseY )
 {
 	// Calculate the vector from this token to the Target's position
 	D3DXVECTOR2 vToTarget(0,0);
 	D3DXVECTOR2 tDefault(0,-1);
 
-	vToTarget.x = _mouseX - (m_Weapon->GetPos().x + m_Weapon->GetImgCenter().x);
-	vToTarget.y = _mouseY - (m_Weapon->GetPos().y + m_Weapon->GetImgCenter().y);
+	vToTarget.x = _mouseX - (_weapon->GetPos().x + _weapon->GetImgCenter().x);
+	vToTarget.y = _mouseY - (_weapon->GetPos().y + _weapon->GetImgCenter().y);
 
 	// Calculate forward vector
-	D3DXVECTOR2 forward = Rotate2D( tDefault, m_Weapon->GetRot() );
+	D3DXVECTOR2 forward = Rotate2D( tDefault, _weapon->GetRot() );
 	// calculate the angle between the vectors
 	float angle = AngleBetweenVectors( vToTarget, forward );
 
 	if(Steering(forward, vToTarget) < 0.0f)
-		m_Weapon->SetRot(m_Weapon->GetRot() - angle);
+		_weapon->SetRot(_weapon->GetRot() - angle);
 	else
-		m_Weapon->SetRot(m_Weapon->GetRot() + angle);
+		_weapon->SetRot(_weapon->GetRot() + angle);
 
 	D3DXVec2Normalize(&vToTarget,&vToTarget);
-	m_Weapon->SetDir(vToTarget);
+	_weapon->SetDir(vToTarget);
 }
 
 void Ship::SwitchWeapons( int _weaponID )

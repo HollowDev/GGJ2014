@@ -34,7 +34,7 @@ public:
 
 	void SwitchWeapons( int _weaponID );
 	
-	void RotateWeaponToMouse( int _mouseX, int _mouseY );
+	void RotateWeaponToMouse(Weapon* _weapon, int _mouseX, int _mouseY );
 
 	// accessors
 	inline int GetHP( void ) { return m_HP; }

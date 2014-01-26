@@ -112,6 +112,8 @@ bool GameplayState::Initialize( WinApp* _app )
 	m_isPaused = false;
 	m_EndGameTimer = 5.0f * 60.0f;;
 
+	AIManager::GetInstance()->SpawnBoss( D3DXVECTOR2(2000,1000) );
+
 	return true;
 }
 

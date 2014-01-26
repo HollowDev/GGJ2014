@@ -100,6 +100,7 @@
     <ClInclude Include="source\game\objects\Asteroids.h" />
     <ClInclude Include="source\game\objects\BaseEntity.h" />
     <ClInclude Include="source\game\objects\BoostTrail.h" />
+    <ClInclude Include="source\game\objects\BossEnemy.h" />
     <ClInclude Include="source\game\objects\EnemyShip.h" />
     <ClInclude Include="source\game\objects\Explosion.h" />
     <ClInclude Include="source\game\objects\IEntity.h" />
@@ -147,6 +148,7 @@
     <ClCompile Include="source\game\objects\Asteroids.cpp" />
     <ClCompile Include="source\game\objects\BaseEntity.cpp" />
     <ClCompile Include="source\game\objects\BoostTrail.cpp" />
+    <ClCompile Include="source\game\objects\BossEnemy.cpp" />
     <ClCompile Include="source\game\objects\EnemyShip.cpp" />
     <ClCompile Include="source\game\objects\Explosion.cpp" />
     <ClCompile Include="source\game\objects\LaserBeam.cpp" />

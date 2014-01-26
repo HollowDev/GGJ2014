@@ -52,7 +52,7 @@ void InputController::CheckInput( PlayerShip* _player, BaseState* _state, Camera
 			{
 				int posX = (int)(_player->GetWeapon()->GetPos().x + _player->GetWeapon()->GetImgCenter().x + m_Gamepad->m_RightStickX*10);
 				int posY = (int)(_player->GetWeapon()->GetPos().y + _player->GetWeapon()->GetImgCenter().y - m_Gamepad->m_RightStickY*10);
-				_player->RotateWeaponToMouse(posX,posY);
+				_player->RotateWeaponToMouse(_player->GetWeapon(),posX,posY);
 				_player->FireWeapon();
 			}
 
@@ -87,7 +87,7 @@ void InputController::CheckInput( PlayerShip* _player, BaseState* _state, Camera
 			int x, y;
 
 			m_Keyboard->GetMouseLocation(x, y);
-			_player->RotateWeaponToMouse(x + (int)_camera->GetPos().x, y + (int)_camera->GetPos().y);
+			_player->RotateWeaponToMouse(_player->GetWeapon(),x + (int)_camera->GetPos().x, y + (int)_camera->GetPos().y);
 
 			if(m_Keyboard->KeyDown(DIK_W))
 				_player->SetVel(_player->GetVel() + D3DXVECTOR2(0, -_player->GetMaxSpeed()));

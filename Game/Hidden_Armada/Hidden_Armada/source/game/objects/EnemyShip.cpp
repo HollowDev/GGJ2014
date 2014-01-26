@@ -40,7 +40,7 @@ void EnemyShip::Update( float _dt )
 		this->SetVel( this->GetDir() * this->GetMaxSpeed() );
 
 		D3DXVECTOR2 pos = m_Target->GetPos() + m_Target->GetImgCenter();
-		RotateWeaponToMouse((int)pos.x,(int)pos.y);
+		RotateWeaponToMouse(this->GetWeapon(),(int)pos.x,(int)pos.y);
 
 		this->GetWeapon()->Fire(this);
 	}

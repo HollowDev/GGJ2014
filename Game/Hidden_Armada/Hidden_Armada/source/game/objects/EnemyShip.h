@@ -5,6 +5,7 @@
 
 class EnemyShip : public Ship
 {
+protected:
 	BaseEntity* m_Target;
 
 public:

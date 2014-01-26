@@ -58,6 +58,12 @@ void ObjectFactory::Initialize( void )
 		m_OpenList[Entity_BoostTrail].push_back(i);
 		m_BoostTrailArray[i].Initialize();
 	}
+
+	for(i = 0; i < MAX_BOSSES; ++i)
+	{
+		m_OpenList[Entity_Boss].push_back(i);
+		m_BossArray[i].Initialize();
+	}
 }
 
 
@@ -133,6 +139,13 @@ bool ObjectFactory::Create( IEntity** _object, Entity_Type _id )
 			// make default here
 			*_object = &m_BoostTrailArray[index];
 			m_OM->AddObject(&m_BoostTrailArray[index],3);
+		}
+		break;
+	case Entity_Boss:
+		{
+			// make default here
+			*_object = &m_BossArray[index];
+			m_OM->AddObject(&m_BossArray[index],2);
 		}
 		break;
 	}
@@ -244,6 +257,16 @@ bool ObjectFactory::Destroy( IEntity* _object )
 			m_Destroyed[Entity_BoostTrail].push_back(&m_BoostTrailArray[test]);
 		}
 		break;
+	case Entity_Boss:
+		{
+			test = ((int)_object-(int)&m_BossArray[0]) / sizeof(BossEnemy);
+			if( test < 0 || test >= MAX_BOSSES )
+				return false;
+			else if( !IsValid( Entity_Boss, test ) )
+				return false;
+
+			m_Destroyed[Entity_Boss].push_back(&m_BossArray[test]);
+		}
 	}
 
 	return true;
@@ -333,6 +356,15 @@ void ObjectFactory::ProcessDestroy( void )
 		m_OM->RemoveObject(m_Destroyed[Entity_BoostTrail][i],3);
 	}
 	m_Destroyed[Entity_BoostTrail].clear();
+
+	size = m_Destroyed[Entity_Boss].size();
+	for(i = 0; i < size; ++i)
+	{
+		index = ((int)m_Destroyed[Entity_Boss][i]-(int)&m_BossArray[0])/sizeof(BossEnemy);
+		m_OpenList[Entity_Boss].push_back(index);
+		m_OM->RemoveObject(m_Destroyed[Entity_Boss][i],2);
+	}
+	m_Destroyed[Entity_Boss].clear();
 }
 
 

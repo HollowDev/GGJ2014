@@ -196,6 +196,9 @@
     <ClInclude Include="source\game\objects\BoostTrail.h">
       <Filter>game\objects\weapons</Filter>
     </ClInclude>
+    <ClInclude Include="source\game\objects\BossEnemy.h">
+      <Filter>game\objects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -330,6 +333,9 @@
     </ClCompile>
     <ClCompile Include="source\game\objects\BoostTrail.cpp">
       <Filter>game\objects\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\objects\BossEnemy.cpp">
+      <Filter>game\objects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

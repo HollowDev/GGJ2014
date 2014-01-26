@@ -32,6 +32,7 @@ public:
 
 	void Update( float _dt );
 	void SpawnEnemy( D3DXVECTOR2 _pos );
+	void SpawnBoss( D3DXVECTOR2 _pos );
 
 	IEntity* GetClosestEnemy( D3DXVECTOR2 _pos );
 	PlayerShip* GetTarget( void ) { return m_Target; }

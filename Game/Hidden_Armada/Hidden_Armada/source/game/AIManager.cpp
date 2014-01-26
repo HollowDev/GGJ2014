@@ -98,3 +98,19 @@ void AIManager::SpawnEnemy( D3DXVECTOR2 _pos )
 		m_Enemies.push_back( (EnemyShip*)enemy );
 	}
 }
+
+void AIManager::SpawnBoss( D3DXVECTOR2 _pos )
+{
+	IEntity* boss;
+	if( ObjectFactory::GetInstance()->Create(&boss, Entity_Boss) )
+	{
+		((BossEnemy*)boss)->SetPos(_pos);
+		((BossEnemy*)boss)->SetHP(100);
+		((BossEnemy*)boss)->SetMaxHP(100);
+		((BossEnemy*)boss)->SetSize(50);
+		((BossEnemy*)boss)->SetIsAlive(true);
+		((BossEnemy*)boss)->SetTarget(m_Target);
+
+		m_Enemies.push_back((EnemyShip*)boss);
+	}
+}
