@@ -21,6 +21,10 @@ class PlayerShip : public Ship
 	float			m_LastHit;
 	float			m_InvulnTimer;
 
+	bool			m_Boosting;
+	float			m_BoostTrailSpawn;
+	float			m_BoostSpeed;
+
 public:
 	PlayerShip( void );
 	~PlayerShip( void ) { Release(); }
@@ -35,6 +39,7 @@ public:
 
 	virtual Sphere GetSphere( void ) { return Sphere(GetPos()+this->GetImgCenter(), float(this->GetSize())); }
 
+	void FireWeapon( void );
 	void UseReveal( void );
 	void UseBoost( void );
 
@@ -45,6 +50,7 @@ public:
 	// mutators
 	inline void SetScore( int _score ) { m_Score = _score; }
 	inline void SetShield( Shield* _shield ) { m_Shield = _shield; }
+	inline void SetBoosting( bool _boosting ) { m_Boosting = _boosting; }
 
 	inline void AddToScore( int _toAdd ) { m_Score += _toAdd; }
 };

@@ -107,7 +107,8 @@ void Projectile::HandleCollision( IEntity* _other, float _dist, float _dirX, flo
 	if( _other->GetType() != Entity_Projectile && _other != m_Owner )
 	{
 		this->SetIsAlive(false);
-		if(_other->GetType() == Entity_EnemyShip || _other->GetType() == Entity_PlayerShip)
+		if( _other->GetType() == Entity_EnemyShip || _other->GetType() == Entity_PlayerShip ||
+			(_other->GetType() == Entity_BoostTrail && this->m_IsHoming && m_Owner->GetType() == Entity_EnemyShip) )
 		{
 			if(this->m_IsHoming)
 			{

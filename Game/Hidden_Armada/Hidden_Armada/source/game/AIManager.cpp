@@ -88,7 +88,10 @@ void AIManager::SpawnEnemy( D3DXVECTOR2 _pos )
 		((EnemyShip*)enemy)->SetTarget(m_Target);
 		((EnemyShip*)enemy)->SetIsAlive(true);
 		if(rand()%6 == 0)
+		{
 			((EnemyShip*)enemy)->SwitchWeapons(Weapon_Missle);
+			((EnemyShip*)enemy)->GetWeapon()->SetROF(1.5f);
+		}
 		else
 			((EnemyShip*)enemy)->SwitchWeapons(Weapon_MachineGun);
 

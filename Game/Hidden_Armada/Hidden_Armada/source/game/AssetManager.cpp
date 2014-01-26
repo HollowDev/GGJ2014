@@ -46,6 +46,7 @@ void AssetManager::Initialize( void )
 	m_Assets[Asset_ShipThrust] = TM->LoadTexture(L"assets/textures/playershipeffects/playerships_thrust.png");
 	m_Assets[Asset_Reveal] = TM->LoadTexture(L"assets/textures/playershipeffects/revealwave.png");
 	m_Assets[Asset_Shield] = TM->LoadTexture(L"assets/textures/playershipeffects/ShipShield.png");
+	m_Assets[Asset_BoostTrail] = TM->LoadTexture(L"assets/textures/playershipeffects/boost_trail.png");
 
 	// POWERUPS FOLDER
 	m_Assets[Asset_Powerups01] = TM->LoadTexture(L"assets/textures/powerups/powerups1.png");

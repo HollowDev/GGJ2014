@@ -26,6 +26,8 @@ void PlayerShip::Initialize( const char* _filepath, D3DXVECTOR2 _pos, int _weapo
 	m_RechargeTimer = 2.0f;
 	m_LastHit = 2.0f;
 	m_InvulnTimer = 0.0f;
+	m_Boosting = false;
+	m_BoostSpeed = GetMaxSpeed() + 100;
 }
 
 void PlayerShip::Release( void )
@@ -43,7 +45,7 @@ void PlayerShip::Update( float _dt )
 {
 	Ship::Update(_dt);
 
-	m_Shield->SetPos(GetPos());
+	m_Shield->SetPos(GetPos() + D3DXVECTOR2(10,14));
 
 	if(m_InvulnTimer != 0.0f)
 		m_InvulnTimer -= _dt;
@@ -104,6 +106,27 @@ void PlayerShip::Update( float _dt )
 			SetHP(GetMaxHP());
 		}
 	}
+
+	if(m_Boosting)
+	{
+		m_BoostTrailSpawn -= _dt;
+		
+		if(m_BoostTrailSpawn <= 0.0f)
+		{
+			IEntity* trail;
+			for(float deg = -90.0f; deg <= 90.0f; deg+=45.0f)
+			{
+				ObjectFactory::GetInstance()->Create(&trail,Entity_BoostTrail);
+				((BaseEntity*)trail)->SetPos(this->GetPos() + this->GetImgCenter() - ((BaseEntity*)trail)->GetImgCenter() + GetDir()*-16.0f);
+				D3DXVECTOR2 forward = Rotate2D( GetDir(), D3DXToRadian(deg) );
+				((BaseEntity*)trail)->SetDir(forward);
+			}
+			m_BoostTrailSpawn = 0.1f;
+		}
+		this->SetMaxSpeed(m_BoostSpeed);
+	}
+	else
+		this->SetMaxSpeed(m_BoostSpeed-100);
 	
 }
 
@@ -158,6 +181,14 @@ void PlayerShip::HandleCollision( IEntity* _other, float _dist, float _dirX, flo
 	}
 }
 
+void PlayerShip::FireWeapon( void )
+{
+	if(!m_Boosting)
+	{
+		this->GetWeapon()->Fire(this);
+	}
+}
+
 void PlayerShip::UseReveal( void )
 {
 	if(!m_Reveal || !m_Reveal->GetIsAlive())
@@ -168,4 +199,9 @@ void PlayerShip::UseReveal( void )
 		((BaseEntity*)m_Reveal)->SetPos(this->GetPos()+this->GetImgCenter());
 	}
 
+}
+
+void PlayerShip::UseBoost( void )
+{
+	m_Boosting = true;
 }

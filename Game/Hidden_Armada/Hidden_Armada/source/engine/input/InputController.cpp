@@ -53,7 +53,7 @@ void InputController::CheckInput( PlayerShip* _player, BaseState* _state, Camera
 				int posX = (int)(_player->GetWeapon()->GetPos().x + _player->GetWeapon()->GetImgCenter().x + m_Gamepad->m_RightStickX*10);
 				int posY = (int)(_player->GetWeapon()->GetPos().y + _player->GetWeapon()->GetImgCenter().y - m_Gamepad->m_RightStickY*10);
 				_player->RotateWeaponToMouse(posX,posY);
-				_player->GetWeapon()->Fire(_player);
+				_player->FireWeapon();
 			}
 
 			// LeftStick moved, MOVE!
@@ -73,6 +73,11 @@ void InputController::CheckInput( PlayerShip* _player, BaseState* _state, Camera
 			if(m_Gamepad->ButtonDown(XINPUT_GAMEPAD_RIGHT_SHOULDER))
 			{
 				_player->UseReveal();
+			}
+
+			if(m_Gamepad->ButtonDown(XINPUT_GAMEPAD_LEFT_SHOULDER))
+			{
+				_player->UseBoost();
 			}
 		}
 		else	// No gamepad, use the keyboard/mouse
@@ -95,9 +100,14 @@ void InputController::CheckInput( PlayerShip* _player, BaseState* _state, Camera
 				_player->SetVel(_player->GetVel() + D3DXVECTOR2(_player->GetMaxSpeed(), 0));
 
 			if(GetAsyncKeyState(VK_LBUTTON))
-				_player->GetWeapon()->Fire(_player);
+				_player->FireWeapon();
 			else if(GetAsyncKeyState(VK_RBUTTON))
 				_player->UseReveal();
+
+			if(m_Keyboard->KeyDown(DIK_LSHIFT))
+				_player->UseBoost();
+			else
+				_player->SetBoosting(false);
 		}
 	}
 }
