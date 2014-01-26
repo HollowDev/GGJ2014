@@ -41,6 +41,12 @@ void ObjectFactory::Initialize( void )
 		m_OpenList[Entity_LaserBeam].push_back(i);
 		m_LaserBeamArray[i].Initialize();
 	}
+
+	for(i = 0; i < MAX_SHIELDS; ++i)
+	{
+		m_OpenList[Entity_Shield].push_back(i);
+		m_ShieldArray[i].Initialize();
+	}
 }
 
 
@@ -95,6 +101,13 @@ bool ObjectFactory::Create( IEntity** _object, Entity_Type _id )
 			// make default here
 			*_object = &m_LaserBeamArray[index];
 			m_OM->AddObject(&m_LaserBeamArray[index],2);
+		}
+		break;
+	case Entity_Shield:
+		{
+			// make default here
+			*_object = &m_ShieldArray[index];
+			m_OM->AddObject(&m_ShieldArray[index],3);
 		}
 		break;
 	}
@@ -174,6 +187,17 @@ bool ObjectFactory::Destroy( IEntity* _object )
 			m_Destroyed[Entity_LaserBeam].push_back(&m_LaserBeamArray[test]);
 		}
 		break;
+	case Entity_Shield:
+		{
+			test = ((int)_object-(int)&m_ShieldArray[0]) / sizeof(Shield);
+			if( test < 0 || test >= MAX_SHIELDS )
+				return false;
+			else if( !IsValid( Entity_Shield, test ) )
+				return false;
+
+			m_Destroyed[Entity_Shield].push_back(&m_ShieldArray[test]);
+		}
+		break;
 	}
 
 	return true;
@@ -236,6 +260,15 @@ void ObjectFactory::ProcessDestroy( void )
 		m_OM->RemoveObject(m_Destroyed[Entity_LaserBeam][i],2);
 	}
 	m_Destroyed[Entity_LaserBeam].clear();
+
+	size = m_Destroyed[Entity_Shield].size();
+	for(i = 0; i < size; ++i)
+	{
+		index = ((int)m_Destroyed[Entity_Shield][i]-(int)&m_ShieldArray[0])/sizeof(Shield);
+		m_OpenList[Entity_Shield].push_back(index);
+		m_OM->RemoveObject(m_Destroyed[Entity_Shield][i],3);
+	}
+	m_Destroyed[Entity_Shield].clear();
 }
 
 

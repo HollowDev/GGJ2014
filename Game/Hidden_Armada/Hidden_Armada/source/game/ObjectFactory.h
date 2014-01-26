@@ -10,6 +10,7 @@ using std::vector;
 #include "objects\Powerup.h"
 #include "objects\Explosion.h"
 #include "objects\LaserBeam.h"
+#include "objects\Shield.h"
 
 #define MAX_ASTEROIDS	500
 #define MAX_ENEMYSHIPS	2000
@@ -17,6 +18,7 @@ using std::vector;
 #define MAX_POWERUPS	200
 #define MAX_EXPLOSIONS	500
 #define MAX_LASERBEAMS	100
+#define MAX_SHIELDS		2000
 
 class ObjectManager;
 class ObjectFactory
@@ -32,6 +34,8 @@ class ObjectFactory
 	Powerup m_PowerupArray[MAX_POWERUPS];
 	Explosion m_ExplosionArray[MAX_EXPLOSIONS];
 	LaserBeam m_LaserBeamArray[MAX_LASERBEAMS];
+	LaserBeam m_LaserBeamArray[MAX_LASERBEAMS];
+	Shield m_ShieldArray[MAX_SHIELDS];
 
 	static ObjectFactory m_Instance;
 
