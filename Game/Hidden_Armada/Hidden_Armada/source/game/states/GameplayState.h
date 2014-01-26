@@ -30,6 +30,8 @@ class GameplayState : public BaseState
 
 	spriteButtons m_HealthBar1;
 
+	int		m_BGMusic;
+
 public:
 	GameplayState( void );
 	~GameplayState( void ) { Release(); }

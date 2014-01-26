@@ -14,7 +14,9 @@ class AsteroidManager
 		bool m_IsLoaded;
 		vector<Asteroids*> m_Asteroids;
 		vector<BaseEntity> m_Star;
+		void Start( int _x, int _y );
 		void Reload( int _x, int _y );
+		void UpdateList( void );
 	};
 
 	PlayerShip* m_Player;

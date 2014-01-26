@@ -90,11 +90,11 @@ bool SoundManager::Initialize( void )
 	if(!FMODCheckError(result))
 		return false;
 
-	result = m_System->createChannelGroup(NULL, &m_ChannelMusic);
+	result = m_System->createChannelGroup("music_channel", &m_ChannelMusic);
 	if(!FMODCheckError(result))
 		return false;
 
-	result = m_System->createChannelGroup(NULL, &m_ChannelSFX);
+	result = m_System->createChannelGroup("effect_channel", &m_ChannelSFX);
 	if(!FMODCheckError(result))
 		return false;
 
@@ -171,7 +171,7 @@ int SoundManager::LoadSFX( const char* _fileName )
 	//error check
 
 	// Assign song to a channel, and start paused
-	result = m_System->playSound(FMOD_CHANNEL_FREE, newSound->sound, true, &newSound->channel);
+	result = m_System->playSound(FMOD_CHANNEL_REUSE, newSound->sound, true, &newSound->channel);
 	// error check
 	newSound->isSFX = true;
 
@@ -191,35 +191,27 @@ void SoundManager::Play( int _soundID, bool _isLooping, bool _startOver )
 {
 	Sounds* temp = m_Sounds[_soundID];
 
-	if(temp->isSFX && IsPlaying(_soundID) == false)
+	if(temp->isSFX)
 	{
+		m_System->playSound(FMOD_CHANNEL_REUSE, temp->sound, true, &temp->channel);
 		temp->channel->setChannelGroup(m_ChannelSFX);
-		int index = 0;
-		temp->channel->getIndex(&index);
-		
-		m_System->playSound((FMOD_CHANNELINDEX)index, temp->sound, false, &temp->channel);
+		temp->channel->setPaused(false);
 	}
 	else
-		temp->channel->setPaused(false);
-
-	bool paused, isplaying;
-	temp->channel->getPaused(&paused);
-	isplaying = IsPlaying(_soundID);
-
-	if((temp->isSFX == false) && ((paused == false && isplaying == false) || _startOver == true))
 	{
-		int index = 0;
-		temp->channel->getIndex(&index);
-		m_System->playSound((FMOD_CHANNELINDEX)index, temp->sound, _isLooping, &temp->channel);
+		// Make sure we are not playing a song twice
+		bool isPaused = false;
+		temp->channel->getPaused(&isPaused);
+		if(isPaused == false)
+			return;
+		// play the song!
+		m_System->playSound(FMOD_CHANNEL_FREE, temp->sound, false, &temp->channel);
 	}
 
 	if(_isLooping)
 	{
+		temp->channel->setMode(FMOD_LOOP_NORMAL);
 		temp->channel->setLoopCount(-1);
-	}
-	else
-	{
-		temp->channel->setLoopCount(0);
 	}
 }
 

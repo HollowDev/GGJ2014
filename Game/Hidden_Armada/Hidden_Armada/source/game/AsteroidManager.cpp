@@ -4,6 +4,22 @@
 
 #include "../engine/memory_macros.h"
 
+void AsteroidManager::AsteroidChunk::Start( int _x, int _y )
+{
+	for(int i = 0; i < 100; ++i)
+	{
+		int randX = rand()%1024;
+		int randY = rand()%768;
+
+		BaseEntity star;
+		RECT source = {0,0,8,8};
+		star.Initialize(AssetManager::GetInstance()->GetAsset(Asset_Star01),source,D3DXVECTOR2(4,4),D3DXVECTOR2(randX+_x,randY+_y),0,0);
+		m_Star.push_back(star);
+	}
+
+	Reload(_x,_y);
+}
+
 void AsteroidManager::AsteroidChunk::Reload( int _x, int _y )
 {
 	if(m_Asteroids.size() == m_NumAsteroids)
@@ -35,18 +51,17 @@ void AsteroidManager::AsteroidChunk::Reload( int _x, int _y )
 		m_Asteroids.push_back((Asteroids*)newAsteroid);
 	}
 
-	for(int i = 0; i < 100; ++i)
-	{
-		int randX = rand()%1024;
-		int randY = rand()%768;
-
-		BaseEntity star;
-		RECT source = {0,0,8,8};
-		star.Initialize(AssetManager::GetInstance()->GetAsset(Asset_Star01),source,D3DXVECTOR2(4,4),D3DXVECTOR2(randX+_x,randY+_y),0,0);
-		m_Star.push_back(star);
-	}
-
 	m_IsLoaded = true;
+}
+
+void AsteroidManager::AsteroidChunk::UpdateList( void )
+{
+	vector<Asteroids*> newList;
+	for(unsigned int i = 0; i < m_Asteroids.size(); ++i)
+		if(m_Asteroids[i]->GetIsAlive())
+			newList.push_back(m_Asteroids[i]);
+
+	m_Asteroids = newList;
 }
 
 AsteroidManager::AsteroidManager( void )
@@ -70,7 +85,7 @@ void AsteroidManager::Initialize( int _numColumns, int _numRows, int _numAsteroi
 			m_Chunks[x][y] = new AsteroidChunk();
 			m_Chunks[x][y]->m_NumAsteroids = _numAsteroidsPer;
 			m_Chunks[x][y]->m_IsLoaded = false;
-			m_Chunks[x][y]->Reload(x*1024,y*768);
+			m_Chunks[x][y]->Start(x*1024,y*768);
 		}
 	}
 }
@@ -93,28 +108,52 @@ void AsteroidManager::Update( float _dt )
 	if(!m_Player || !m_Chunks)
 		return;
 
+	for(int x = 0; x < m_NumColumns; ++x)
+		for(int y = 0; y < m_NumRows; ++y)
+			m_Chunks[x][y]->UpdateList();
+
 	// Check to see what area the player occupies.
 	int amCoordsX = m_Player->GetPos().x / 1024;
 	int amCoordsY = m_Player->GetPos().y / 768;
 
 	// currently visiting
-	if( amCoordsX > 0 && amCoordsX < m_NumColumns &&
-		amCoordsY > 0 && amCoordsY < m_NumRows )
+	if( amCoordsX >= 0 && amCoordsX < m_NumColumns &&
+		amCoordsY >= 0 && amCoordsY < m_NumRows )
 	{
-		m_Chunks[amCoordsX][amCoordsY]->m_IsLoaded = false;
-		for(int x = -1; x < 1; ++x)
+		vector<int> m_LocX;
+		vector<int> m_LocY;
+		for(int x = -1; x <= 1; ++x)
 		{
-			for(int y = -1; y < 1; ++y)
+			for(int y = -1; y <= 1; ++y)
 			{
-				if(x == 0 && y == 0)
-					continue;
-				if(m_Chunks[amCoordsX+x][amCoordsY+y] && !m_Chunks[amCoordsX+x][amCoordsY+y]->m_IsLoaded)
+				if( amCoordsX+x >= 0 && amCoordsX < m_NumColumns &&
+					amCoordsY+y >= 0 && amCoordsY < m_NumRows )
 				{
-					m_Chunks[amCoordsX+x][amCoordsY+y]->Reload( (amCoordsX+x)*1024, (amCoordsY+y)*768 );
+					m_LocX.push_back(amCoordsX+x);
+					m_LocY.push_back(amCoordsY+y);
 				}
 			}
 		}
-		
+
+		for(int x = 0; x < m_NumColumns; ++x)
+		{
+			for(int y = 0; y < m_NumRows; ++y)		
+			{
+				bool update = true;
+				for(unsigned int i = 0; i < m_LocX.size(); ++i)
+				{
+					if(m_LocX[i] == x && m_LocY[i] == y)
+					{
+						update = false;
+						break;
+					}
+				}
+				if(update)
+				{
+					m_Chunks[x][y]->Reload(x*1024,y*768);
+				}
+			}
+		}
 	}
 }
 

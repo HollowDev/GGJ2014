@@ -12,6 +12,7 @@
 
 #include "../objects/EnemyShip.h"
 #include "../AssetManager.h"
+#include "../../engine/sound/SoundManager.h"
 
 GameplayState::GameplayState( void )
 {
@@ -93,6 +94,9 @@ bool GameplayState::Initialize( WinApp* _app )
 	m_HealthBar1.color = D3DCOLOR_ARGB(255, 255, 255, 255);
 	m_HealthBar1.posX = 177;
 	m_HealthBar1.posY = m_App->GetHeight() - 63;
+
+	m_BGMusic = SoundManager::GetInstance()->LoadMusic("assets/sounds/music/NormalGame_Loop.mp3");
+	SoundManager::GetInstance()->Play(m_BGMusic,true,false);
 
 	return true;
 }
