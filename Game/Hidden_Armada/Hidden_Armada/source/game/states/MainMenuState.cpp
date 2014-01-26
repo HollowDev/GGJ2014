@@ -81,9 +81,9 @@ bool MainMenuState::Initialize( WinApp* _app )
 	newButton->sourceRect.right = 256;	newButton->sourceRect.bottom = 33;
 	m_Buttons.push_back(newButton);
 
-	m_TestMusic = SoundManager::GetInstance()->LoadMusic("assets/sounds/music/main_intro.mp3");
+	m_TestMusic = SoundManager::GetInstance()->LoadMusic("assets/sounds/music/MainMenu_intro.mp3");
 	m_MoveSFX = SoundManager::GetInstance()->LoadSFX("assets/sounds/sfx/menu_move.wav");
-	m_MenuLoopMusic = SoundManager::GetInstance()->LoadMusic("assets/sounds/music/main_loop.mp3");
+	m_MenuLoopMusic = SoundManager::GetInstance()->LoadMusic("assets/sounds/music/MainMenu_loop.mp3");
 	SoundManager::GetInstance()->Play(m_TestMusic, false, true);
 
 	return true;
@@ -207,7 +207,7 @@ void MainMenuState::Update( float _dt )
 	}
 
 	m_MusicTimer += _dt;
-	if(m_MusicTimer > 27.0f)
+	if(m_MusicTimer > 8.0f)
 	{
 		SoundManager::GetInstance()->Play(m_MenuLoopMusic, true, false);
 	}
