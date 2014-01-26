@@ -2,6 +2,7 @@
 #include "../ObjectFactory.h"
 #include "Projectile.h"
 #include "../AssetManager.h"
+#include "../../engine/sound/SoundManager.h"
 
 RaptorGun::RaptorGun( void )
 {
@@ -71,6 +72,8 @@ void RaptorGun::Fire( IEntity* _owner )
 				((Projectile*)proj)->SetOwner(_owner);
 			}
 		}
+		
+		SoundManager::GetInstance()->Play(AssetManager::GetInstance()->GetAsset(Asset_S_MissileFire),false,false);
 		// update fire timer
 		m_FireTimer = m_ROF;
 	}

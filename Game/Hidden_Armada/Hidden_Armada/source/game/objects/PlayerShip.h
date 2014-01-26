@@ -33,6 +33,7 @@ public:
 	virtual Sphere GetSphere( void ) { return Sphere(GetPos()+this->GetImgCenter(), float(this->GetSize())); }
 	
 	void UseReveal( void );
+	void UseBoost( void );
 
 	// accessors
 	inline int GetScore( void ) { return m_Score; }

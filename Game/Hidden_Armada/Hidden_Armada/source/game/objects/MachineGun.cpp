@@ -2,6 +2,7 @@
 #include "../ObjectFactory.h"
 #include "Projectile.h"
 #include "../AssetManager.h"
+#include "../../engine/sound/SoundManager.h"
 
 MachineGun::MachineGun( void )
 {
@@ -62,6 +63,11 @@ void MachineGun::Fire( IEntity* _owner )
 			((Projectile*)proj)->SetIsChaining(true);
 			((Projectile*)proj)->SetOwner(_owner);
 		}
+		if(_owner->GetType() == Entity_PlayerShip)
+		{
+			SoundManager::GetInstance()->Play(AssetManager::GetInstance()->GetAsset(Asset_S_MachinegunFire),false,false);
+		}
+
 		// update fire timer
 		m_FireTimer = m_ROF;
 	}

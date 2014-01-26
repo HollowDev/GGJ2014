@@ -52,6 +52,12 @@ void ObjectFactory::Initialize( void )
 		m_OpenList[Entity_Reveal].push_back(i);
 		m_RevealArray[i].Initialize();
 	}
+
+	for(i = 0; i < MAX_BOOST_TRAIL; ++i)
+	{
+		m_OpenList[Entity_BoostTrail].push_back(i);
+		m_BoostTrailArray[i].Initialize();
+	}
 }
 
 
@@ -122,6 +128,13 @@ bool ObjectFactory::Create( IEntity** _object, Entity_Type _id )
 			m_OM->AddObject(&m_RevealArray[index],3);
 		}
 		break;
+	case Entity_BoostTrail:
+		{
+			// make default here
+			*_object = &m_BoostTrailArray[index];
+			m_OM->AddObject(&m_BoostTrailArray[index],3);
+		}
+		break;
 	}
 	(*_object)->SetIsAlive(true);
 
@@ -131,7 +144,6 @@ bool ObjectFactory::Create( IEntity** _object, Entity_Type _id )
 bool ObjectFactory::Destroy( IEntity* _object )
 {
 	int test = -1;
-
 	switch(_object->GetType())
 	{
 	case Entity_Asteroid:
@@ -221,6 +233,17 @@ bool ObjectFactory::Destroy( IEntity* _object )
 			m_Destroyed[Entity_Reveal].push_back(&m_RevealArray[test]);
 		}
 		break;
+	case Entity_BoostTrail:
+		{
+			test = ((int)_object-(int)&m_BoostTrailArray[0]) / sizeof(BoostTrail);
+			if( test < 0 || test >= MAX_BOOST_TRAIL )
+				return false;
+			else if( !IsValid( Entity_BoostTrail, test ) )
+				return false;
+
+			m_Destroyed[Entity_BoostTrail].push_back(&m_BoostTrailArray[test]);
+		}
+		break;
 	}
 
 	return true;
@@ -301,6 +324,15 @@ void ObjectFactory::ProcessDestroy( void )
 		m_OM->RemoveObject(m_Destroyed[Entity_Reveal][i],3);
 	}
 	m_Destroyed[Entity_Reveal].clear();
+
+	size = m_Destroyed[Entity_BoostTrail].size();
+	for(i = 0; i < size; ++i)
+	{
+		index = ((int)m_Destroyed[Entity_BoostTrail][i]-(int)&m_BoostTrailArray[0])/sizeof(BoostTrail);
+		m_OpenList[Entity_BoostTrail].push_back(index);
+		m_OM->RemoveObject(m_Destroyed[Entity_BoostTrail][i],3);
+	}
+	m_Destroyed[Entity_BoostTrail].clear();
 }
 
 

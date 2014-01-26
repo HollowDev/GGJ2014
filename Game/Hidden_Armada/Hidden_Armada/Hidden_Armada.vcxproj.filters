@@ -193,6 +193,9 @@
     <ClInclude Include="source\game\AsteroidManager.h">
       <Filter>game\managers</Filter>
     </ClInclude>
+    <ClInclude Include="source\game\objects\BoostTrail.h">
+      <Filter>game\objects\weapons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -324,6 +327,9 @@
     </ClCompile>
     <ClCompile Include="source\game\AsteroidManager.cpp">
       <Filter>game\managers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\objects\BoostTrail.cpp">
+      <Filter>game\objects\weapons</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

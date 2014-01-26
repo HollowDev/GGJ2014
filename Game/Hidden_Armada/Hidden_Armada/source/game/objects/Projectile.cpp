@@ -109,11 +109,14 @@ void Projectile::HandleCollision( IEntity* _other, float _dist, float _dirX, flo
 		this->SetIsAlive(false);
 		if(_other->GetType() == Entity_EnemyShip || _other->GetType() == Entity_PlayerShip)
 		{
-			IEntity* explosion;
-			ObjectFactory::GetInstance()->Create(&explosion,Entity_Explosion);
-			((Explosion*)explosion)->Initialize(false);
-			((BaseEntity*)explosion)->SetPos( this->GetPos() - ((BaseEntity*)explosion)->GetImgCenter() );
-			SoundManager::GetInstance()->Play(AssetManager::GetInstance()->GetAsset(Asset_S_Explosion01),false,false);
+			if(this->m_IsHoming)
+			{
+				IEntity* explosion;
+				ObjectFactory::GetInstance()->Create(&explosion,Entity_Explosion);
+				((Explosion*)explosion)->Initialize(false);
+				((BaseEntity*)explosion)->SetPos( this->GetPos() - ((BaseEntity*)explosion)->GetImgCenter() );
+				SoundManager::GetInstance()->Play(AssetManager::GetInstance()->GetAsset(Asset_S_Explosion01),false,false);
+			}
 		}
 	}
 }

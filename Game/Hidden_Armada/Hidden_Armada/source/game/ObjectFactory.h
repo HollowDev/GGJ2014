@@ -12,15 +12,17 @@ using std::vector;
 #include "objects\LaserBeam.h"
 #include "objects\Shield.h"
 #include "objects\Reveal.h"
+#include "objects\BoostTrail.h"
 
-#define MAX_ASTEROIDS	5000
-#define MAX_ENEMYSHIPS	2000
-#define MAX_PROJECTILES	1000
+#define MAX_ASTEROIDS	1000
+#define MAX_ENEMYSHIPS	1000
+#define MAX_PROJECTILES	3000
 #define MAX_POWERUPS	1000
-#define MAX_EXPLOSIONS	5000
-#define MAX_LASERBEAMS	1000
-#define MAX_SHIELDS		2000
-#define MAX_REVEAL		100
+#define MAX_EXPLOSIONS	3000
+#define MAX_LASERBEAMS	50
+#define MAX_SHIELDS		50
+#define MAX_REVEAL		50
+#define MAX_BOOST_TRAIL	100
 
 class ObjectManager;
 class ObjectFactory
@@ -38,6 +40,7 @@ class ObjectFactory
 	LaserBeam m_LaserBeamArray[MAX_LASERBEAMS];
 	Shield m_ShieldArray[MAX_SHIELDS];
 	Reveal m_RevealArray[MAX_REVEAL];
+	BoostTrail m_BoostTrailArray[MAX_BOOST_TRAIL];
 
 	static ObjectFactory m_Instance;
 

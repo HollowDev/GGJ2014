@@ -77,7 +77,6 @@ void AssetManager::Initialize( void )
 	// ROOT
 	m_Assets[Asset_Font] = TM->LoadTexture(L"assets/textures/font.png");
 
-
 	SoundManager* SM = SoundManager::GetInstance();
 	// LOAD SOUNDS
 	m_Assets[Asset_S_Explosion01] = SM->LoadSFX("assets/sounds/sfx/Explosions/Explosion01.wav");
@@ -88,6 +87,10 @@ void AssetManager::Initialize( void )
 	m_Assets[Asset_S_Explosion06] = SM->LoadSFX("assets/sounds/sfx/Explosions/Explosion06.wav");
 	m_Assets[Asset_S_Explosion07] = SM->LoadSFX("assets/sounds/sfx/Explosions/Explosion07.wav");
 	m_Assets[Asset_S_ExplosionS] = SM->LoadSFX("assets/sounds/sfx/Explosions/ExplosionS.wav");
+	
+	m_Assets[Asset_S_MachinegunFire] = SM->LoadSFX("assets/sounds/sfx/weapons/machinegun_fire.wav");
+	m_Assets[Asset_S_MissileFire] = SM->LoadSFX("assets/sounds/sfx/weapons/missile_fire.wav");
+	m_Assets[Asset_S_AsteroidHit] = SM->LoadSFX("assets/sounds/sfx/weapons/asteroid_hit.wav");
 }
 
 void AssetManager::Release( void )
