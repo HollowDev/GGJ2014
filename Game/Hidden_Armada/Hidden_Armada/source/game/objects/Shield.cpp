@@ -24,7 +24,7 @@ void Shield::Update(float _dt)
 	if(m_RenderTimer != 2.0f)
 		m_RenderTimer += _dt;
 
-	if(m_RenderTimer > 2.0f)
+	if(m_RenderTimer >= 2.0f)
 	{
 		m_RenderTimer = 2.0f;
 		m_Render = false;

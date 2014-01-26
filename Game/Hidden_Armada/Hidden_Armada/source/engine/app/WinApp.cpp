@@ -45,7 +45,7 @@ void WinApp::Initialize( LPCWSTR _title, HINSTANCE _HInstance, BaseState* _start
 	RegisterClassEx(&wcex);
 
 	// Create the window
-	m_HWND = CreateWindow(_title, _title, (_windowed ? WS_OVERLAPPEDWINDOW : WS_EX_TOPMOST), CW_USEDEFAULT,
+	m_HWND = CreateWindow(_title, _title, (_windowed ? WS_OVERLAPPEDWINDOW : WS_POPUP), CW_USEDEFAULT,
 		0, m_WindowWidth, m_WindowHeight, 0, 0, m_HInstance, this);
 
 	// Adjust to desired size

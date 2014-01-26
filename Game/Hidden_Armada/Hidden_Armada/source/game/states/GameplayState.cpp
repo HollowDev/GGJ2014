@@ -164,8 +164,8 @@ void GameplayState::Render( void )
 				}
 
 				char score[256];
-				sprintf_s(score, "%i", m_Player1->GetScore());
-				m_Font.Print(score, 155, m_App->GetHeight() - 131, D3DCOLOR_ARGB(255, 255, 255, 255));
+				//sprintf_s(score, "%i", m_Player1->GetScore());
+				//m_Font.Print(score, 155, m_App->GetHeight() - 131, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 				stringstream ss;
 				ss << "Time Left: " << int(m_EndGameTimer/60.0f) << ":" << int(m_EndGameTimer)%60;
