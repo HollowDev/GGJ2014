@@ -4,5 +4,6 @@
 #include "CollisionVolume.h"
 
 bool SphereToSphere( Sphere& _rhs, Sphere& _lhs, ColInfo& _rhsResult, ColInfo& _lhsResult );
+bool SegmentToSphere( Segment& _rhs, Sphere& _lhs, ColInfo& _rhsResult, ColInfo& _lhsResult );
 
 #endif

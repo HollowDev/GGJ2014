@@ -3,9 +3,14 @@
 #include "Projectile.h"
 #include "../AssetManager.h"
 
+#include "../../engine/renderer/TextureManager.h"
+
 LaserGun::LaserGun( void )
 {
+	m_Type = 69;
 	m_WeaponType = (int)Weapon_Laser;
+	m_LaserBeam = nullptr;
+	m_Firing = false;
 }
 
 void LaserGun::Initialize( void )
@@ -37,30 +42,35 @@ void LaserGun::Update( float _dt )
 	}
 
 	Weapon::Update(_dt);
+
+	if(!m_Firing && m_LaserBeam)
+		m_LaserBeam->SetIsAlive(false);
+
+	m_Firing = false;
+}
+
+bool LaserGun::CheckCollision( IEntity* _other )
+{
+	if(_other->GetType() != Entity_PlayerShip)
+		return true;
+
+	return false;
 }
 
 void LaserGun::HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY )
 {
-
 }
 
 void LaserGun::Fire( IEntity* _owner )
 {
-	if(m_FireTimer <= 0.0f)
+	m_Firing = true;
+	if(m_LaserBeam == nullptr || m_LaserBeam->GetIsAlive() == false)
 	{
-		// Fire projectile
-		IEntity* proj;
-		if( ObjectFactory::GetInstance()->Create(&proj,Entity_Projectile) )
-		{
-			((Projectile*)proj)->Initialize();
-			((Projectile*)proj)->SetImgID(AssetManager::GetInstance()->GetAsset(Asset_LaserProjectile));
-			((Projectile*)proj)->SetPos(GetPos() + GetImgCenter());
-			((Projectile*)proj)->SetDir(GetDir());
-			((Projectile*)proj)->SetMaxSpeed(500);
-			((Projectile*)proj)->Rotate();
-			((Projectile*)proj)->SetOwner(_owner);
-		}
-		// update fire timer
-		m_FireTimer = m_ROF;
+		ObjectFactory::GetInstance()->Create(((IEntity**)&m_LaserBeam),Entity_LaserBeam);
 	}
+	m_LaserBeam->SetIsAlive(true);
+	m_LaserBeam->SetPos(this->GetPos());
+	m_LaserBeam->SetDir(this->GetDir());
+	m_LaserBeam->SetRot(this->GetRot());
+	m_LaserBeam->SetOwner(_owner);
 }

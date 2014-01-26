@@ -51,7 +51,8 @@ void Asteroids::Update( float _dt )
 bool Asteroids::CheckCollision( IEntity* _other )
 {
 	if(_other->GetType() == Entity_Asteroid || _other->GetType() == Entity_PlayerShip ||
-		_other->GetType() == Entity_Projectile || _other->GetType() == Entity_EnemyShip )
+		_other->GetType() == Entity_Projectile || _other->GetType() == Entity_EnemyShip ||
+		_other->GetType() == Entity_LaserBeam)
 		return true;
 
 	return false;

@@ -9,12 +9,14 @@ using std::vector;
 #include "objects\EnemyShip.h"
 #include "objects\Powerup.h"
 #include "objects\Explosion.h"
+#include "objects\LaserBeam.h"
 
 #define MAX_ASTEROIDS	200
 #define MAX_ENEMYSHIPS	2000
 #define MAX_PROJECTILES	200
 #define MAX_POWERUPS	100
 #define MAX_EXPLOSIONS	200
+#define MAX_LASERBEAMS	100
 
 class ObjectManager;
 class ObjectFactory
@@ -29,6 +31,7 @@ class ObjectFactory
 	EnemyShip m_EnemyShipArray[MAX_ENEMYSHIPS];
 	Powerup m_PowerupArray[MAX_POWERUPS];
 	Explosion m_ExplosionArray[MAX_EXPLOSIONS];
+	LaserBeam m_LaserBeamArray[MAX_LASERBEAMS];
 
 	static ObjectFactory m_Instance;
 

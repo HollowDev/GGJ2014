@@ -6,14 +6,14 @@
 enum Entity_Type
 {
 	Entity_None = 0, Entity_PlayerShip, Entity_EnemyShip, Entity_Projectile,
-	Entity_Asteroid, Entity_Powerup, Entity_Explosion,
+	Entity_Asteroid, Entity_Powerup, Entity_Explosion, Entity_LaserBeam,
 	Entity_NumTypes
 };
 
 class IEntity
 {
 protected:
-	Entity_Type m_Type;
+	int m_Type;
 	bool m_IsAlive;
 
 public:
@@ -28,7 +28,7 @@ public:
 
 	virtual Sphere GetSphere( void ) = 0;
 	
-	inline Entity_Type GetType( void ) { return m_Type; }
+	inline int GetType( void ) { return m_Type; }
 	inline bool GetIsAlive( void ) { return m_IsAlive; }
 
 	inline void SetIsAlive( bool _isAlive ) { m_IsAlive = _isAlive; }

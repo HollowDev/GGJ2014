@@ -64,11 +64,26 @@ void ObjectManager::CheckCollision( void )
 						   !m_Objects[y][j]->CheckCollision(m_Objects[x][i]) )
 						   continue;
 
-						ColInfo rhs, lhs;
-						if(SphereToSphere(object1->GetSphere(), object2->GetSphere(), rhs, lhs))
+						if(object1->GetType() != Entity_LaserBeam && object2->GetType() != Entity_LaserBeam)
 						{
-							object1->HandleCollision(object2, rhs.offset, rhs.dir.x, rhs.dir.y);
-							object2->HandleCollision(object1, lhs.offset, lhs.dir.x, lhs.dir.y);
+							ColInfo rhs, lhs;
+							if(SphereToSphere(object1->GetSphere(), object2->GetSphere(), rhs, lhs))
+							{
+								object1->HandleCollision(object2, rhs.offset, rhs.dir.x, rhs.dir.y);
+								object2->HandleCollision(object1, lhs.offset, lhs.dir.x, lhs.dir.y);
+							}
+						}
+						else
+						{
+							if(object1->GetType() == Entity_LaserBeam)
+							{
+								ColInfo rhs, lhs;
+								if(SegmentToSphere(((LaserBeam*)object1)->GetSegment(),object2->GetSphere(),rhs,lhs))
+								{
+									object1->HandleCollision(object2, rhs.offset, rhs.dir.x, rhs.dir.y);
+									object2->HandleCollision(object1, lhs.offset, lhs.dir.x, lhs.dir.y);
+								}
+							}
 						}
 					}
 				}

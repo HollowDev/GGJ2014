@@ -101,6 +101,7 @@
     <ClInclude Include="source\game\objects\EnemyShip.h" />
     <ClInclude Include="source\game\objects\Explosion.h" />
     <ClInclude Include="source\game\objects\IEntity.h" />
+    <ClInclude Include="source\game\objects\LaserBeam.h" />
     <ClInclude Include="source\game\objects\LaserGun.h" />
     <ClInclude Include="source\game\objects\MachineGun.h" />
     <ClInclude Include="source\game\objects\PlayerShip.h" />
@@ -142,6 +143,7 @@
     <ClCompile Include="source\game\objects\BaseEntity.cpp" />
     <ClCompile Include="source\game\objects\EnemyShip.cpp" />
     <ClCompile Include="source\game\objects\Explosion.cpp" />
+    <ClCompile Include="source\game\objects\LaserBeam.cpp" />
     <ClCompile Include="source\game\objects\LaserGun.cpp" />
     <ClCompile Include="source\game\objects\MachineGun.cpp" />
     <ClCompile Include="source\game\objects\PlayerShip.cpp" />
