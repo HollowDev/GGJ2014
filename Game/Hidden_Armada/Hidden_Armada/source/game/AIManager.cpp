@@ -15,6 +15,43 @@ void AIManager::Release( void )
 
 }
 
+void AIManager::Update( float _dt )
+{
+	vector<EnemyShip*> newList;
+	for(unsigned int i = 0; i < m_Enemies.size(); ++i)
+	{
+		if(m_Enemies[i]->GetIsAlive())
+			newList.push_back(m_Enemies[i]);
+	}
+
+	m_Enemies = newList;
+}
+
+
+IEntity* AIManager::GetClosestEnemy( D3DXVECTOR2 _pos )
+{
+	if(m_Enemies.size() == 0)
+		return nullptr;
+
+	int closestIndex = -1;
+	float closestDist = FLT_MAX;
+	for(unsigned int i = 0; i < m_Enemies.size(); ++i)
+	{
+		D3DXVECTOR2 toTarget = m_Enemies[i]->GetPos() - _pos;
+		float dist = D3DXVec2Length(&toTarget);
+		if(dist < closestDist)
+		{
+			closestDist = dist;
+			closestIndex = i;
+		}
+	}
+
+	if(closestIndex == -1)
+		return nullptr;
+
+	return m_Enemies[closestIndex];
+}
+
 void AIManager::SpawnEnemy( D3DXVECTOR2 _pos )
 {
 	IEntity* enemy;
@@ -50,5 +87,7 @@ void AIManager::SpawnEnemy( D3DXVECTOR2 _pos )
 		((EnemyShip*)enemy)->SetImgSource(source);
 		((EnemyShip*)enemy)->SetTarget(m_Target);
 		((EnemyShip*)enemy)->SetIsAlive(true);
+
+		m_Enemies.push_back( (EnemyShip*)enemy );
 	}
 }

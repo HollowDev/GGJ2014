@@ -8,11 +8,13 @@ using std::vector;
 #include "objects\Projectile.h"
 #include "objects\EnemyShip.h"
 #include "objects\Powerup.h"
+#include "objects\Explosion.h"
 
 #define MAX_ASTEROIDS	200
 #define MAX_ENEMYSHIPS	2000
 #define MAX_PROJECTILES	200
-#define MAX_POWERUPS		100
+#define MAX_POWERUPS	100
+#define MAX_EXPLOSIONS	200
 
 class ObjectManager;
 class ObjectFactory
@@ -22,11 +24,11 @@ class ObjectFactory
 	vector<unsigned int> m_OpenList[Entity_NumTypes];
 	vector<IEntity*> m_Destroyed[Entity_NumTypes];
 
-
 	Asteroids m_AsteroidArray[MAX_ASTEROIDS];
 	Projectile m_ProjectileArray[MAX_PROJECTILES];
 	EnemyShip m_EnemyShipArray[MAX_ENEMYSHIPS];
 	Powerup m_PowerupArray[MAX_POWERUPS];
+	Explosion m_ExplosionArray[MAX_EXPLOSIONS];
 
 	static ObjectFactory m_Instance;
 

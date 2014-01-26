@@ -3,6 +3,7 @@
 #include "../ObjectFactory.h"
 #include "../../engine/renderer/TextureManager.h"
 #include "Powerup.h"
+#include "Explosion.h"
 
 EnemyShip::EnemyShip( void )
 {
@@ -13,7 +14,7 @@ EnemyShip::EnemyShip( void )
 void EnemyShip::Initialize( const char* _filepath, D3DXVECTOR2 _pos, int _weaponID )
 {
 	Ship::Initialize(_filepath,_pos,_weaponID);
-	this->GetWeapon()->SetROF(0.5f);
+	this->GetWeapon()->SetROF(1.5f);
 }
 
 void EnemyShip::Release( void )
@@ -38,7 +39,7 @@ void EnemyShip::Update( float _dt )
 		D3DXVECTOR2 pos = m_Target->GetPos() + m_Target->GetImgCenter();
 		RotateWeaponToMouse((int)pos.x,(int)pos.y);
 
-		//this->GetWeapon()->Fire(this);
+		this->GetWeapon()->Fire(this);
 	}
 
 	if(this->GetHP() <= 0)
@@ -50,6 +51,11 @@ void EnemyShip::Update( float _dt )
 		((BaseEntity*)powerup)->SetImgID(TextureManager::GetInstance()->LoadTexture(L"assets/textures/powerups/powerups1.png"));
 		((BaseEntity*)powerup)->SetPos(this->GetPos()+this->GetImgCenter());
 		((Powerup*)powerup)->SetLife(10.0f);
+
+		IEntity* explosion;
+		ObjectFactory::GetInstance()->Create(&explosion,Entity_Explosion);
+		((Explosion*)explosion)->Initialize(true);
+		((BaseEntity*)explosion)->SetPos( this->GetPos() );
 	}
 }
 

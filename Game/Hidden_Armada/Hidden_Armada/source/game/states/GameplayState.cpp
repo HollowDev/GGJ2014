@@ -25,7 +25,7 @@ bool GameplayState::Initialize( WinApp* _app )
 	m_Input = new InputController();
 	m_Input->Initialize(m_App->GetHWND(), m_App->GetHINSTANCE());
 
-	int p1ID = AssetManager::GetInstance()->GetAsset(Asset_PlayerShip03);
+	int p1ID = AssetManager::GetInstance()->GetAsset(Asset_PlayerShip02);
 	int weaponID = AssetManager::GetInstance()->GetAsset(Asset_WeaponLaser03);
 	RECT source = {0,0,128,128};
 

@@ -29,6 +29,12 @@ void ObjectFactory::Initialize( void )
 	{
 		m_OpenList[Entity_Powerup].push_back(i);
 	}
+
+	for(i = 0; i < MAX_EXPLOSIONS; ++i)
+	{
+		m_OpenList[Entity_Explosion].push_back(i);
+		m_ExplosionArray[i].Initialize();
+	}
 }
 
 
@@ -68,7 +74,14 @@ bool ObjectFactory::Create( IEntity** _object, Entity_Type _id )
 			// make default here
 			m_PowerupArray[index].SetPowerType(rand()%3);	// random between the three
 			*_object = &m_PowerupArray[index];
-			m_OM->AddObject(&m_PowerupArray[index],3);
+			m_OM->AddObject(&m_PowerupArray[index],2);
+		}
+		break;
+	case Entity_Explosion:
+		{
+			// make default here
+			*_object = &m_ExplosionArray[index];
+			m_OM->AddObject(&m_ExplosionArray[index],NUM_LAYERS-1);
 		}
 		break;
 	}
@@ -126,6 +139,17 @@ bool ObjectFactory::Destroy( IEntity* _object )
 			m_Destroyed[Entity_Powerup].push_back(&m_PowerupArray[test]);
 		}
 		break;
+	case Entity_Explosion:
+		{
+			test = ((int)_object-(int)&m_ExplosionArray[0]) / sizeof(Explosion);
+			if( test < 0 || test >= MAX_EXPLOSIONS )
+				return false;
+			else if( !IsValid( Entity_Explosion, test ) )
+				return false;
+
+			m_Destroyed[Entity_Explosion].push_back(&m_ExplosionArray[test]);
+		}
+		break;
 	}
 
 	return true;
@@ -167,9 +191,18 @@ void ObjectFactory::ProcessDestroy( void )
 	{
 		index = ((int)m_Destroyed[Entity_Powerup][i]-(int)&m_PowerupArray[0])/sizeof(Powerup);
 		m_OpenList[Entity_Powerup].push_back(index);
-		m_OM->RemoveObject(m_Destroyed[Entity_Powerup][i],3);
+		m_OM->RemoveObject(m_Destroyed[Entity_Powerup][i],2);
 	}
 	m_Destroyed[Entity_Powerup].clear();
+
+	size = m_Destroyed[Entity_Explosion].size();
+	for(i = 0; i < size; ++i)
+	{
+		index = ((int)m_Destroyed[Entity_Explosion][i]-(int)&m_ExplosionArray[0])/sizeof(Explosion);
+		m_OpenList[Entity_Explosion].push_back(index);
+		m_OM->RemoveObject(m_Destroyed[Entity_Explosion][i],NUM_LAYERS-1);
+	}
+	m_Destroyed[Entity_Explosion].clear();
 }
 
 

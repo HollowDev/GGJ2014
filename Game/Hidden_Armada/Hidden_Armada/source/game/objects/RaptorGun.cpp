@@ -51,15 +51,23 @@ void RaptorGun::Fire( IEntity* _owner )
 	{
 		// Fire projectile
 		IEntity* proj;
-		if( ObjectFactory::GetInstance()->Create(&proj,Entity_Projectile) )
+		
+		for(float deg = -30.0f; deg < 30.0f; deg+=10.0f)
 		{
-			((Projectile*)proj)->Initialize();
-			((Projectile*)proj)->SetImgID(AssetManager::GetInstance()->GetAsset(Asset_MissleProjectile));
-			((Projectile*)proj)->SetPos(GetPos() + GetImgCenter());
-			((Projectile*)proj)->SetDir(GetDir());
-			((Projectile*)proj)->SetMaxSpeed(500);
-			((Projectile*)proj)->Rotate();
-			((Projectile*)proj)->SetOwner(_owner);
+			if( ObjectFactory::GetInstance()->Create(&proj,Entity_Projectile) )
+			{
+				((Projectile*)proj)->Initialize();
+				((Projectile*)proj)->SetImgID(AssetManager::GetInstance()->GetAsset(Asset_MissleProjectile));
+				((Projectile*)proj)->SetPos(GetPos() + GetImgCenter());
+
+				D3DXVECTOR2 forward = Rotate2D( -GetDir(), D3DXToRadian(deg) );
+
+				((Projectile*)proj)->SetDir(forward);
+				((Projectile*)proj)->SetMaxSpeed(450);
+				((Projectile*)proj)->Rotate();
+				((Projectile*)proj)->SetIsHoming(true);
+				((Projectile*)proj)->SetOwner(_owner);
+			}
 		}
 		// update fire timer
 		m_FireTimer = m_ROF;

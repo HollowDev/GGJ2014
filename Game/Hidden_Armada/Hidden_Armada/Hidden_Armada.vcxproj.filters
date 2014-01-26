@@ -178,6 +178,9 @@
     <ClInclude Include="source\game\objects\RaptorGun.h">
       <Filter>game\objects\weapons</Filter>
     </ClInclude>
+    <ClInclude Include="source\game\objects\Explosion.h">
+      <Filter>game\objects\weapons</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -293,6 +296,9 @@
       <Filter>game\objects\weapons</Filter>
     </ClCompile>
     <ClCompile Include="source\game\objects\RaptorGun.cpp">
+      <Filter>game\objects\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\objects\Explosion.cpp">
       <Filter>game\objects\weapons</Filter>
     </ClCompile>
   </ItemGroup>

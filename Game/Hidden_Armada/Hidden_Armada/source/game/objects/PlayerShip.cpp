@@ -30,9 +30,9 @@ void PlayerShip::Render( int _x, int _y )
 
 void PlayerShip::Update( float _dt )
 {
-	Ship::Update(_dt);
-
 	m_Input->CheckInput(this, nullptr, m_Camera);
+
+	Ship::Update(_dt);
 }
 
 bool PlayerShip::CheckCollision( IEntity* _other )

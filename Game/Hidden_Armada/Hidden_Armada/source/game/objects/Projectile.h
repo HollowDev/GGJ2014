@@ -10,6 +10,7 @@ class Projectile : public BaseEntity
 	bool m_IsHoming;
 	bool m_IsChaining;
 	IEntity* m_Owner;
+	IEntity* m_Target;
 
 public:
 	Projectile( void );
@@ -24,6 +25,8 @@ public:
 	void HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY );
 
 	virtual Sphere GetSphere( void ) { return Sphere(GetPos(), float(GetSize())); }
+
+	void TurnToTarget( float _dt );
 
 	inline void SetOwner( IEntity* _owner ) { m_Owner = _owner; }
 	inline void SetIsHoming( bool _isHoming ) { m_IsHoming = _isHoming; }

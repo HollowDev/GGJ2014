@@ -6,7 +6,7 @@
 enum Entity_Type
 {
 	Entity_None = 0, Entity_PlayerShip, Entity_EnemyShip, Entity_Projectile,
-	Entity_Asteroid, Entity_Powerup,
+	Entity_Asteroid, Entity_Powerup, Entity_Explosion,
 	Entity_NumTypes
 };
 
