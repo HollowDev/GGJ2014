@@ -24,6 +24,13 @@ class GameplayState : public BaseState
 	int		m_HudBackgroundID;
 	int		m_ShieldBarID;
 	int		m_HealthBarID;
+
+	int		m_GameOverScreen;
+	float	m_GameOverTimer;
+	bool	m_GameOver;
+	int		m_ScoreTally;
+	float	m_LeaveGameTimer;
+
 	
 	bool	m_QuitGame;
 
@@ -33,7 +40,7 @@ class GameplayState : public BaseState
 	spriteButtons m_HealthBar1;
 
 	bool m_isPaused;
-	int		m_BGMusic;
+	int	m_BGMusic;
 
 	float m_EndGameTimer;
 

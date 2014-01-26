@@ -17,6 +17,8 @@
 #include "PauseState.h"
 #include "../../engine/memory_macros.h"
 
+#include "CreditsState.h"
+
 #include <sstream>
 using std::stringstream;
 
@@ -66,6 +68,10 @@ bool GameplayState::Initialize( WinApp* _app )
 
 	AIManager::GetInstance()->Initialize(m_Player1);
 
+	m_GameOver = false;
+	m_ScoreTally = 0;
+	m_GameOverTimer = 5.0f;
+
 	IEntity* newShield;
 	ObjectFactory::GetInstance()->Create(&newShield, Entity_Shield);
 	Shield* tempShield = (Shield*)newShield;
@@ -89,6 +95,7 @@ bool GameplayState::Initialize( WinApp* _app )
 	m_HudBackgroundID = AssetManager::GetInstance()->GetAsset(Asset_HudOutline);
 	m_ShieldBarID = AssetManager::GetInstance()->GetAsset(Asset_HudShieldBar);
 	m_HealthBarID = AssetManager::GetInstance()->GetAsset(Asset_HudHealthNotch);
+	m_GameOverScreen = AssetManager::GetInstance()->GetAsset(Asset_GameOver);
 
 	m_HudBackground.color = D3DCOLOR_ARGB(150, 255, 255, 255);
 	m_HudBackground.posX = 25;
@@ -102,6 +109,8 @@ bool GameplayState::Initialize( WinApp* _app )
 	m_ShieldBar.sourceRect.right = 55;
 	m_ShieldBar.sourceRect.bottom = 17;
 
+	m_LeaveGameTimer = 5.0f;
+
 	m_HealthBar1.color = D3DCOLOR_ARGB(255, 255, 255, 255);
 	m_HealthBar1.posX = 177;
 	m_HealthBar1.posY = m_App->GetHeight() - 63;
@@ -110,9 +119,7 @@ bool GameplayState::Initialize( WinApp* _app )
 	SoundManager::GetInstance()->Play(m_BGMusic,true,false);
 
 	m_isPaused = false;
-	m_EndGameTimer = 5.0f * 60.0f;;
-
-	AIManager::GetInstance()->SpawnBoss( D3DXVECTOR2(2000,1000) );
+	m_EndGameTimer = 5.0f * 60.0f;
 
 	return true;
 }
@@ -152,6 +159,14 @@ void GameplayState::Render( void )
 				ss << "Time Left: " << int(m_EndGameTimer/60.0f) << ":" << int(m_EndGameTimer)%60;
 				m_Font.Print(ss.str().c_str(),m_App->GetWidth()-200.0f,32.0f, D3DCOLOR_ARGB(255,255,255,255));
 
+				if(m_GameOver)
+				{
+					TextureManager::GetInstance()->Draw(m_GameOverScreen, 0, 0);
+					// Insert Score render here.
+					sprintf_s(score, "%i", m_ScoreTally);
+					m_Font.Print(score, m_App->GetWidth() / 2, m_App->GetHeight() / 2, D3DCOLOR_ARGB(255, 255, 255, 255));
+				}
+
 			}
 			D3D9Handler::m_Sprite->End();
 		}
@@ -162,43 +177,75 @@ void GameplayState::Render( void )
 
 void GameplayState::Update( float _dt )
 {
-	if(!m_isPaused)
+	if(!m_GameOver)
 	{
-		ObjectManager::GetInstance()->Update(_dt);
-		ObjectManager::GetInstance()->CheckCollision();
+		if(!m_isPaused)
+		{
+			ObjectManager::GetInstance()->Update(_dt);
+			ObjectManager::GetInstance()->CheckCollision();
 
-		ObjectFactory::GetInstance()->ProcessDestroy();
+			ObjectFactory::GetInstance()->ProcessDestroy();
 
-		m_Camera->Update(_dt, m_Player1, m_App, m_AsteroidManager.GetRows(), m_AsteroidManager.GetCols());
+			m_Camera->Update(_dt, m_Player1, m_App, m_AsteroidManager.GetRows(), m_AsteroidManager.GetCols());
 
-		float scale = (float)(m_Player1->GetShield()->GetCurrShield() / (float)m_Player1->GetShield()->GetMaxShield());
-		m_ShieldBar.sourceRect.right = 55 * scale;
+			float scale = (float)(m_Player1->GetShield()->GetCurrShield() / (float)m_Player1->GetShield()->GetMaxShield());
+			m_ShieldBar.sourceRect.right = 55 * scale;
 
-		m_AsteroidManager.Update(_dt);
+			m_AsteroidManager.Update(_dt);
+		}
+
+		if(m_QuitGame)
+		{
+			StateSystem::GetInstance()->ChangeState(new MainMenuState());
+		}
+
+		m_EndGameTimer -= _dt;
+
+		if(m_EndGameTimer <= 0.0f)
+		{
+			m_EndGameTimer = 0.0f;
+			m_GameOver = true;
+		}
 	}
-
-	if(m_QuitGame)
+	else
 	{
-		StateSystem::GetInstance()->ChangeState(new MainMenuState());
+		// GAME OVER TIMER TEMPORARY!
+		// CHANGE ONCE ABLE TO COUNT UP SCORE
+		if(m_ScoreTally != m_Player1->GetScore())
+		{
+			m_GameOverTimer += _dt;
+			if(m_GameOverTimer > 0.001f)
+			{
+				m_GameOverTimer = 0.0f;
+				m_ScoreTally += 10;
+			}
+		}
+		else
+		{
+			m_LeaveGameTimer -= _dt;
+			if(m_LeaveGameTimer <= 0.0f)
+				StateSystem::GetInstance()->ChangeState(new CreditsState());
+		}
 	}
-
-	m_EndGameTimer -= _dt;
 }
 
 bool GameplayState::Input( void )
 {
-	if(!m_isPaused)
+	if(!m_GameOver)
 	{
-		if(m_Input->Input_StartPressed())
+		if(!m_isPaused)
 		{
-			if(!m_isPaused)
+			if(m_Input->Input_StartPressed())
 			{
-				m_isPaused = true;
-				StateSystem::GetInstance()->AddState(new PauseState(m_Input, m_isPaused, m_QuitGame));
-			}
-			else
-			{
-				m_isPaused = false;
+				if(!m_isPaused)
+				{
+					m_isPaused = true;
+					StateSystem::GetInstance()->AddState(new PauseState(m_Input, m_isPaused, m_QuitGame));
+				}
+				else
+				{
+					m_isPaused = false;
+				}
 			}
 		}
 	}
