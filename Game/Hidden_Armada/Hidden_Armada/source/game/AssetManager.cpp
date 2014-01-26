@@ -110,4 +110,5 @@ int AssetManager::GetAsset( Assets _type )
 	{
 		return m_Assets[_type];
 	}
+	return -1;
 }

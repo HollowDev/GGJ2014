@@ -27,11 +27,11 @@ void Reveal::Release( void )
 
 void Reveal::Render( int _x, int _y )
 {
-	int posX = int(GetPos().x)+_x + (1.0f-m_Scale)*GetImgCenter().x - GetImgCenter().x;
-	int posY = int(GetPos().y)+_y + (1.0f-m_Scale)*GetImgCenter().y - GetImgCenter().y;
+	int posX = (int)((GetPos().x)+_x + (1.0f-m_Scale)*GetImgCenter().x - GetImgCenter().x);
+	int posY = (int)((GetPos().y)+_y + (1.0f-m_Scale)*GetImgCenter().y - GetImgCenter().y);
 	TextureManager::GetInstance()->Draw(GetImgID(),posX,posY,m_Scale,m_Scale,&GetImgSource(),GetImgCenter().x,GetImgCenter().x,GetRot());
 
-	RECT area = {GetPos().x+_x-GetSize(),GetPos().y+_y-GetSize(),GetPos().x+_x+GetSize(),GetPos().y+_y+GetSize()};
+	RECT area = {(LONG)GetPos().x+_x-GetSize(),(LONG)GetPos().y+_y-GetSize(),(LONG)GetPos().x+_x+GetSize(),(LONG)GetPos().y+_y+GetSize()};
 }
 
 void Reveal::Update( float _dt )

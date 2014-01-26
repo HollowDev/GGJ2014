@@ -12,7 +12,7 @@
 #define GAME_HEIGHT	768
 
 #ifdef _DEBUG
-//#include <vld.h>
+#include <vld.h>
 #endif
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *

@@ -13,7 +13,7 @@ void AsteroidManager::AsteroidChunk::Start( int _x, int _y )
 
 		BaseEntity star;
 		RECT source = {0,0,8,8};
-		star.Initialize(AssetManager::GetInstance()->GetAsset(Asset_Star01),source,D3DXVECTOR2(4,4),D3DXVECTOR2(randX+_x,randY+_y),0,0);
+		star.Initialize(AssetManager::GetInstance()->GetAsset(Asset_Star01),source,D3DXVECTOR2(4.0f,4.0f),D3DXVECTOR2((float)(randX+_x),(float)(randY+_y)),0.0f,0);
 		m_Star.push_back(star);
 	}
 
@@ -47,7 +47,7 @@ void AsteroidManager::AsteroidChunk::Reload( int _x, int _y )
 		IEntity* newAsteroid;
 		ObjectFactory::GetInstance()->Create(&newAsteroid, Entity_Asteroid);
 		((Asteroids*)newAsteroid)->SetImgID(asteroidImgID[rand()%4]);
-		((Asteroids*)newAsteroid)->SetPos(D3DXVECTOR2(randX+_x,randY+_y));
+		((Asteroids*)newAsteroid)->SetPos(D3DXVECTOR2((float)(randX+_x),(float)(randY+_y)));
 		m_Asteroids.push_back((Asteroids*)newAsteroid);
 	}
 
@@ -113,8 +113,8 @@ void AsteroidManager::Update( float _dt )
 			m_Chunks[x][y]->UpdateList();
 
 	// Check to see what area the player occupies.
-	int amCoordsX = m_Player->GetPos().x / 1024;
-	int amCoordsY = m_Player->GetPos().y / 768;
+	int amCoordsX = (int)m_Player->GetPos().x / 1024;
+	int amCoordsY = (int)m_Player->GetPos().y / 768;
 
 	// currently visiting
 	if( amCoordsX >= 0 && amCoordsX < m_NumColumns &&
