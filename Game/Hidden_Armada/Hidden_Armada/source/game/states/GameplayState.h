@@ -4,10 +4,12 @@
 #include "../../engine/app/BaseState.h"
 #include "../objects/PlayerShip.h"
 #include "../../engine/input/InputController.h"
+#include "../../engine/renderer/BitmapFont.h"
 
 class GameplayState : public BaseState
 {
 	PlayerShip* m_Player1;
+	BitmapFont m_Font;
 
 	IEntity* m_AsteroidTest[100];
 	IEntity* m_EnemyShip[100];

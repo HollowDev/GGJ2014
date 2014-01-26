@@ -56,6 +56,8 @@ bool GameplayState::Initialize( WinApp* _app )
 	//{
 	//	AIManager::GetInstance()->SpawnEnemy( D3DXVECTOR2(i*50,200) );
 	//}
+	int fontID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/font.png");
+	m_Font.Initialize(fontID,5*2,7*2,3,32);
 	return true;
 }
 
@@ -72,6 +74,8 @@ void GameplayState::Render( void )
 		D3D9Handler::m_Sprite->Begin( D3DXSPRITE_ALPHABLEND );
 		{
 			ObjectManager::GetInstance()->Render(0,0);
+
+			m_Font.Print("test this shit, mother fucker.", 10, 10, D3DCOLOR_ARGB(255,255,255,255));
 		}
 		D3D9Handler::m_Sprite->End();
 	}

@@ -65,7 +65,8 @@ bool ObjectFactory::Create( IEntity** _object, Entity_Type _id )
 		break;
 	case Entity_Powerup:
 		{
-			MakeDefault(m_PowerupArray[index]);
+			// make default here
+			m_PowerupArray[index].SetPowerType(rand()%3);	// random between the three
 			*_object = &m_PowerupArray[index];
 			m_OM->AddObject(&m_PowerupArray[index],3);
 		}
@@ -187,5 +188,6 @@ bool ObjectFactory::IsValid( int _id, int _index )
 
 void ObjectFactory::MakeDefault( IEntity& _object )
 {
+
 }
 
