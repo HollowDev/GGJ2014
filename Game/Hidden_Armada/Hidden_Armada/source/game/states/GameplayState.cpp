@@ -26,7 +26,7 @@ bool GameplayState::Initialize( WinApp* _app )
 	m_Input->Initialize(m_App->GetHWND(), m_App->GetHINSTANCE());
 
 	int p1ID = AssetManager::GetInstance()->GetAsset(Asset_PlayerShip03);
-	int weaponID = AssetManager::GetInstance()->GetAsset(Asset_WeaponLaser03);
+	int weaponID = AssetManager::GetInstance()->GetAsset(Asset_WeaponMissle03);
 	RECT source = {0,0,128,128};
 
 	m_Camera = new Camera();
@@ -111,7 +111,7 @@ void GameplayState::Render( void )
 			}
 
 			char score[256];
-			sprintf(score, "%i", m_Player1->GetScore());
+			sprintf_s(score, "%i", m_Player1->GetScore());
 			m_Font.Print(score, 155, m_App->GetHeight() - 131, D3DCOLOR_ARGB(255, 255, 255, 255));
 		}
 		D3D9Handler::m_Sprite->End();

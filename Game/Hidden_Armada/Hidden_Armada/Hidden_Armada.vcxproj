@@ -108,6 +108,7 @@
     <ClInclude Include="source\game\objects\Powerup.h" />
     <ClInclude Include="source\game\objects\Projectile.h" />
     <ClInclude Include="source\game\objects\RaptorGun.h" />
+    <ClInclude Include="source\game\objects\Shield.h" />
     <ClInclude Include="source\game\objects\Ship.h" />
     <ClInclude Include="source\game\objects\Weapon.h" />
     <ClInclude Include="source\game\states\CreditsState.h" />
@@ -150,6 +151,7 @@
     <ClCompile Include="source\game\objects\Powerup.cpp" />
     <ClCompile Include="source\game\objects\Projectile.cpp" />
     <ClCompile Include="source\game\objects\RaptorGun.cpp" />
+    <ClCompile Include="source\game\objects\Shield.cpp" />
     <ClCompile Include="source\game\objects\Ship.cpp" />
     <ClCompile Include="source\game\objects\Weapon.cpp" />
     <ClCompile Include="source\game\states\CreditsState.cpp" />

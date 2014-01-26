@@ -37,7 +37,7 @@ void Ship::Initialize( const char* _filepath, D3DXVECTOR2 _pos, int _weaponID )
 	m_LaserGun.Initialize();
 	m_RaptorGun.Initialize();
 
-	SwitchWeapons(2);
+	SwitchWeapons(1);
 }
 
 void Ship::Release( void )

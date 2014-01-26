@@ -58,4 +58,6 @@ void PlayerShip::HandleCollision( IEntity* _other, float _dist, float _dirX, flo
 	}
 	else if(_other->GetType() != Entity_Projectile)
 		this->SetPos( this->GetPos() + D3DXVECTOR2(_dirX,_dirY) * _dist);
+	else if(_other->GetType() == Entity_Projectile)
+		SetHP(GetHP() - 1);
 }
