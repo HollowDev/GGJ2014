@@ -2,6 +2,7 @@
 
 #include "../../engine/app/BaseState.h"
 #include "../memory_macros.h"
+#include "../../game/objects/PlayerShip.h"
 
 
 InputController::InputController(void)
@@ -40,7 +41,54 @@ void InputController::CheckInput( PlayerShip* _player, BaseState* _state )
 	}
 	else	// In the game
 	{
+		if(m_Gamepad->CheckConnection())	// Gamepad connected
+		{
+			m_Gamepad->Update();
 
+			// RightStick moved, FIRE!
+			if(m_Gamepad->m_RightStickX != 0.0f || m_Gamepad->m_RightStickY != 0.0f)
+			{
+				int posX = (int)(_player->GetWeapon()->GetPos().x + _player->GetWeapon()->GetImgCenter().x + m_Gamepad->m_RightStickX*10);
+				int posY = (int)(_player->GetWeapon()->GetPos().y + _player->GetWeapon()->GetImgCenter().y - m_Gamepad->m_RightStickY*10);
+				_player->RotateWeaponToMouse(posX,posY);
+				_player->GetWeapon()->Fire(_player);
+			}
+
+			// LeftStick moved, MOVE!
+			if(m_Gamepad->m_LeftStickX != 0.0f || m_Gamepad->m_LeftStickY != 0.0f)
+			{
+				if(m_Gamepad->m_LeftStickY > 0.0f)
+					_player->SetVel(_player->GetVel() + D3DXVECTOR2(0, -_player->GetMaxSpeed()));
+				else if(m_Gamepad->m_LeftStickY < 0.0f)
+					_player->SetVel(_player->GetVel() + D3DXVECTOR2(0, _player->GetMaxSpeed()));
+
+				if(m_Gamepad->m_LeftStickX < 0.0f)
+					_player->SetVel(_player->GetVel() + D3DXVECTOR2(-_player->GetMaxSpeed(), 0));
+				else if(m_Gamepad->m_LeftStickX > 0.0f)
+					_player->SetVel(_player->GetVel() + D3DXVECTOR2(_player->GetMaxSpeed(), 0));
+			}
+		}
+		else	// No gamepad, use the keyboard/mouse
+		{
+			if(!m_Keyboard->Update())
+				return;
+			int x, y;
+			m_Keyboard->GetMouseLocation(x, y);
+			_player->RotateWeaponToMouse(x, y);
+
+			if(m_Keyboard->KeyDown(DIK_W))
+				_player->SetVel(_player->GetVel() + D3DXVECTOR2(0, -_player->GetMaxSpeed()));
+			else if(m_Keyboard->KeyDown(DIK_S))
+				_player->SetVel(_player->GetVel() + D3DXVECTOR2(0, _player->GetMaxSpeed()));
+
+			if(m_Keyboard->KeyDown(DIK_A))
+				_player->SetVel(_player->GetVel() + D3DXVECTOR2(-_player->GetMaxSpeed(), 0));
+			else if(m_Keyboard->KeyDown(DIK_D))
+				_player->SetVel(_player->GetVel() + D3DXVECTOR2(_player->GetMaxSpeed(), 0));
+
+			if(GetAsyncKeyState(VK_LBUTTON))
+				_player->GetWeapon()->Fire(_player);
+		}
 	}
 }
 

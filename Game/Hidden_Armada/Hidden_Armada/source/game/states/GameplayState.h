@@ -3,6 +3,7 @@
 
 #include "../../engine/app/BaseState.h"
 #include "../objects/PlayerShip.h"
+#include "../../engine/input/InputController.h"
 
 class GameplayState : public BaseState
 {
@@ -10,6 +11,8 @@ class GameplayState : public BaseState
 
 	IEntity* m_AsteroidTest[100];
 	IEntity* m_EnemyShip[100];
+
+	InputController* m_Input;
 
 public:
 	GameplayState( void );

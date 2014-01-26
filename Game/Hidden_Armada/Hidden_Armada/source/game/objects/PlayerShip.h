@@ -2,17 +2,20 @@
 #define _PLAYER_SHIP_H_
 
 #include "Ship.h"
+#include "../../engine/input/InputController.h"
 
 class PlayerShip : public Ship
 {
 	int m_Score;
 
 	// TODO:: Place controller here
+	InputController* m_Input;
+
 public:
 	PlayerShip( void );
 	~PlayerShip( void ) { Release(); }
 
-	void Initialize( const char* _filepath, D3DXVECTOR2 _pos, int _weaponID );
+	void Initialize( const char* _filepath, D3DXVECTOR2 _pos, int _weaponID, InputController* _input );
 	virtual void Release( void );
 
 	virtual void Render( int _x, int _y );

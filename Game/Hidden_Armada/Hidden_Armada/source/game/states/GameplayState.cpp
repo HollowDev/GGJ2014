@@ -21,12 +21,15 @@ bool GameplayState::Initialize( WinApp* _app )
 {
 	m_App = _app;
 
+	m_Input = new InputController();
+	m_Input->Initialize(m_App->GetHWND(), m_App->GetHINSTANCE());
+
 	int p1ID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/ships/Playership3.png");
 	int weaponID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/weapons/machinegun2.png");
 	RECT source = {0,0,128,128};
 
 	m_Player1 = new PlayerShip();
-	m_Player1->Initialize("assets/data/ships/ship1.txt",D3DXVECTOR2(400,400),weaponID);
+	m_Player1->Initialize("assets/data/ships/ship1.txt",D3DXVECTOR2(400,400),weaponID, m_Input);
 	m_Player1->SetImgID(p1ID);
 	m_Player1->SetImgSource(source);
 
@@ -86,33 +89,9 @@ void GameplayState::Update( float _dt )
 
 bool GameplayState::Input( void )
 {
-	POINT mouse;
-	GetCursorPos(&mouse);
-	ScreenToClient(m_App->GetHWND(),&mouse);
-	m_Player1->RotateWeaponToMouse((int)mouse.x,(int)mouse.y);
-
-	if(GetAsyncKeyState('W'))
-	{
-		m_Player1->SetVel(m_Player1->GetVel() + D3DXVECTOR2(0,-m_Player1->GetMaxSpeed()));
-	}
-	else if(GetAsyncKeyState('S'))
-	{
-		m_Player1->SetVel(m_Player1->GetVel() + D3DXVECTOR2(0,m_Player1->GetMaxSpeed()));
-	}
-
-	if(GetAsyncKeyState('A'))
-	{
-		m_Player1->SetVel(m_Player1->GetVel() + D3DXVECTOR2(-m_Player1->GetMaxSpeed(),0));
-	}
-	else if(GetAsyncKeyState('D'))
-	{
-		m_Player1->SetVel(m_Player1->GetVel() + D3DXVECTOR2(m_Player1->GetMaxSpeed(),0));
-	}
-
-	if(GetAsyncKeyState(VK_ESCAPE))
+	if(m_Input->Input_Cancel())
 	{
 		StateSystem::GetInstance()->ChangeState(new MainMenuState());
-		while(GetAsyncKeyState(VK_ESCAPE));
 	}
 
 	return true;
