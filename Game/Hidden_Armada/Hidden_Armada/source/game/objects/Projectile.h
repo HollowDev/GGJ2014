@@ -2,6 +2,8 @@
 #define _PROJECTILE_H_
 
 #include "BaseEntity.h"
+#include "../../engine/particles/Emitter.h"
+#include "../../engine/particles/ParticleManager.h"
 
 class Projectile : public BaseEntity
 {
@@ -11,6 +13,8 @@ class Projectile : public BaseEntity
 	bool m_IsChaining;
 	IEntity* m_Owner;
 	IEntity* m_Target;
+
+	Emitter* m_SmokeTrailEmitter;
 
 public:
 	Projectile( void );

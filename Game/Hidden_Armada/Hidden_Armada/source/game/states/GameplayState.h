@@ -19,6 +19,14 @@ class GameplayState : public BaseState
 
 	InputController* m_Input;
 
+	int		m_HudBackgroundID;
+	int		m_ShieldBarID;
+	int		m_HealthBarID;
+	
+	spriteButtons m_ShieldBar;
+	spriteButtons m_HudBackground;
+	spriteButtons m_HealthBar;
+
 public:
 	GameplayState( void );
 	~GameplayState( void ) { Release(); }

@@ -15,6 +15,13 @@ private:
 	float		m_Lifetime;
 	int			m_ImgID;
 
+	float		m_fadeTimer;
+
+	float lerp(float _start, float _end, float _percent)
+	{
+		return (_start + _percent * (_end - _start));
+	}
+
 	friend class Emitter;
 	Particle(void);
 
@@ -36,7 +43,7 @@ public:
 	}
 
 	void Update(float _dt);
-	void Render(void);
+	void Render(int _x, int _y);
 };
 
 #endif

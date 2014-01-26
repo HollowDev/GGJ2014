@@ -25,7 +25,7 @@ bool GameplayState::Initialize( WinApp* _app )
 	m_Input = new InputController();
 	m_Input->Initialize(m_App->GetHWND(), m_App->GetHINSTANCE());
 
-	int p1ID = AssetManager::GetInstance()->GetAsset(Asset_PlayerShip02);
+	int p1ID = AssetManager::GetInstance()->GetAsset(Asset_PlayerShip03);
 	int weaponID = AssetManager::GetInstance()->GetAsset(Asset_WeaponLaser03);
 	RECT source = {0,0,128,128};
 
@@ -63,6 +63,28 @@ bool GameplayState::Initialize( WinApp* _app )
 	//	AIManager::GetInstance()->SpawnEnemy( D3DXVECTOR2(i*50,200) );
 	//}
 	m_Font.Initialize(AssetManager::GetInstance()->GetAsset(Asset_Font),5*2,7*2,3,32);
+
+	m_HudBackgroundID = AssetManager::GetInstance()->GetAsset(Asset_HudOutline);
+	m_ShieldBarID = AssetManager::GetInstance()->GetAsset(Asset_HudShieldBar);
+	m_HealthBarID = AssetManager::GetInstance()->GetAsset(Asset_HudHealthNotch);
+
+	m_HudBackground.color = D3DCOLOR_ARGB(150, 255, 255, 255);
+	m_HudBackground.posX = 25;
+	m_HudBackground.posY = m_App->GetHeight() - 175;
+
+	m_ShieldBar.color = D3DCOLOR_ARGB(150, 255, 255, 255);
+	m_ShieldBar.posX = 177;
+	m_ShieldBar.posY = m_App->GetHeight() - 95;
+	m_ShieldBar.sourceRect.left = 2;
+	m_ShieldBar.sourceRect.top = 1;
+	m_ShieldBar.sourceRect.right = 55;
+	m_ShieldBar.sourceRect.bottom = 17;
+
+	m_HealthBar.color = D3DCOLOR_ARGB(255, 255, 255, 255);
+	m_HealthBar.posX = 25;
+	m_HealthBar.posY = m_App->GetHeight() - 175;
+
+
 	return true;
 }
 
@@ -80,7 +102,10 @@ void GameplayState::Render( void )
 		{
 			ObjectManager::GetInstance()->Render(-(int)m_Camera->GetPos().x, -(int)m_Camera->GetPos().y);
 
-			m_Font.Print("test this shit, mother fucker.", 10, 10, D3DCOLOR_ARGB(255,255,255,255));
+			TextureManager::GetInstance()->Draw(m_HudBackgroundID, m_HudBackground.posX, m_HudBackground.posY, 1.15f, 1.15f, nullptr, 0.0f, 0.0f, 0.0f, m_HudBackground.color);
+			TextureManager::GetInstance()->Draw(m_ShieldBarID, m_ShieldBar.posX, m_ShieldBar.posY, 1.15f, 1.15f, &m_ShieldBar.sourceRect, 0.0f, 0.0f, 0.0f, m_ShieldBar.color);
+
+			m_Font.Print("0123456", 155, m_App->GetHeight() - 131, D3DCOLOR_ARGB(255, 255, 255, 255));
 		}
 		D3D9Handler::m_Sprite->End();
 	}

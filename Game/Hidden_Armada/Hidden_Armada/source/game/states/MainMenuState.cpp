@@ -257,7 +257,7 @@ bool MainMenuState::Input( void )
 				break;
 
 			case OPTIONS:
-				StateSystem::GetInstance()->AddState(new OptionsState());
+				//StateSystem::GetInstance()->AddState(new OptionsState());
 				break;
 
 			case EXIT_GAME:

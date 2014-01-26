@@ -24,6 +24,8 @@ void Projectile::Initialize( void )
 	this->SetImgID(AssetManager::GetInstance()->GetAsset(Asset_MachineGunProjectile));
 	this->SetImgCenter(D3DXVECTOR2(8,4));
 	m_Target = nullptr;
+
+	m_SmokeTrailEmitter = ParticleManager::GetInstance()->AddEmitter(100, GetVel().x, GetVel().y, GetPos().x, GetPos().y, 2.0f, 5.0f, AssetManager::GetInstance()->GetAsset(Asset_HexParticle));
 }
 
 void Projectile::Release( void )
@@ -34,6 +36,7 @@ void Projectile::Release( void )
 void Projectile::Render( int _x, int _y )
 {
 	BaseEntity::Render(_x,_y);
+	m_SmokeTrailEmitter->Render(_x, _y);
 }
 
 void Projectile::Update( float _dt )
@@ -70,6 +73,8 @@ void Projectile::Update( float _dt )
 				m_Target = AIManager::GetInstance()->GetTarget();
 
 		}
+
+		m_SmokeTrailEmitter->Update(_dt, GetPos().x, GetPos().y);
 	}
 
 	m_Life -= _dt;
