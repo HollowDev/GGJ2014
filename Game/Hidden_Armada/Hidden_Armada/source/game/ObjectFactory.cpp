@@ -45,7 +45,6 @@ void ObjectFactory::Initialize( void )
 	for(i = 0; i < MAX_SHIELDS; ++i)
 	{
 		m_OpenList[Entity_Shield].push_back(i);
-		m_ShieldArray[i].Initialize();
 	}
 }
 

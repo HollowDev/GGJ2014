@@ -34,7 +34,6 @@ class ObjectFactory
 	Powerup m_PowerupArray[MAX_POWERUPS];
 	Explosion m_ExplosionArray[MAX_EXPLOSIONS];
 	LaserBeam m_LaserBeamArray[MAX_LASERBEAMS];
-	LaserBeam m_LaserBeamArray[MAX_LASERBEAMS];
 	Shield m_ShieldArray[MAX_SHIELDS];
 
 	static ObjectFactory m_Instance;
