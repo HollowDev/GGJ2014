@@ -69,6 +69,11 @@ void InputController::CheckInput( PlayerShip* _player, BaseState* _state, Camera
 				else if(m_Gamepad->m_LeftStickX > 0.0f)
 					_player->SetVel(_player->GetVel() + D3DXVECTOR2(_player->GetMaxSpeed(), 0));
 			}
+
+			if(m_Gamepad->ButtonDown(XINPUT_GAMEPAD_RIGHT_SHOULDER))
+			{
+				_player->UseReveal();
+			}
 		}
 		else	// No gamepad, use the keyboard/mouse
 		{
