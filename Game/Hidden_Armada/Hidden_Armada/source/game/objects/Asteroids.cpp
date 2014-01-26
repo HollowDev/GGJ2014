@@ -16,7 +16,7 @@ void Asteroids::Initialize( void )
 	this->SetImgSource(source);
 	this->SetSize(30);
 	this->SetImgCenter(D3DXVECTOR2(32,32));
-	this->SetDir(D3DXVECTOR2(rand()%200 - 100, rand()%200 - 100));
+	this->SetDir(D3DXVECTOR2((float)(rand()%200 - 100), (float)(rand()%200 - 100)));
 
 	if(rand()%2 == 0)
 		m_RotDir = -1.0f;

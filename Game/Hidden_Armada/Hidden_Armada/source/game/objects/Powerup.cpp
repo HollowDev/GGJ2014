@@ -11,7 +11,7 @@ Powerup::Powerup( void )
 	this->SetImgSource(source);
 	this->SetSize(15);
 	this->SetImgCenter(D3DXVECTOR2(16,16)); 
-	this->SetDir(D3DXVECTOR2(rand()%200 - 100 / 10.0f,rand()%200 - 100 / 10));
+	this->SetDir(D3DXVECTOR2((float)(rand()%200 - 100 / 10.0f),(float)(rand()%200 - 100 / 10)));
 
 	m_AnimTimer = 0.0f;
 	m_Frame = 0;

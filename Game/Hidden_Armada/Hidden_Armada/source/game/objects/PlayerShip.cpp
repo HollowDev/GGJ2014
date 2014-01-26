@@ -4,16 +4,18 @@ using std::fstream;
 
 #include "../ObjectFactory.h"
 #include "Projectile.h"
+#include "../camera/Camera.h"
 
 PlayerShip::PlayerShip( void )
 {
 	this->m_Type = Entity_PlayerShip;
 }
 
-void PlayerShip::Initialize( const char* _filepath, D3DXVECTOR2 _pos, int _weaponID, InputController* _input )
+void PlayerShip::Initialize( const char* _filepath, D3DXVECTOR2 _pos, int _weaponID, InputController* _input, Camera* _camera )
 {
 	Ship::Initialize(_filepath,_pos,_weaponID);
 	m_Input = _input;
+	m_Camera = _camera;
 }
 
 void PlayerShip::Release( void )
@@ -30,13 +32,7 @@ void PlayerShip::Update( float _dt )
 {
 	Ship::Update(_dt);
 
-	m_Input->CheckInput(this, nullptr);
-
-	// add a trail
-	//if(GetAsyncKeyState(VK_LBUTTON))
-	//{
-		//this->GetWeapon()->Fire(this);
-	//}
+	m_Input->CheckInput(this, nullptr, m_Camera);
 }
 
 bool PlayerShip::CheckCollision( IEntity* _other )

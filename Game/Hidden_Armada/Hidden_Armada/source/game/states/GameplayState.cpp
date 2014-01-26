@@ -29,10 +29,14 @@ bool GameplayState::Initialize( WinApp* _app )
 	int weaponID = AssetManager::GetInstance()->GetAsset(Asset_WeaponLaser03);
 	RECT source = {0,0,128,128};
 
+	m_Camera = new Camera();
+
 	m_Player1 = new PlayerShip();
-	m_Player1->Initialize("assets/data/ships/ship1.txt",D3DXVECTOR2(400,400),weaponID, m_Input);
+	m_Player1->Initialize("assets/data/ships/ship1.txt",D3DXVECTOR2(400,400),weaponID, m_Input, m_Camera);
 	m_Player1->SetImgID(p1ID);
 	m_Player1->SetImgSource(source);
+
+	m_Camera->Initialize(m_Player1);
 
 	ObjectManager::GetInstance()->AddObject(m_Player1,2);
 
@@ -74,7 +78,7 @@ void GameplayState::Render( void )
 	{
 		D3D9Handler::m_Sprite->Begin( D3DXSPRITE_ALPHABLEND );
 		{
-			ObjectManager::GetInstance()->Render(0,0);
+			ObjectManager::GetInstance()->Render(-(int)m_Camera->GetPos().x, -(int)m_Camera->GetPos().y);
 
 			m_Font.Print("test this shit, mother fucker.", 10, 10, D3DCOLOR_ARGB(255,255,255,255));
 		}
@@ -90,6 +94,8 @@ void GameplayState::Update( float _dt )
 	ObjectManager::GetInstance()->CheckCollision();
 
 	ObjectFactory::GetInstance()->ProcessDestroy();
+
+	m_Camera->Update(_dt, m_Player1, m_App);
 }
 
 bool GameplayState::Input( void )

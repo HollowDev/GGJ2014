@@ -6,6 +6,7 @@
 
 class PlayerShip;
 class BaseState;
+class Camera;
 
 class InputController
 {
@@ -20,7 +21,7 @@ public:
 	void Initialize(HWND _hWnd, HINSTANCE _hInst);
 	void Release(void);
 
-	void CheckInput(PlayerShip* _player, BaseState* _state);
+	void CheckInput(PlayerShip* _player, BaseState* _state, Camera* _camera);
 
 	bool Input_UpDown(void);
 	bool Input_DownDown(void);

@@ -49,6 +49,6 @@ void BitmapFont::Print( const char* _text, int _x, int _y, DWORD _color )
 
 		RECT rTile = CellAlgorithm(_text[i]);
 		TextureManager::GetInstance()->Draw(m_ImgID,_x,_y,1.0f,1.0f,&rTile,0,0,0,_color);	
-		_x += float(m_CharWidth);
+		_x += m_CharWidth;
 	}
 }

@@ -5,6 +5,7 @@
 #include "../objects/PlayerShip.h"
 #include "../../engine/input/InputController.h"
 #include "../../engine/renderer/BitmapFont.h"
+#include "../camera/Camera.h"
 
 class GameplayState : public BaseState
 {
@@ -14,6 +15,8 @@ class GameplayState : public BaseState
 	IEntity* m_AsteroidTest[100];
 	IEntity* m_EnemyShip[100];
 
+	Camera*	m_Camera;
+
 	InputController* m_Input;
 
 public:
@@ -22,7 +25,7 @@ public:
 
 	bool Initialize( WinApp* _app );
 	void Release( void );
-	
+
 	void Render( void );
 	void Update( float _dt );
 	bool Input( void );

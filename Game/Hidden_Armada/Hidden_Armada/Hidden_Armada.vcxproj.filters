@@ -38,6 +38,9 @@
     <Filter Include="engine\input manager">
       <UniqueIdentifier>{3fded92d-b74a-4646-8d4d-2f74fc196900}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\camera">
+      <UniqueIdentifier>{7eb9b4c0-0847-4531-be1c-67fc8021b5c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\engine\app\WinApp.h">
@@ -160,6 +163,9 @@
     <ClInclude Include="source\game\AssetManager.h">
       <Filter>game\managers</Filter>
     </ClInclude>
+    <ClInclude Include="source\game\camera\Camera.h">
+      <Filter>game\camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -264,6 +270,9 @@
     </ClCompile>
     <ClCompile Include="source\game\AssetManager.cpp">
       <Filter>game\managers</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\camera\Camera.cpp">
+      <Filter>game\camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

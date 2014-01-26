@@ -3,6 +3,7 @@
 #include "../../engine/app/BaseState.h"
 #include "../memory_macros.h"
 #include "../../game/objects/PlayerShip.h"
+#include "../../game/camera/Camera.h"
 
 
 InputController::InputController(void)
@@ -25,7 +26,7 @@ void InputController::Release( void )
 	SAFE_RELEASE(m_Keyboard);
 }
 
-void InputController::CheckInput( PlayerShip* _player, BaseState* _state )
+void InputController::CheckInput( PlayerShip* _player, BaseState* _state, Camera* _camera )
 {
 	if(_player == nullptr)	// On a menu
 	{
@@ -75,7 +76,7 @@ void InputController::CheckInput( PlayerShip* _player, BaseState* _state )
 			int x, y;
 
 			m_Keyboard->GetMouseLocation(x, y);
-			_player->RotateWeaponToMouse(x, y);
+			_player->RotateWeaponToMouse(x + (int)_camera->GetPos().x, y + (int)_camera->GetPos().y);
 
 			if(m_Keyboard->KeyDown(DIK_W))
 				_player->SetVel(_player->GetVel() + D3DXVECTOR2(0, -_player->GetMaxSpeed()));

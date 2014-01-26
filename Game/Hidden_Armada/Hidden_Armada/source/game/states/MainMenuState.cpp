@@ -132,7 +132,7 @@ void MainMenuState::Render( void )
 
 void MainMenuState::Update( float _dt )
 {
-	m_Input->CheckInput(nullptr, this);
+	m_Input->CheckInput(nullptr, this, nullptr);
 	if(isTitle)
 	{
 		// Still on the title screen, blink the Press Start message

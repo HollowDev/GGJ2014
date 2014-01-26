@@ -54,6 +54,17 @@ void BaseEntity::Update( float _dt )
 {
 	// Add the current velocity to the position.
 	m_Pos += m_Vel * _dt;
+
+	//if(m_Pos.x < 0)
+	//	m_Pos.x = 2048;
+	//else if(m_Pos.x > 2048)
+	//	m_Pos.x = 0.0f;
+
+	//if(m_Pos.y < 0)
+	//	m_Pos.y = 1536;
+	//else if(m_Pos.y > 1536)
+	//	m_Pos.y = 0;
+
 	m_Vel *= 0.99f;
 	
 	// Cap max speed
