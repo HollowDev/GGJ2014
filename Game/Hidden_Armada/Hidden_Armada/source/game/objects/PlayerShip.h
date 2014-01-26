@@ -3,6 +3,7 @@
 
 #include "Ship.h"
 #include "../../engine/input/InputController.h"
+#include "Shield.h"
 
 class Camera;
 class PlayerShip : public Ship
@@ -12,6 +13,10 @@ class PlayerShip : public Ship
 	// TODO:: Place controller here
 	InputController* m_Input;
 	Camera*			 m_Camera;
+
+	Shield*			m_Shield;
+
+	float			m_RespawnTimer;
 
 public:
 	PlayerShip( void );
@@ -28,7 +33,8 @@ public:
 	virtual Sphere GetSphere( void ) { return Sphere(GetPos()+this->GetImgCenter(), float(this->GetSize())); }
 	
 	const int GetScore(void) { return m_Score; }
-
+	void SetShield(Shield* _shield) { m_Shield = _shield; }
+	Shield* GetShield(void) { return m_Shield; }
 };
 
 #endif

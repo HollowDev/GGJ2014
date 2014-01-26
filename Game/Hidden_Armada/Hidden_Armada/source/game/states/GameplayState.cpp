@@ -58,6 +58,12 @@ bool GameplayState::Initialize( WinApp* _app )
 
 	AIManager::GetInstance()->Initialize(m_Player1);
 
+	IEntity* newShield;
+	ObjectFactory::GetInstance()->Create(&newShield, Entity_Shield);
+	m_Player1->SetShield((Shield*)newShield);
+	m_Player1->GetShield()->SetMaxShield(15);
+	m_Player1->GetShield()->SetCurrShield(15);
+
 	//RECT enemySource = {0,0,128,128};
 	//int enemyShipID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/enemyships/enemyship2.png");
 	//for(unsigned int i = 0; i < 100; ++i)

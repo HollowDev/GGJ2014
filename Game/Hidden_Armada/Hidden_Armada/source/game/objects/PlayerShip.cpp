@@ -17,6 +17,7 @@ void PlayerShip::Initialize( const char* _filepath, D3DXVECTOR2 _pos, int _weapo
 	m_Input = _input;
 	m_Camera = _camera;
 	m_Score = 0;
+	m_RespawnTimer = 3.0f;
 }
 
 void PlayerShip::Release( void )
@@ -33,7 +34,21 @@ void PlayerShip::Update( float _dt )
 {
 	Ship::Update(_dt);
 
-	m_Input->CheckInput(this, nullptr, m_Camera);
+	if(GetHP() > 0)
+	{
+		m_Input->CheckInput(this, nullptr, m_Camera);
+	}
+	else
+	{
+		m_RespawnTimer -= _dt;
+		if(m_RespawnTimer <= 0.0f)
+		{
+			m_RespawnTimer = 3.0f;
+			m_Shield->SetCurrShield(m_Shield->GetMaxShield());
+			SetHP(GetMaxHP());
+		}
+	}
+	
 }
 
 bool PlayerShip::CheckCollision( IEntity* _other )
@@ -59,5 +74,10 @@ void PlayerShip::HandleCollision( IEntity* _other, float _dist, float _dirX, flo
 	else if(_other->GetType() != Entity_Projectile)
 		this->SetPos( this->GetPos() + D3DXVECTOR2(_dirX,_dirY) * _dist);
 	else if(_other->GetType() == Entity_Projectile)
-		SetHP(GetHP() - 1);
+	{
+		if(m_Shield->GetCurrShield() > 0)
+			m_Shield->SetCurrShield(m_Shield->GetCurrShield() - 1);
+		else
+			SetHP(GetHP() - 1);
+	}
 }
