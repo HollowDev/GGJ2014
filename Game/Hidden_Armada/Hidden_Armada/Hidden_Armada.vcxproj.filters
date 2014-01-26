@@ -154,6 +154,9 @@
     <ClInclude Include="source\game\objects\Powerup.h">
       <Filter>game\objects</Filter>
     </ClInclude>
+    <ClInclude Include="source\engine\renderer\BitmapFont.h">
+      <Filter>engine\renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -252,6 +255,9 @@
     </ClCompile>
     <ClCompile Include="source\game\objects\Powerup.cpp">
       <Filter>game\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\engine\renderer\BitmapFont.cpp">
+      <Filter>engine\renderer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

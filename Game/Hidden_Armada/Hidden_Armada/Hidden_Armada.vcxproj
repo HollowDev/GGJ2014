@@ -86,6 +86,7 @@
     <ClInclude Include="source\engine\particles\Emitter.h" />
     <ClInclude Include="source\engine\particles\Particle.h" />
     <ClInclude Include="source\engine\particles\ParticleManager.h" />
+    <ClInclude Include="source\engine\renderer\BitmapFont.h" />
     <ClInclude Include="source\engine\renderer\D3D9Handler.h" />
     <ClInclude Include="source\engine\renderer\TextureManager.h" />
     <ClInclude Include="source\engine\sound\SoundManager.h" />
@@ -122,6 +123,7 @@
     <ClCompile Include="source\engine\particles\Emitter.cpp" />
     <ClCompile Include="source\engine\particles\Particle.cpp" />
     <ClCompile Include="source\engine\particles\ParticleManager.cpp" />
+    <ClCompile Include="source\engine\renderer\BitmapFont.cpp" />
     <ClCompile Include="source\engine\renderer\D3D9Handler.cpp" />
     <ClCompile Include="source\engine\renderer\TextureManager.cpp" />
     <ClCompile Include="source\engine\sound\SoundManager.cpp" />
