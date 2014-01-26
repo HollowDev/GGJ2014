@@ -175,6 +175,10 @@ void PlayerShip::HandleCollision( IEntity* _other, float _dist, float _dirX, flo
 				this->SetVel(D3DXVECTOR2(0,0));
 				
 				SoundManager::GetInstance()->Play(AssetManager::GetInstance()->GetAsset(Asset_S_ExplosionS),false,false);
+
+				m_Score -= 1000;
+				if(m_Score < 0)
+					m_Score = 0;
 			}
 		}
 		m_LastHit = 0.0f;
