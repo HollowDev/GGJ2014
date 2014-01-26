@@ -33,7 +33,7 @@ void EnemyShip::Update( float _dt )
 	if(m_Target != nullptr)
 	{
 		TurnToTarget(_dt);
-		this->SetVel( this->GetDir() * 200.0f );
+		this->SetVel( this->GetDir() * this->GetMaxSpeed() );
 
 		D3DXVECTOR2 pos = m_Target->GetPos() + m_Target->GetImgCenter();
 		RotateWeaponToMouse((int)pos.x,(int)pos.y);

@@ -7,6 +7,8 @@ class Projectile : public BaseEntity
 {
 	float m_Damage;
 	float m_Life;
+	bool m_IsHoming;
+	bool m_IsChaining;
 	IEntity* m_Owner;
 
 public:
@@ -24,6 +26,8 @@ public:
 	virtual Sphere GetSphere( void ) { return Sphere(GetPos(), float(GetSize())); }
 
 	inline void SetOwner( IEntity* _owner ) { m_Owner = _owner; }
+	inline void SetIsHoming( bool _isHoming ) { m_IsHoming = _isHoming; }
+	inline void SetIsChaining( bool _isChaining ) { m_IsChaining = _isChaining; }
 
 	inline IEntity* GetOwner( void ) { return m_Owner; }
 };

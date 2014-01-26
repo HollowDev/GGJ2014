@@ -42,6 +42,19 @@ bool PlayerShip::CheckCollision( IEntity* _other )
 
 void PlayerShip::HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY )
 {
-	if(_other->GetType() != Entity_Projectile)
+	if(_other->GetType() == Entity_Powerup)
+	{
+		if( ((Powerup*)_other)->GetPowerType() == this->GetWeapon()->GetWeaponType() )
+		{
+			this->GetWeapon()->SetLevel(this->GetWeapon()->GetLevel()+1);
+			if(this->GetWeapon()->GetLevel() > 3)
+				this->GetWeapon()->SetLevel(3);
+		}
+		else 
+		{
+			this->SwitchWeapons(((Powerup*)_other)->GetPowerType());
+		}
+	}
+	else if(_other->GetType() != Entity_Projectile)
 		this->SetPos( this->GetPos() + D3DXVECTOR2(_dirX,_dirY) * _dist);
 }

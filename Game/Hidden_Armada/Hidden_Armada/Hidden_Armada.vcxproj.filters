@@ -41,6 +41,9 @@
     <Filter Include="game\camera">
       <UniqueIdentifier>{7eb9b4c0-0847-4531-be1c-67fc8021b5c3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="game\objects\weapons">
+      <UniqueIdentifier>{21878c1e-97ef-4922-a04c-dbb680446b47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\engine\app\WinApp.h">
@@ -112,17 +115,11 @@
     <ClInclude Include="source\game\objects\Ship.h">
       <Filter>game\objects</Filter>
     </ClInclude>
-    <ClInclude Include="source\game\objects\Weapon.h">
-      <Filter>game\objects</Filter>
-    </ClInclude>
     <ClInclude Include="source\game\ObjectFactory.h">
       <Filter>game\managers</Filter>
     </ClInclude>
     <ClInclude Include="source\game\ObjectManager.h">
       <Filter>game\managers</Filter>
-    </ClInclude>
-    <ClInclude Include="source\game\objects\Projectile.h">
-      <Filter>game\objects</Filter>
     </ClInclude>
     <ClInclude Include="source\engine\particles\ParticleManager.h">
       <Filter>engine\particles</Filter>
@@ -165,6 +162,21 @@
     </ClInclude>
     <ClInclude Include="source\game\camera\Camera.h">
       <Filter>game\camera</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\objects\Projectile.h">
+      <Filter>game\objects\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\objects\Weapon.h">
+      <Filter>game\objects\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\objects\LaserGun.h">
+      <Filter>game\objects\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\objects\MachineGun.h">
+      <Filter>game\objects\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\objects\RaptorGun.h">
+      <Filter>game\objects\weapons</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -226,12 +238,6 @@
     <ClCompile Include="source\game\ObjectManager.cpp">
       <Filter>game\managers</Filter>
     </ClCompile>
-    <ClCompile Include="source\game\objects\Projectile.cpp">
-      <Filter>game\objects</Filter>
-    </ClCompile>
-    <ClCompile Include="source\game\objects\Weapon.cpp">
-      <Filter>game\objects</Filter>
-    </ClCompile>
     <ClCompile Include="source\engine\particles\ParticleManager.cpp">
       <Filter>engine\particles</Filter>
     </ClCompile>
@@ -273,6 +279,21 @@
     </ClCompile>
     <ClCompile Include="source\game\camera\Camera.cpp">
       <Filter>game\camera</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\objects\Projectile.cpp">
+      <Filter>game\objects\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\objects\Weapon.cpp">
+      <Filter>game\objects\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\objects\LaserGun.cpp">
+      <Filter>game\objects\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\objects\MachineGun.cpp">
+      <Filter>game\objects\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\objects\RaptorGun.cpp">
+      <Filter>game\objects\weapons</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

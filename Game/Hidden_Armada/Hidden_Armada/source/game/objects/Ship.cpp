@@ -33,9 +33,11 @@ void Ship::Initialize( const char* _filepath, D3DXVECTOR2 _pos, int _weaponID )
 	this->SetSize(20);
 	this->SetPos(_pos);
 
-	RECT source = {0,0,64,64};
-	m_Weapon = new Weapon();
-	m_Weapon->Initialize(_weaponID,source,D3DXVECTOR2(32,32),D3DXVECTOR2(0,0),0,0);
+	m_MachineGun.Initialize();
+	m_LaserGun.Initialize();
+	m_RaptorGun.Initialize();
+
+	SwitchWeapons(0);
 }
 
 void Ship::Release( void )
@@ -96,4 +98,23 @@ void Ship::RotateWeaponToMouse( int _mouseX, int _mouseY )
 
 	D3DXVec2Normalize(&vToTarget,&vToTarget);
 	m_Weapon->SetDir(vToTarget);
+}
+
+void Ship::SwitchWeapons( int _weaponID )
+{
+	if(_weaponID == Weapon_MachineGun)
+	{
+		m_MachineGun.SetLevel(1);
+		m_Weapon = &m_MachineGun;
+	}
+	else if(_weaponID == Weapon_Laser)
+	{
+		m_LaserGun.SetLevel(1);
+		m_Weapon = &m_LaserGun;
+	}
+	else if(_weaponID == Weapon_Missle)
+	{
+		m_RaptorGun.SetLevel(1);
+		m_Weapon = &m_RaptorGun;
+	}
 }

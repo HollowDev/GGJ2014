@@ -8,6 +8,7 @@ Weapon::Weapon( void )
 	m_ROF = 0.1f;
 	m_Damage = 1;
 	m_Level = 1;
+	m_PrevLevel = 1;
 }
 
 void Weapon::Release( void )
@@ -25,6 +26,8 @@ void Weapon::Update( float _dt )
 	// don't update dat position shiz
 	if(m_FireTimer > 0.0f)
 		m_FireTimer -= _dt;
+
+	m_PrevLevel = m_Level;
 }
 
 void Weapon::HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY )

@@ -2,11 +2,18 @@
 #define _SHIP_H_
 
 #include "BaseEntity.h"
+
 #include "Weapon.h"
+#include "MachineGun.h"
+#include "LaserGun.h"
+#include "RaptorGun.h"
 
 class Ship : public BaseEntity
 {
 	Weapon* m_Weapon;
+	MachineGun m_MachineGun;
+	LaserGun m_LaserGun;
+	RaptorGun m_RaptorGun;
 
 	int m_HP;
 	int m_MaxHP;
@@ -25,6 +32,8 @@ public:
 
 	virtual Sphere GetSphere( void ) { return Sphere(GetPos()+this->GetImgCenter(), float(this->GetSize())); }
 
+	void SwitchWeapons( int _weaponID );
+	
 	void RotateWeaponToMouse( int _mouseX, int _mouseY );
 
 	// accessors
