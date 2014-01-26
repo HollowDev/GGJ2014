@@ -35,8 +35,10 @@ public:
 	void Update(float _dt, float _x, float _y);
 	void Render(int _x, int _y);
 
-	void SetPosition(const float _x, const float _y);
-	void GetPosition(const float _x, const float _y);
+	void SetPosition(float _x, float _y) { m_PosX = _x; m_PosY = _y; }
+	void SetVelocity(float _x, float _y) { m_VelX = _x; m_VelY = _y; }
+	void GetPosition(float& _x, float& _y) { _x = m_PosX; _y = m_PosY; }
+	void GetVelocity(float& _x, float& _y) { _x = m_VelX; _y = m_VelY; }
 };
 
 #endif

@@ -15,7 +15,7 @@ private:
 	float		m_Lifetime;
 	int			m_ImgID;
 
-	float		m_fadeTimer;
+	float		m_MaxLife;
 
 	float lerp(float _start, float _end, float _percent)
 	{
@@ -39,6 +39,7 @@ public:
 		//m_Size = rhs.m_Size;
 		m_Lifetime = rhs.m_Lifetime;
 		m_ImgID = rhs.m_ImgID;
+		m_MaxLife = m_Lifetime;
 		return *this;
 	}
 

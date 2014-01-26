@@ -78,6 +78,7 @@ void Emitter::AddParticle(float _x, float _y)
 		newParticle->m_Lifetime = m_Lifetime;
 		newParticle->m_Color;
 		newParticle->m_ImgID = m_ImgID;
+		newParticle->m_MaxLife = m_Lifetime;
 		++m_CurrentParticles;
 	}
 }

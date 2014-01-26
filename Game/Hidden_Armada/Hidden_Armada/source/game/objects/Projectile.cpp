@@ -25,7 +25,7 @@ void Projectile::Initialize( void )
 	this->SetImgCenter(D3DXVECTOR2(8,4));
 	m_Target = nullptr;
 
-	m_SmokeTrailEmitter = ParticleManager::GetInstance()->AddEmitter(100, GetVel().x, GetVel().y, GetPos().x, GetPos().y, 2.0f, 3.5f, AssetManager::GetInstance()->GetAsset(Asset_HexParticle));
+	m_SmokeTrailEmitter = ParticleManager::GetInstance()->AddEmitter(100, 0, 0, GetPos().x, GetPos().y, 1.0f, 3.5f, AssetManager::GetInstance()->GetAsset(Asset_HexParticle));
 }
 
 void Projectile::Release( void )
@@ -71,10 +71,9 @@ void Projectile::Update( float _dt )
 				m_Target = AIManager::GetInstance()->GetClosestEnemy(this->GetPos());
 			else
 				m_Target = AIManager::GetInstance()->GetTarget();
-
 		}
 
-		m_SmokeTrailEmitter->Update(_dt, GetPos().x, GetPos().y);
+		m_SmokeTrailEmitter->Update(_dt*2.0f, GetPos().x, GetPos().y - GetDir().y*16);
 	}
 
 	
