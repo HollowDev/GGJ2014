@@ -64,7 +64,8 @@ void AssetManager::Initialize( void )
 	m_Assets[Asset_TurtlePlayerSelect] = TM->LoadTexture(L"assets/textures/titles/Turtle_Playerselect.png");
 	m_Assets[Asset_Credits] = TM->LoadTexture(L"assets/textures/titles/credits.png");
 	m_Assets[Asset_GameOver] = TM->LoadTexture(L"assets/textures/titles/gameover.png");
-	//m_Assets[Asset_FontNumbers] = TM->LoadTexture(L"assets/textures/FontNumbers.png");
+	m_Assets[Asset_FontNumbers] = TM->LoadTexture(L"assets/textures/titles/numbers.png");
+	m_Assets[Asset_Timer] = TM->LoadTexture(L"assets/textures/titles/timeleft.png");
 
 	// WEAPONS FOLDER
 	m_Assets[Asset_WeaponLaser01] = TM->LoadTexture(L"assets/textures/weapons/laser1.png");
