@@ -63,22 +63,24 @@ void InputController::CheckInput( PlayerShip* _player, BaseState* _state, Camera
 					_player->SetVel(_player->GetVel() + D3DXVECTOR2(0, -_player->GetMaxSpeed()));
 				else if(m_Gamepad->m_LeftStickY < 0.0f)
 					_player->SetVel(_player->GetVel() + D3DXVECTOR2(0, _player->GetMaxSpeed()));
-
+				
 				if(m_Gamepad->m_LeftStickX < 0.0f)
 					_player->SetVel(_player->GetVel() + D3DXVECTOR2(-_player->GetMaxSpeed(), 0));
 				else if(m_Gamepad->m_LeftStickX > 0.0f)
 					_player->SetVel(_player->GetVel() + D3DXVECTOR2(_player->GetMaxSpeed(), 0));
 			}
 
-			if(m_Gamepad->ButtonDown(XINPUT_GAMEPAD_RIGHT_SHOULDER))
+			if(m_Gamepad->m_RightTrigger > 0.0f)
 			{
 				_player->UseReveal();
 			}
 
-			if(m_Gamepad->ButtonDown(XINPUT_GAMEPAD_LEFT_SHOULDER))
+			if(m_Gamepad->m_LeftTrigger > 0.0f)
 			{
 				_player->UseBoost();
 			}
+			else
+				_player->SetBoosting(false);
 		}
 		else	// No gamepad, use the keyboard/mouse
 		{

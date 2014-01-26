@@ -21,7 +21,7 @@ private:
 	void CheckButtons( WORD _buttons, WORD _button );
 
 public:
-	Gamepad(void) : m_DeadzoneX(0.05f), m_DeadzoneY(0.02f) {}
+	Gamepad(void) : m_DeadzoneX(0.02f), m_DeadzoneY(0.02f) {}
 	Gamepad(float _dzX, float _dzY) : m_DeadzoneX(_dzX), m_DeadzoneY(_dzY) {}
 	~Gamepad(void) { Release(); }
 

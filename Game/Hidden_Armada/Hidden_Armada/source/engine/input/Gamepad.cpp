@@ -90,8 +90,10 @@ void Gamepad::Update()
 
 		m_RightStickX = (abs(normRX) < m_DeadzoneX ? 0 : (abs(normRX) - m_DeadzoneX) * (normRX / abs(normRX)));
 		m_RightStickY = (abs(normRY) < m_DeadzoneY ? 0 : (abs(normRY) - m_DeadzoneY) * (normRY / abs(normRY)));
-
 		
+		m_LeftTrigger = (float)state.Gamepad.bLeftTrigger / 255;
+		m_RightTrigger = (float)state.Gamepad.bRightTrigger / 255;
+
 	}
 	else
 		m_isConnected = false;
