@@ -65,6 +65,10 @@ bool GameplayState::Initialize( WinApp* _app )
 
 	IEntity* newShield;
 	ObjectFactory::GetInstance()->Create(&newShield, Entity_Shield);
+	Shield* tempShield = (Shield*)newShield;
+	tempShield->SetImgID(AssetManager::GetInstance()->GetAsset(Asset_Shield));
+	RECT shieldSource = { 10, 15, 113, 113 };
+	tempShield->SetImgSource(shieldSource);
 	m_Player1->SetShield((Shield*)newShield);
 	m_Player1->GetShield()->SetMaxShield(15);
 	m_Player1->GetShield()->SetCurrShield(15);
@@ -155,6 +159,9 @@ void GameplayState::Update( float _dt )
 		ObjectFactory::GetInstance()->ProcessDestroy();
 
 		m_Camera->Update(_dt, m_Player1, m_App, m_AsteroidManager.GetRows(), m_AsteroidManager.GetCols());
+
+		float scale = (float)(m_Player1->GetShield()->GetCurrShield() / (float)m_Player1->GetShield()->GetMaxShield());
+		m_ShieldBar.sourceRect.right = 55 * scale;
 
 		m_AsteroidManager.Update(_dt);
 	}

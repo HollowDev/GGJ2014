@@ -17,6 +17,9 @@ class PlayerShip : public Ship
 	IEntity*		m_Reveal;
 
 	float			m_RespawnTimer;
+	float			m_RechargeTimer;
+	float			m_LastHit;
+	float			m_InvulnTimer;
 
 public:
 	PlayerShip( void );
@@ -31,7 +34,7 @@ public:
 	virtual void HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY );
 
 	virtual Sphere GetSphere( void ) { return Sphere(GetPos()+this->GetImgCenter(), float(this->GetSize())); }
-	
+
 	void UseReveal( void );
 	void UseBoost( void );
 

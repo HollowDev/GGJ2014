@@ -22,6 +22,10 @@ void PlayerShip::Initialize( const char* _filepath, D3DXVECTOR2 _pos, int _weapo
 	m_Camera = _camera;
 	m_Score = 0;
 	m_RespawnTimer = 3.0f;
+
+	m_RechargeTimer = 2.0f;
+	m_LastHit = 2.0f;
+	m_InvulnTimer = 0.0f;
 }
 
 void PlayerShip::Release( void )
@@ -38,6 +42,14 @@ void PlayerShip::Render( int _x, int _y )
 void PlayerShip::Update( float _dt )
 {
 	Ship::Update(_dt);
+
+	m_Shield->SetPos(GetPos());
+
+	if(m_InvulnTimer != 0.0f)
+		m_InvulnTimer -= _dt;
+
+	if(m_InvulnTimer <= 0.0f)
+		m_InvulnTimer = 0.0f;
 
 	if(GetPos().x - GetSize() < 0)
 	{
@@ -66,12 +78,27 @@ void PlayerShip::Update( float _dt )
 	if(GetHP() > 0)
 	{
 		m_Input->CheckInput(this, nullptr, m_Camera);
+
+		m_LastHit += _dt;
+		if(m_LastHit >= 2.0f)
+		{
+			m_LastHit = 2.0f;
+			m_RechargeTimer += _dt;
+			if(m_RechargeTimer >= 0.75f)
+			{
+				m_RechargeTimer = 0.0f;
+				m_Shield->SetCurrShield(m_Shield->GetCurrShield() + 1);
+				if(m_Shield->GetCurrShield() > m_Shield->GetMaxShield())
+					m_Shield->SetCurrShield(m_Shield->GetMaxShield());
+			}
+		}
 	}
 	else
 	{
 		m_RespawnTimer -= _dt;
 		if(m_RespawnTimer <= 0.0f)
 		{
+			m_InvulnTimer = 4.0f;
 			m_RespawnTimer = 3.0f;
 			m_Shield->SetCurrShield(m_Shield->GetMaxShield());
 			SetHP(GetMaxHP());
@@ -105,10 +132,14 @@ void PlayerShip::HandleCollision( IEntity* _other, float _dist, float _dirX, flo
 	}
 	else if(_other->GetType() != Entity_Projectile)
 		this->SetPos( this->GetPos() + D3DXVECTOR2(_dirX,_dirY) * _dist);
-	else if(_other->GetType() == Entity_Projectile)
+	else if(_other->GetType() == Entity_Projectile && m_InvulnTimer == 0.0f)
 	{
 		if(m_Shield->GetCurrShield() > 0)
+		{
+			m_Shield->SetRender(true);
+			m_Shield->SetRenderTimer(0.0f);
 			m_Shield->SetCurrShield(m_Shield->GetCurrShield() - 1);
+		}
 		else
 		{
 			SetHP(GetHP() - 1);
@@ -123,6 +154,7 @@ void PlayerShip::HandleCollision( IEntity* _other, float _dist, float _dirX, flo
 				SoundManager::GetInstance()->Play(AssetManager::GetInstance()->GetAsset(Asset_S_ExplosionS),false,false);
 			}
 		}
+		m_LastHit = 0.0f;
 	}
 }
 
