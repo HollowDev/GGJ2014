@@ -10,7 +10,7 @@ class MainMenuState : public BaseState
 {
 	int m_TextImg;
 	int m_Background;
-	int m_TestMusic;
+	int m_IntroMusic;
 	int m_MenuLoopMusic;
 	int m_MoveSFX;
 	std::vector<spriteButtons*> m_Buttons;

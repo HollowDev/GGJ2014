@@ -9,6 +9,8 @@
 
 #include "../../engine/input/InputController.h"
 
+#include "../AssetManager.h"
+
 float lerp(float _start, float _end, float _percent)
 {
 	return (_start + _percent * (_end - _start));
@@ -33,8 +35,8 @@ bool MainMenuState::Initialize( WinApp* _app )
 	m_Input->Initialize(m_App->GetHWND(), m_App->GetHINSTANCE());
 
 	// Load Textures
-	m_Background = TextureManager::GetInstance()->LoadTexture(L"assets/textures/mainmenu_background.png");
-	m_TextImg = TextureManager::GetInstance()->LoadTexture(L"assets/textures/mainmenu_options_text.png");
+	m_Background = AssetManager::GetInstance()->GetAsset(Asset_MainTitle);//TextureManager::GetInstance()->LoadTexture(L"assets/textures/mainmenu_background.png");
+	m_TextImg = AssetManager::GetInstance()->GetAsset(Asset_TitleLabels);//TextureManager::GetInstance()->LoadTexture(L"assets/textures/mainmenu_options_text.png");
 
 	// PLAY GAME
 	spriteButtons* newButton = new spriteButtons();
@@ -81,17 +83,17 @@ bool MainMenuState::Initialize( WinApp* _app )
 	newButton->sourceRect.right = 256;	newButton->sourceRect.bottom = 33;
 	m_Buttons.push_back(newButton);
 
-	m_TestMusic = SoundManager::GetInstance()->LoadMusic("assets/sounds/music/MainMenu_intro.mp3");
+	m_IntroMusic = SoundManager::GetInstance()->LoadMusic("assets/sounds/music/MainMenu_intro.mp3");
 	m_MoveSFX = SoundManager::GetInstance()->LoadSFX("assets/sounds/sfx/menu_move.wav");
 	m_MenuLoopMusic = SoundManager::GetInstance()->LoadMusic("assets/sounds/music/MainMenu_loop.mp3");
-	SoundManager::GetInstance()->Play(m_TestMusic, false, true);
+	SoundManager::GetInstance()->Play(m_IntroMusic, false, true);
 
 	return true;
 }
 
 void MainMenuState::Release( void )
 {
-	SoundManager::GetInstance()->Pause(m_TestMusic);
+	SoundManager::GetInstance()->Pause(m_IntroMusic);
 	SoundManager::GetInstance()->Pause(m_MenuLoopMusic);
 
 	for(unsigned int i = 0; i < m_Buttons.size(); ++i)
