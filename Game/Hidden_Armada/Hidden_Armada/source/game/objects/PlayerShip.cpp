@@ -5,6 +5,8 @@ using std::fstream;
 #include "../ObjectFactory.h"
 #include "Projectile.h"
 #include "../camera/Camera.h"
+#include "../../engine/sound/SoundManager.h"
+#include "../AssetManager.h"
 
 PlayerShip::PlayerShip( void )
 {
@@ -93,6 +95,8 @@ void PlayerShip::HandleCollision( IEntity* _other, float _dist, float _dirX, flo
 				((Explosion*)explosion)->Initialize(true,true);
 				((BaseEntity*)explosion)->SetPos( this->GetPos() );
 				this->SetVel(D3DXVECTOR2(0,0));
+				
+				SoundManager::GetInstance()->Play(AssetManager::GetInstance()->GetAsset(Asset_S_ExplosionS),false,false);
 			}
 		}
 	}

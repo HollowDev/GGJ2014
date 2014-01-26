@@ -21,7 +21,7 @@ enum Assets
 	Asset_Font,
 
 	Asset_S_Explosion01,Asset_S_Explosion02,Asset_S_Explosion03,Asset_S_Explosion04,
-	Asset_S_Explosion05,Asset_S_Explosion06,Asset_S_Explosion07,
+	Asset_S_Explosion05,Asset_S_Explosion06,Asset_S_Explosion07,Asset_S_ExplosionS,
 
 	Asset_NumAssets
 };

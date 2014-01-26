@@ -87,6 +87,7 @@ void AssetManager::Initialize( void )
 	m_Assets[Asset_S_Explosion05] = SM->LoadSFX("assets/sounds/sfx/Explosions/Explosion05.wav");
 	m_Assets[Asset_S_Explosion06] = SM->LoadSFX("assets/sounds/sfx/Explosions/Explosion06.wav");
 	m_Assets[Asset_S_Explosion07] = SM->LoadSFX("assets/sounds/sfx/Explosions/Explosion07.wav");
+	m_Assets[Asset_S_ExplosionS] = SM->LoadSFX("assets/sounds/sfx/Explosions/ExplosionS.wav");
 }
 
 void AssetManager::Release( void )

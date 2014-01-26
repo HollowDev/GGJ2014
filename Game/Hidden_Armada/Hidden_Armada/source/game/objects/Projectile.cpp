@@ -107,13 +107,14 @@ void Projectile::HandleCollision( IEntity* _other, float _dist, float _dirX, flo
 	if( _other->GetType() != Entity_Projectile && _other != m_Owner )
 	{
 		this->SetIsAlive(false);
-		IEntity* explosion;
-		ObjectFactory::GetInstance()->Create(&explosion,Entity_Explosion);
-		((Explosion*)explosion)->Initialize(false);
-		((BaseEntity*)explosion)->SetPos( this->GetPos() - ((BaseEntity*)explosion)->GetImgCenter() );
-
-		Assets type = Assets(int(Asset_S_Explosion01) + rand()%6);
-		SoundManager::GetInstance()->Play(AssetManager::GetInstance()->GetAsset(Asset_S_Explosion01),false,true);
+		if(_other->GetType() == Entity_EnemyShip || _other->GetType() == Entity_PlayerShip)
+		{
+			IEntity* explosion;
+			ObjectFactory::GetInstance()->Create(&explosion,Entity_Explosion);
+			((Explosion*)explosion)->Initialize(false);
+			((BaseEntity*)explosion)->SetPos( this->GetPos() - ((BaseEntity*)explosion)->GetImgCenter() );
+			SoundManager::GetInstance()->Play(AssetManager::GetInstance()->GetAsset(Asset_S_Explosion01),false,false);
+		}
 	}
 }
 

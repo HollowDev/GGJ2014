@@ -2,6 +2,8 @@
 
 #include "../ObjectFactory.h"
 #include "../../engine/renderer/TextureManager.h"
+#include "../../engine/sound/SoundManager.h"
+#include "../AssetManager.h"
 #include "Powerup.h"
 #include "Explosion.h"
 #include "PlayerShip.h"
@@ -59,6 +61,8 @@ void EnemyShip::Update( float _dt )
 		ObjectFactory::GetInstance()->Create(&explosion,Entity_Explosion);
 		((Explosion*)explosion)->Initialize(true);
 		((BaseEntity*)explosion)->SetPos( this->GetPos() );
+		
+		SoundManager::GetInstance()->Play(AssetManager::GetInstance()->GetAsset(Asset_S_Explosion03),false,false);
 	}
 }
 
