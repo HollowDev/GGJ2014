@@ -127,6 +127,12 @@ bool GameplayState::Initialize( WinApp* _app )
 	m_TimerID;
 	m_TimerText;
 
+	RECT board = {0,0,41,106};
+	for(int i = 0; i < 9; ++i)
+		m_ScoreBoard[i] = board;
+
+	m_BoardPos = D3DXVECTOR2(286,400);
+
 	return true;
 }
 
@@ -163,7 +169,7 @@ void GameplayState::Render( void )
 
 				stringstream ss;
 				ss << "Time Left: " << int(m_EndGameTimer/60.0f) << ":" << int(m_EndGameTimer)%60;
-				m_Font.Print(ss.str().c_str(),m_App->GetWidth()-200.0f,32.0f, D3DCOLOR_ARGB(255,255,255,255));
+				m_Font.Print(ss.str().c_str(),m_App->GetWidth()-200,32, D3DCOLOR_ARGB(255,255,255,255));
 
 				if(m_GameOver)
 				{
@@ -171,13 +177,37 @@ void GameplayState::Render( void )
 					// Insert Score render here.
 					sprintf_s(score, "%i", m_ScoreTally);
 					m_Font.Print(score, m_App->GetWidth() / 2, m_App->GetHeight() / 2, D3DCOLOR_ARGB(255, 255, 255, 255));
+					int boardID = AssetManager::GetInstance()->GetAsset(Asset_FontNumbers);
+					ParseNumbers(m_Player1->GetScore());
+					for(int i = 0; i < 9; ++i)
+					{
+						int bPosX = int(m_BoardPos.x) + i*55;
+						TextureManager::GetInstance()->Draw(boardID,bPosX,(int)m_BoardPos.y,1,1,&m_ScoreBoard[i]);
+					}
 				}
-
 			}
 			D3D9Handler::m_Sprite->End();
 		}
 		D3D9Handler::m_Device->EndScene();
 		D3D9Handler::m_Device->Present(0,0,0,0);
+	}
+}
+
+
+void GameplayState::ParseNumbers( int _number )
+{
+	int divide = 100000000;
+	int copy = _number;
+	for(int i = 0; i < 9; ++i)
+	{
+		if(divide <= copy)
+		{
+			int value = copy/divide;
+			RECT source = {value*41, 0, value*41 + 41, 106};
+			m_ScoreBoard[i] = source;
+			copy -= value * divide;
+		}
+		divide /= 10;
 	}
 }
 
@@ -195,7 +225,7 @@ void GameplayState::Update( float _dt )
 			m_Camera->Update(_dt, m_Player1, m_App, m_AsteroidManager.GetRows(), m_AsteroidManager.GetCols());
 
 			float scale = (float)(m_Player1->GetShield()->GetCurrShield() / (float)m_Player1->GetShield()->GetMaxShield());
-			m_ShieldBar.sourceRect.right = 55 * scale;
+			m_ShieldBar.sourceRect.right = LONG(55.0f * scale);
 
 			m_AsteroidManager.Update(_dt);
 		}

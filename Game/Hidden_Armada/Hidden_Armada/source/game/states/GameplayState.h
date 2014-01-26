@@ -46,6 +46,8 @@ class GameplayState : public BaseState
 	int	m_BGMusic;
 
 	float m_EndGameTimer;
+	RECT m_ScoreBoard[9];
+	D3DXVECTOR2 m_BoardPos;
 
 public:
 	GameplayState( void );
@@ -57,6 +59,8 @@ public:
 	void Render( void );
 	void Update( float _dt );
 	bool Input( void );
+
+	void ParseNumbers( int _number );
 };
 
 #endif
