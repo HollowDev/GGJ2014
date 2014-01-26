@@ -5,7 +5,7 @@ enum Assets
 {
 	Asset_Asteroid01 = 0, Asset_Asteroid02, Asset_Asteroid03, Asset_Asteroid04,
 	Asset_SmallAsteroids, Asset_CrimsonDoom, Asset_EnemyShip01, Asset_EnemyShip02, 
-	Asset_EnemyShip03, Asset_Explosion01, Asset_Explosion02, Asset_HudHealthNotch,
+	Asset_EnemyShip03, Asset_Explosion01, Asset_Explosion02, Asset_Explosion03, Asset_HudHealthNotch,
 	Asset_HudOutline, Asset_HudShieldBar, Asset_Planet01, Asset_Planet02, 
 	Asset_Planet03, Asset_Planet04, Asset_Star01, Asset_HexParticle,
 	Asset_LaserProjectile, Asset_MachineGunProjectile, Asset_MissleProjectile,

@@ -10,9 +10,10 @@ Explosion::Explosion( void )
 	m_CurrFrame = 0;
 }
 
-void Explosion::Initialize( bool _isBig )
+void Explosion::Initialize( bool _isBig, bool _isSingularity  )
 {
 	m_IsBig = _isBig;
+	m_IsSingularity = _isSingularity;
 
 	if(!m_IsBig)
 	{
@@ -27,6 +28,9 @@ void Explosion::Initialize( bool _isBig )
 		this->SetSize(64);
 	}
 	this->SetDir(D3DXVECTOR2(0,-1));
+
+	if(m_IsSingularity)
+		this->SetImgID(AssetManager::GetInstance()->GetAsset(Asset_Explosion03));
 }
 
 void Explosion::Release( void )
@@ -36,8 +40,14 @@ void Explosion::Release( void )
 
 void Explosion::Render( int _x, int _y )
 {
-	int xoff = m_CurrFrame%4;
-	int yoff = m_CurrFrame/4;
+	int xoff = m_CurrFrame%5;
+	int yoff = m_CurrFrame/5;
+	if(m_IsSingularity)
+	{
+		xoff = m_CurrFrame%4;
+		yoff = m_CurrFrame/4;
+	}
+
 	if(!m_IsBig)
 	{
 		RECT source = {64*xoff,64*yoff,64 + 64*xoff, 64 + 64*yoff};
@@ -60,10 +70,21 @@ void Explosion::Update( float _dt )
 	if(m_FrameTimer <= 0.0f)
 	{
 		m_CurrFrame++;
-		if(m_CurrFrame >= 10)
+		if(!m_IsSingularity)
 		{
-			m_CurrFrame = 0;
-			this->SetIsAlive(false);
+			if(m_CurrFrame >= 10)
+			{
+				m_CurrFrame = 0;
+				this->SetIsAlive(false);
+			}
+		}
+		else
+		{
+			if(m_CurrFrame >= 18)
+			{
+				m_CurrFrame = 0;
+				this->SetIsAlive(false);
+			}
 		}
 
 		m_FrameTimer = m_FrameDur;

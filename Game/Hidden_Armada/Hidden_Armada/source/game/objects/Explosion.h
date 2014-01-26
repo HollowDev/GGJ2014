@@ -9,12 +9,13 @@ class Explosion : public BaseEntity
 	float m_FrameDur;
 	int m_CurrFrame;
 	bool m_IsBig;
+	bool m_IsSingularity;
 
 public:
 	Explosion( void );
 	~Explosion( void ) { Release(); }
 
-	void Initialize( bool _isBig = false );
+	void Initialize( bool _isBig = false, bool _isSingularity = false );
 	virtual void Release( void );
 
 	virtual void Render( int _x, int _y );

@@ -55,7 +55,7 @@ void LaserBeam::Update( float _dt )
 
 	if(m_CanDamage <= 0.0f)
 	{
-		m_CanDamage = 0.5f;
+		m_CanDamage = 0.25f;
 	}
 
 	m_CanDamage -= _dt;

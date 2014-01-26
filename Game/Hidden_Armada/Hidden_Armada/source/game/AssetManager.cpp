@@ -23,6 +23,7 @@ void AssetManager::Initialize( void )
 	// EXPLOSIONS FOLDER
 	m_Assets[Asset_Explosion01] = TM->LoadTexture(L"assets/textures/Explosions/Explosion01.png");
 	m_Assets[Asset_Explosion02] = TM->LoadTexture(L"assets/textures/Explosions/Explosion02.png");
+	m_Assets[Asset_Explosion03] = TM->LoadTexture(L"assets/textures/Explosions/Explosion03.png");
 
 	// HUD FOLDER
 	m_Assets[Asset_HudHealthNotch] = TM->LoadTexture(L"assets/textures/hud/healthnotch.png");

@@ -12,12 +12,12 @@ using std::vector;
 #include "objects\LaserBeam.h"
 #include "objects\Shield.h"
 
-#define MAX_ASTEROIDS	500
+#define MAX_ASTEROIDS	5000
 #define MAX_ENEMYSHIPS	2000
 #define MAX_PROJECTILES	1000
-#define MAX_POWERUPS	200
-#define MAX_EXPLOSIONS	500
-#define MAX_LASERBEAMS	100
+#define MAX_POWERUPS	1000
+#define MAX_EXPLOSIONS	5000
+#define MAX_LASERBEAMS	1000
 #define MAX_SHIELDS		2000
 
 class ObjectManager;

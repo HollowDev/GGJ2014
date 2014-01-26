@@ -108,28 +108,8 @@ void Projectile::HandleCollision( IEntity* _other, float _dist, float _dirX, flo
 		this->SetIsAlive(false);
 		IEntity* explosion;
 		ObjectFactory::GetInstance()->Create(&explosion,Entity_Explosion);
-		((Explosion*)explosion)->Initialize(false);
+		((Explosion*)explosion)->Initialize(true,true);
 		((BaseEntity*)explosion)->SetPos( this->GetPos() - ((BaseEntity*)explosion)->GetImgCenter() );
-		//if(m_IsChaining)
-		//{
-		//	int numBullets = 3;
-		//	float angle = 45.0f;
-		//	for(float i = -angle/(numBullets-1); i < angle; i+= angle/(numBullets-1))
-		//	{
-		//		IEntity* proj;
-		//		ObjectFactory::GetInstance()->Create(&proj,Entity_Projectile);
-		//		((Projectile*)proj)->Initialize();
-		//		((Projectile*)proj)->SetImgID(AssetManager::GetInstance()->GetAsset(Asset_MachineGunProjectile));
-		//		((Projectile*)proj)->SetPos(GetPos() + GetImgCenter());
-		//
-		//		D3DXVECTOR2 forward = Rotate2D( GetDir(), D3DXToRadian(i) );
-		//
-		//		((Projectile*)proj)->SetDir(forward);
-		//		((Projectile*)proj)->SetMaxSpeed(500);
-		//		((Projectile*)proj)->Rotate();
-		//		((Projectile*)proj)->SetOwner(this->GetOwner());
-		//	}
-		//}
 	}
 }
 

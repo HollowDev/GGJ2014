@@ -6,6 +6,7 @@
 RaptorGun::RaptorGun( void )
 {
 	m_WeaponType = (int)Weapon_Missle;
+	m_ROF = 0.5f;
 	
 }
 
@@ -52,7 +53,7 @@ void RaptorGun::Fire( IEntity* _owner )
 		// Fire projectile
 		IEntity* proj;
 		
-		for(float deg = -30.0f; deg < 30.0f; deg+=10.0f)
+		for(float deg = -30.0f; deg <= 30.0f; deg+=30.0f)
 		{
 			if( ObjectFactory::GetInstance()->Create(&proj,Entity_Projectile) )
 			{
