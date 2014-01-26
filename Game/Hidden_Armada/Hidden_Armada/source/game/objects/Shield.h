@@ -6,6 +6,8 @@
 class Shield : public BaseEntity
 {
 private:
+	int	m_MaxShield;
+	int m_CurrShield;
 
 public:
 	Shield(void);
