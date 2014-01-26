@@ -164,8 +164,8 @@ void GameplayState::Render( void )
 				}
 
 				char score[256];
-				//sprintf_s(score, "%i", m_Player1->GetScore());
-				//m_Font.Print(score, 155, m_App->GetHeight() - 131, D3DCOLOR_ARGB(255, 255, 255, 255));
+				sprintf_s(score, "%i", m_Player1->GetScore());
+				m_Font.Print(score, 155, m_App->GetHeight() - 131, D3DCOLOR_ARGB(255, 255, 255, 255));
 
 				stringstream ss;
 				ss << "Time Left: " << int(m_EndGameTimer/60.0f) << ":" << int(m_EndGameTimer)%60;
@@ -175,8 +175,8 @@ void GameplayState::Render( void )
 				{
 					TextureManager::GetInstance()->Draw(m_GameOverScreen, 0, 0);
 					// Insert Score render here.
-					sprintf_s(score, "%i", m_ScoreTally);
-					m_Font.Print(score, m_App->GetWidth() / 2, m_App->GetHeight() / 2, D3DCOLOR_ARGB(255, 255, 255, 255));
+					//sprintf_s(score, "%i", m_ScoreTally);
+					//m_Font.Print(score, m_App->GetWidth() / 2, m_App->GetHeight() / 2, D3DCOLOR_ARGB(255, 255, 255, 255));
 					int boardID = AssetManager::GetInstance()->GetAsset(Asset_FontNumbers);
 					ParseNumbers(m_Player1->GetScore());
 					for(int i = 0; i < 9; ++i)
