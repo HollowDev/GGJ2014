@@ -24,8 +24,6 @@ void Projectile::Initialize( void )
 	this->SetImgID(AssetManager::GetInstance()->GetAsset(Asset_MachineGunProjectile));
 	this->SetImgCenter(D3DXVECTOR2(8,4));
 	m_Target = nullptr;
-
-	m_SmokeTrailEmitter = ParticleManager::GetInstance()->AddEmitter(100, GetVel().x, GetVel().y, GetPos().x, GetPos().y, 2.0f, 5.0f, AssetManager::GetInstance()->GetAsset(Asset_HexParticle));
 }
 
 void Projectile::Release( void )
@@ -36,7 +34,6 @@ void Projectile::Release( void )
 void Projectile::Render( int _x, int _y )
 {
 	BaseEntity::Render(_x,_y);
-	m_SmokeTrailEmitter->Render(_x, _y);
 }
 
 void Projectile::Update( float _dt )
@@ -73,8 +70,6 @@ void Projectile::Update( float _dt )
 				m_Target = AIManager::GetInstance()->GetTarget();
 
 		}
-
-		m_SmokeTrailEmitter->Update(_dt, GetPos().x, GetPos().y);
 	}
 
 	m_Life -= _dt;
@@ -109,6 +104,26 @@ void Projectile::HandleCollision( IEntity* _other, float _dist, float _dirX, flo
 		ObjectFactory::GetInstance()->Create(&explosion,Entity_Explosion);
 		((Explosion*)explosion)->Initialize(false);
 		((BaseEntity*)explosion)->SetPos( this->GetPos() - ((BaseEntity*)explosion)->GetImgCenter() );
+		if(m_IsChaining)
+		{
+			int numBullets = 3;
+			float angle = 45.0f;
+			for(float i = -angle/(numBullets-1); i < angle; i+= angle/(numBullets-1))
+			{
+				IEntity* proj;
+				ObjectFactory::GetInstance()->Create(&proj,Entity_Projectile);
+				((Projectile*)proj)->Initialize();
+				((Projectile*)proj)->SetImgID(AssetManager::GetInstance()->GetAsset(Asset_MachineGunProjectile));
+				((Projectile*)proj)->SetPos(GetPos() + GetImgCenter());
+
+				D3DXVECTOR2 forward = Rotate2D( GetDir(), D3DXToRadian(i) );
+
+				((Projectile*)proj)->SetDir(forward);
+				((Projectile*)proj)->SetMaxSpeed(500);
+				((Projectile*)proj)->Rotate();
+				((Projectile*)proj)->SetOwner(this->GetOwner());
+			}
+		}
 	}
 }
 

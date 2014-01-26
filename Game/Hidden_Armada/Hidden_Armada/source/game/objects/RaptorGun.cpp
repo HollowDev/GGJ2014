@@ -65,6 +65,7 @@ void RaptorGun::Fire( IEntity* _owner )
 				((Projectile*)proj)->SetDir(forward);
 				((Projectile*)proj)->SetMaxSpeed(450);
 				((Projectile*)proj)->Rotate();
+				((Projectile*)proj)->SetIsChaining(false);
 				((Projectile*)proj)->SetIsHoming(true);
 				((Projectile*)proj)->SetOwner(_owner);
 			}

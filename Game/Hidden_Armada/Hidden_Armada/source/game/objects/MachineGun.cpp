@@ -58,6 +58,8 @@ void MachineGun::Fire( IEntity* _owner )
 			((Projectile*)proj)->SetDir(GetDir());
 			((Projectile*)proj)->SetMaxSpeed(500);
 			((Projectile*)proj)->Rotate();
+			((Projectile*)proj)->SetIsHoming(false);
+			((Projectile*)proj)->SetIsChaining(true);
 			((Projectile*)proj)->SetOwner(_owner);
 		}
 		// update fire timer

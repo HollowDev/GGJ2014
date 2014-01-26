@@ -11,11 +11,11 @@ using std::vector;
 #include "objects\Explosion.h"
 #include "objects\LaserBeam.h"
 
-#define MAX_ASTEROIDS	200
+#define MAX_ASTEROIDS	500
 #define MAX_ENEMYSHIPS	2000
-#define MAX_PROJECTILES	200
-#define MAX_POWERUPS	100
-#define MAX_EXPLOSIONS	200
+#define MAX_PROJECTILES	1000
+#define MAX_POWERUPS	200
+#define MAX_EXPLOSIONS	500
 #define MAX_LASERBEAMS	100
 
 class ObjectManager;
