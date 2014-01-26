@@ -247,7 +247,7 @@ void GameplayState::Update( float _dt )
 	{
 		// GAME OVER TIMER TEMPORARY!
 		// CHANGE ONCE ABLE TO COUNT UP SCORE
-		//if(m_ScoreTally != m_Player1->GetScore())
+		if(m_ScoreTally != m_Player1->GetScore())
 		{
 			m_GameOverTimer += _dt;
 			if(m_GameOverTimer > 0.001f)
@@ -256,7 +256,7 @@ void GameplayState::Update( float _dt )
 				m_ScoreTally += 10;
 			}
 		}
-		//else
+		else
 		{
 			m_LeaveGameTimer -= _dt;
 			if(m_LeaveGameTimer <= 0.0f)
