@@ -39,6 +39,9 @@ bool GameplayState::Initialize( WinApp* _app )
 	int weaponID = AssetManager::GetInstance()->GetAsset(Asset_WeaponMissle03);
 	RECT source = {0,0,128,128};
 
+	int		m_TimerID;
+	spriteButtons m_TimerText;
+
 	m_Camera = new Camera();
 
 	m_Player1 = new PlayerShip();
@@ -120,6 +123,9 @@ bool GameplayState::Initialize( WinApp* _app )
 
 	m_isPaused = false;
 	m_EndGameTimer = 5.0f * 60.0f;
+
+	m_TimerID;
+	m_TimerText;
 
 	return true;
 }

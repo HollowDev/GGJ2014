@@ -31,6 +31,9 @@ class GameplayState : public BaseState
 	int		m_ScoreTally;
 	float	m_LeaveGameTimer;
 
+	int		m_TimerID;
+	spriteButtons m_TimerText;
+
 	
 	bool	m_QuitGame;
 
