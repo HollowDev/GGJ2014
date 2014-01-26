@@ -25,7 +25,8 @@ class GameplayState : public BaseState
 	
 	spriteButtons m_ShieldBar;
 	spriteButtons m_HudBackground;
-	spriteButtons m_HealthBar;
+
+	spriteButtons m_HealthBar1;
 
 public:
 	GameplayState( void );

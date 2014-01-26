@@ -16,6 +16,7 @@ void PlayerShip::Initialize( const char* _filepath, D3DXVECTOR2 _pos, int _weapo
 	Ship::Initialize(_filepath,_pos,_weaponID);
 	m_Input = _input;
 	m_Camera = _camera;
+	m_Score = 0;
 }
 
 void PlayerShip::Release( void )

@@ -35,6 +35,8 @@ bool GameplayState::Initialize( WinApp* _app )
 	m_Player1->Initialize("assets/data/ships/ship1.txt",D3DXVECTOR2(400,400),weaponID, m_Input, m_Camera);
 	m_Player1->SetImgID(p1ID);
 	m_Player1->SetImgSource(source);
+	m_Player1->SetMaxHP(6);
+	m_Player1->SetHP(6);
 
 	m_Camera->Initialize(m_Player1);
 
@@ -80,10 +82,9 @@ bool GameplayState::Initialize( WinApp* _app )
 	m_ShieldBar.sourceRect.right = 55;
 	m_ShieldBar.sourceRect.bottom = 17;
 
-	m_HealthBar.color = D3DCOLOR_ARGB(255, 255, 255, 255);
-	m_HealthBar.posX = 25;
-	m_HealthBar.posY = m_App->GetHeight() - 175;
-
+	m_HealthBar1.color = D3DCOLOR_ARGB(255, 255, 255, 255);
+	m_HealthBar1.posX = 177;
+	m_HealthBar1.posY = m_App->GetHeight() - 63;
 
 	return true;
 }
@@ -104,8 +105,14 @@ void GameplayState::Render( void )
 
 			TextureManager::GetInstance()->Draw(m_HudBackgroundID, m_HudBackground.posX, m_HudBackground.posY, 1.15f, 1.15f, nullptr, 0.0f, 0.0f, 0.0f, m_HudBackground.color);
 			TextureManager::GetInstance()->Draw(m_ShieldBarID, m_ShieldBar.posX, m_ShieldBar.posY, 1.15f, 1.15f, &m_ShieldBar.sourceRect, 0.0f, 0.0f, 0.0f, m_ShieldBar.color);
+			for(int i = 0; i < m_Player1->GetHP(); ++i)
+			{
+				TextureManager::GetInstance()->Draw(m_HealthBarID, m_HealthBar1.posX + (17 * i), m_HealthBar1.posY, 1.15f, 1.15f, nullptr, 0.0f, 0.0f, 0.0f, m_HealthBar1.color);
+			}
 
-			m_Font.Print("0123456", 155, m_App->GetHeight() - 131, D3DCOLOR_ARGB(255, 255, 255, 255));
+			char score[256];
+			sprintf(score, "%i", m_Player1->GetScore());
+			m_Font.Print(score, 155, m_App->GetHeight() - 131, D3DCOLOR_ARGB(255, 255, 255, 255));
 		}
 		D3D9Handler::m_Sprite->End();
 	}

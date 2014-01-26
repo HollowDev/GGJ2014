@@ -26,6 +26,8 @@ public:
 	virtual void HandleCollision( IEntity* _other, float _dist, float _dirX, float _dirY );
 
 	virtual Sphere GetSphere( void ) { return Sphere(GetPos()+this->GetImgCenter(), float(this->GetSize())); }
+	
+	const int GetScore(void) { return m_Score; }
 
 };
 
