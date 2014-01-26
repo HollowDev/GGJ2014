@@ -80,7 +80,7 @@ void Explosion::Update( float _dt )
 		}
 		else
 		{
-			if(m_CurrFrame >= 18)
+			if(m_CurrFrame >= 24)
 			{
 				m_CurrFrame = 0;
 				this->SetIsAlive(false);

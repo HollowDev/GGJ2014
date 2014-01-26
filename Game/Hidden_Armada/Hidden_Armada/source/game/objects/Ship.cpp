@@ -105,7 +105,8 @@ void Ship::SwitchWeapons( int _weaponID )
 {
 	if(m_Weapon && m_Weapon->GetWeaponType() == Weapon_Laser)
 	{
-		m_LaserGun.GetLaserBeam()->SetIsAlive(false);
+		if(m_LaserGun.GetLaserBeam())
+			m_LaserGun.GetLaserBeam()->SetIsAlive(false);
 	}
 
 	if(_weaponID == Weapon_MachineGun)

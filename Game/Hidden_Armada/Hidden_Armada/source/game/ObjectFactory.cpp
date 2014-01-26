@@ -46,6 +46,12 @@ void ObjectFactory::Initialize( void )
 	{
 		m_OpenList[Entity_Shield].push_back(i);
 	}
+
+	for(i = 0; i < MAX_REVEAL; ++i)
+	{
+		m_OpenList[Entity_Reveal].push_back(i);
+		m_RevealArray[i].Initialize();
+	}
 }
 
 
@@ -63,21 +69,21 @@ bool ObjectFactory::Create( IEntity** _object, Entity_Type _id )
 		{
 			MakeDefault(m_AsteroidArray[index]);
 			*_object = &m_AsteroidArray[index];
-			m_OM->AddObject(&m_AsteroidArray[index],NUM_LAYERS-1);
+			m_OM->AddObject(&m_AsteroidArray[index],2);
 		}
 		break;
 	case Entity_Projectile:
 		{
 			MakeDefault(m_ProjectileArray[index]);
 			*_object = &m_ProjectileArray[index];
-			m_OM->AddObject(&m_ProjectileArray[index],NUM_LAYERS-1);
+			m_OM->AddObject(&m_ProjectileArray[index],3);
 		}
 		break;
 	case Entity_EnemyShip:
 		{
 			MakeDefault(m_EnemyShipArray[index]);
 			*_object = &m_EnemyShipArray[index];
-			m_OM->AddObject(&m_EnemyShipArray[index],3);
+			m_OM->AddObject(&m_EnemyShipArray[index],2);
 		}
 		break;
 	case Entity_Powerup:
@@ -92,7 +98,7 @@ bool ObjectFactory::Create( IEntity** _object, Entity_Type _id )
 		{
 			// make default here
 			*_object = &m_ExplosionArray[index];
-			m_OM->AddObject(&m_ExplosionArray[index],NUM_LAYERS-1);
+			m_OM->AddObject(&m_ExplosionArray[index],3);
 		}
 		break;
 	case Entity_LaserBeam:
@@ -107,6 +113,13 @@ bool ObjectFactory::Create( IEntity** _object, Entity_Type _id )
 			// make default here
 			*_object = &m_ShieldArray[index];
 			m_OM->AddObject(&m_ShieldArray[index],3);
+		}
+		break;
+	case Entity_Reveal:
+		{
+			// make default here
+			*_object = &m_RevealArray[index];
+			m_OM->AddObject(&m_RevealArray[index],3);
 		}
 		break;
 	}
@@ -197,6 +210,17 @@ bool ObjectFactory::Destroy( IEntity* _object )
 			m_Destroyed[Entity_Shield].push_back(&m_ShieldArray[test]);
 		}
 		break;
+	case Entity_Reveal:
+		{
+			test = ((int)_object-(int)&m_RevealArray[0]) / sizeof(Reveal);
+			if( test < 0 || test >= MAX_REVEAL )
+				return false;
+			else if( !IsValid( Entity_Reveal, test ) )
+				return false;
+
+			m_Destroyed[Entity_Reveal].push_back(&m_RevealArray[test]);
+		}
+		break;
 	}
 
 	return true;
@@ -211,7 +235,7 @@ void ObjectFactory::ProcessDestroy( void )
 	{
 		index = ((int)m_Destroyed[Entity_Asteroid][i]-(int)&m_AsteroidArray[0])/sizeof(Asteroids);
 		m_OpenList[Entity_Asteroid].push_back(index);
-		m_OM->RemoveObject(m_Destroyed[Entity_Asteroid][i],NUM_LAYERS-1);
+		m_OM->RemoveObject(m_Destroyed[Entity_Asteroid][i],2);
 	}
 	m_Destroyed[Entity_Asteroid].clear();
 
@@ -220,7 +244,7 @@ void ObjectFactory::ProcessDestroy( void )
 	{
 		index = ((int)m_Destroyed[Entity_Projectile][i]-(int)&m_ProjectileArray[0])/sizeof(Projectile);
 		m_OpenList[Entity_Projectile].push_back(index);
-		m_OM->RemoveObject(m_Destroyed[Entity_Projectile][i],NUM_LAYERS-1);
+		m_OM->RemoveObject(m_Destroyed[Entity_Projectile][i],3);
 	}
 	m_Destroyed[Entity_Projectile].clear();
 
@@ -229,7 +253,7 @@ void ObjectFactory::ProcessDestroy( void )
 	{
 		index = ((int)m_Destroyed[Entity_EnemyShip][i]-(int)&m_EnemyShipArray[0])/sizeof(EnemyShip);
 		m_OpenList[Entity_EnemyShip].push_back(index);
-		m_OM->RemoveObject(m_Destroyed[Entity_EnemyShip][i],3);
+		m_OM->RemoveObject(m_Destroyed[Entity_EnemyShip][i],2);
 	}
 	m_Destroyed[Entity_EnemyShip].clear();
 
@@ -247,7 +271,7 @@ void ObjectFactory::ProcessDestroy( void )
 	{
 		index = ((int)m_Destroyed[Entity_Explosion][i]-(int)&m_ExplosionArray[0])/sizeof(Explosion);
 		m_OpenList[Entity_Explosion].push_back(index);
-		m_OM->RemoveObject(m_Destroyed[Entity_Explosion][i],NUM_LAYERS-1);
+		m_OM->RemoveObject(m_Destroyed[Entity_Explosion][i],3);
 	}
 	m_Destroyed[Entity_Explosion].clear();
 
@@ -268,6 +292,15 @@ void ObjectFactory::ProcessDestroy( void )
 		m_OM->RemoveObject(m_Destroyed[Entity_Shield][i],3);
 	}
 	m_Destroyed[Entity_Shield].clear();
+
+	size = m_Destroyed[Entity_Reveal].size();
+	for(i = 0; i < size; ++i)
+	{
+		index = ((int)m_Destroyed[Entity_Reveal][i]-(int)&m_RevealArray[0])/sizeof(Reveal);
+		m_OpenList[Entity_Reveal].push_back(index);
+		m_OM->RemoveObject(m_Destroyed[Entity_Reveal][i],3);
+	}
+	m_Destroyed[Entity_Reveal].clear();
 }
 
 

@@ -40,10 +40,10 @@ void LaserBeam::Update( float _dt )
 	
 	D3DXVECTOR2 endpos;
 	int length = int(dist/32.0f);
-	for(unsigned int i = 0; i < length; ++i)
+	for(int i = 0; i < length; ++i)
 	{
 		D3DXVECTOR2 pos = this->GetPos();
-		pos += GetDir() * 14 + GetDir() * (i*32);
+		pos += GetDir() * 14.0f + GetDir() * ((float)i*32.0f);
 		m_Laser.push_back(pos);
 		endpos = pos;
 	}
@@ -80,7 +80,7 @@ void LaserBeam::HandleCollision( IEntity* _other, float _dist, float _dirX, floa
 	}
 	else if(_other->GetType() == Entity_EnemyShip)
 	{
-		D3DXVECTOR2 offset(rand()%20-10,rand()%20-10);
+		D3DXVECTOR2 offset(float(rand()%20-10),float(rand()%20-10));
 
 		IEntity* explosion;
 		ObjectFactory::GetInstance()->Create(&explosion,Entity_Explosion);

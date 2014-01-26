@@ -187,6 +187,12 @@
     <ClInclude Include="source\game\objects\Shield.h">
       <Filter>game\objects</Filter>
     </ClInclude>
+    <ClInclude Include="source\game\objects\Reveal.h">
+      <Filter>game\objects\weapons</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\AsteroidManager.h">
+      <Filter>game\managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -312,6 +318,12 @@
     </ClCompile>
     <ClCompile Include="source\game\objects\Shield.cpp">
       <Filter>game\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\objects\Reveal.cpp">
+      <Filter>game\objects\weapons</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\AsteroidManager.cpp">
+      <Filter>game\managers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

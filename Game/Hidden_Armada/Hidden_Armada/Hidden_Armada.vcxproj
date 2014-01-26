@@ -93,6 +93,7 @@
     <ClInclude Include="source\engine\windows.h" />
     <ClInclude Include="source\game\AIManager.h" />
     <ClInclude Include="source\game\AssetManager.h" />
+    <ClInclude Include="source\game\AsteroidManager.h" />
     <ClInclude Include="source\game\camera\Camera.h" />
     <ClInclude Include="source\game\ObjectFactory.h" />
     <ClInclude Include="source\game\ObjectManager.h" />
@@ -108,6 +109,7 @@
     <ClInclude Include="source\game\objects\Powerup.h" />
     <ClInclude Include="source\game\objects\Projectile.h" />
     <ClInclude Include="source\game\objects\RaptorGun.h" />
+    <ClInclude Include="source\game\objects\Reveal.h" />
     <ClInclude Include="source\game\objects\Shield.h" />
     <ClInclude Include="source\game\objects\Ship.h" />
     <ClInclude Include="source\game\objects\Weapon.h" />
@@ -137,6 +139,7 @@
     <ClCompile Include="source\engine\sound\SoundManager.cpp" />
     <ClCompile Include="source\game\AIManager.cpp" />
     <ClCompile Include="source\game\AssetManager.cpp" />
+    <ClCompile Include="source\game\AsteroidManager.cpp" />
     <ClCompile Include="source\game\camera\Camera.cpp" />
     <ClCompile Include="source\game\ObjectFactory.cpp" />
     <ClCompile Include="source\game\ObjectManager.cpp" />
@@ -151,6 +154,7 @@
     <ClCompile Include="source\game\objects\Powerup.cpp" />
     <ClCompile Include="source\game\objects\Projectile.cpp" />
     <ClCompile Include="source\game\objects\RaptorGun.cpp" />
+    <ClCompile Include="source\game\objects\Reveal.cpp" />
     <ClCompile Include="source\game\objects\Shield.cpp" />
     <ClCompile Include="source\game\objects\Ship.cpp" />
     <ClCompile Include="source\game\objects\Weapon.cpp" />

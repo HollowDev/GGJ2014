@@ -2,6 +2,7 @@
 #include "../AssetManager.h"
 #include "../AIManager.h"
 #include "../ObjectFactory.h"
+#include "../../engine/sound/SoundManager.h"
 #include "Explosion.h"
 
 Projectile::Projectile( void )
@@ -108,8 +109,11 @@ void Projectile::HandleCollision( IEntity* _other, float _dist, float _dirX, flo
 		this->SetIsAlive(false);
 		IEntity* explosion;
 		ObjectFactory::GetInstance()->Create(&explosion,Entity_Explosion);
-		((Explosion*)explosion)->Initialize(true,true);
+		((Explosion*)explosion)->Initialize(false);
 		((BaseEntity*)explosion)->SetPos( this->GetPos() - ((BaseEntity*)explosion)->GetImgCenter() );
+
+		Assets type = Assets(int(Asset_S_Explosion01) + rand()%6);
+		SoundManager::GetInstance()->Play(AssetManager::GetInstance()->GetAsset(Asset_S_Explosion01),false,true);
 	}
 }
 

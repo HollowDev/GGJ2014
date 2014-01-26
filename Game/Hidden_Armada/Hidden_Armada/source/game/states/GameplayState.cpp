@@ -50,11 +50,11 @@ bool GameplayState::Initialize( WinApp* _app )
 		AssetManager::GetInstance()->GetAsset(Asset_Asteroid03),
 		AssetManager::GetInstance()->GetAsset(Asset_Asteroid04)		
 	};
-	for(int i = 0; i < 100; ++i)
-	{
-		ObjectFactory::GetInstance()->Create(&m_AsteroidTest[i], Entity_Asteroid);
-		((Asteroids*)m_AsteroidTest[i])->SetImgID(asteroid[rand()%4]);
-	}
+	//for(int i = 0; i < 100; ++i)
+	//{
+	//	ObjectFactory::GetInstance()->Create(&m_AsteroidTest[i], Entity_Asteroid);
+	//	((Asteroids*)m_AsteroidTest[i])->SetImgID(asteroid[rand()%4]);
+	//}
 
 	AIManager::GetInstance()->Initialize(m_Player1);
 
@@ -63,6 +63,8 @@ bool GameplayState::Initialize( WinApp* _app )
 	m_Player1->SetShield((Shield*)newShield);
 	m_Player1->GetShield()->SetMaxShield(15);
 	m_Player1->GetShield()->SetCurrShield(15);
+
+	m_AsteroidManager.Initialize(6,4,30,m_Player1);
 
 	//RECT enemySource = {0,0,128,128};
 	//int enemyShipID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/enemyships/enemyship2.png");
@@ -107,6 +109,8 @@ void GameplayState::Render( void )
 	{
 		D3D9Handler::m_Sprite->Begin( D3DXSPRITE_ALPHABLEND );
 		{
+			m_AsteroidManager.Render(-(int)m_Camera->GetPos().x, -(int)m_Camera->GetPos().y);
+
 			ObjectManager::GetInstance()->Render(-(int)m_Camera->GetPos().x, -(int)m_Camera->GetPos().y);
 
 			TextureManager::GetInstance()->Draw(m_HudBackgroundID, m_HudBackground.posX, m_HudBackground.posY, 1.15f, 1.15f, nullptr, 0.0f, 0.0f, 0.0f, m_HudBackground.color);
@@ -134,6 +138,8 @@ void GameplayState::Update( float _dt )
 	ObjectFactory::GetInstance()->ProcessDestroy();
 
 	m_Camera->Update(_dt, m_Player1, m_App);
+
+	m_AsteroidManager.Update(_dt);
 }
 
 bool GameplayState::Input( void )

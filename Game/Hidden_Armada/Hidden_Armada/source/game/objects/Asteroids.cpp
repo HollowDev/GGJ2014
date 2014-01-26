@@ -52,7 +52,7 @@ bool Asteroids::CheckCollision( IEntity* _other )
 {
 	if(_other->GetType() == Entity_Asteroid || _other->GetType() == Entity_PlayerShip ||
 		_other->GetType() == Entity_Projectile || _other->GetType() == Entity_EnemyShip ||
-		_other->GetType() == Entity_LaserBeam)
+		_other->GetType() == Entity_LaserBeam || _other->GetType() == Entity_Reveal)
 		return true;
 
 	return false;
@@ -67,7 +67,8 @@ void Asteroids::HandleCollision( IEntity* _other, float _dist, float _dirX, floa
 		D3DXVECTOR2 dir(_dirX,_dirY);
 		D3DXVec2Scale(&m_ConstantVel,&dir,-50.0f);
 	}
-	else if(_other->GetType() == Entity_Projectile && ((Projectile*)_other)->GetOwner()->GetType() == Entity_PlayerShip)
+	else if((_other->GetType() == Entity_Projectile && ((Projectile*)_other)->GetOwner()->GetType() != Entity_EnemyShip)
+		|| _other->GetType() == Entity_Reveal )
 	{
 		// TODO:: spawn ship, possibly, do animation, spawn particles
 		if(rand()%2 != 0)

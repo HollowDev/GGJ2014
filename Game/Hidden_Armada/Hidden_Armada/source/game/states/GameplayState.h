@@ -6,6 +6,7 @@
 #include "../../engine/input/InputController.h"
 #include "../../engine/renderer/BitmapFont.h"
 #include "../camera/Camera.h"
+#include "../AsteroidManager.h"
 
 class GameplayState : public BaseState
 {
@@ -18,6 +19,7 @@ class GameplayState : public BaseState
 	Camera*	m_Camera;
 
 	InputController* m_Input;
+	AsteroidManager m_AsteroidManager;
 
 	int		m_HudBackgroundID;
 	int		m_ShieldBarID;

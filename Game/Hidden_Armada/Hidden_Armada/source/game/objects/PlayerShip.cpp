@@ -9,6 +9,8 @@ using std::fstream;
 PlayerShip::PlayerShip( void )
 {
 	this->m_Type = Entity_PlayerShip;
+
+	m_Reveal = nullptr;
 }
 
 void PlayerShip::Initialize( const char* _filepath, D3DXVECTOR2 _pos, int _weaponID, InputController* _input, Camera* _camera )
@@ -27,7 +29,8 @@ void PlayerShip::Release( void )
 
 void PlayerShip::Render( int _x, int _y )
 {
-	Ship::Render(_x,_y);
+	if(this->GetHP() > 0)
+		Ship::Render(_x,_y);
 }
 
 void PlayerShip::Update( float _dt )
@@ -53,6 +56,9 @@ void PlayerShip::Update( float _dt )
 
 bool PlayerShip::CheckCollision( IEntity* _other )
 {
+	if(GetHP() <= 0)
+		return false;
+
 	return true;
 }
 
@@ -78,6 +84,28 @@ void PlayerShip::HandleCollision( IEntity* _other, float _dist, float _dirX, flo
 		if(m_Shield->GetCurrShield() > 0)
 			m_Shield->SetCurrShield(m_Shield->GetCurrShield() - 1);
 		else
+		{
 			SetHP(GetHP() - 1);
+			if(this->GetHP() <= 0 && m_RespawnTimer == 3.0f)
+			{
+				IEntity* explosion;
+				ObjectFactory::GetInstance()->Create(&explosion,Entity_Explosion);
+				((Explosion*)explosion)->Initialize(true,true);
+				((BaseEntity*)explosion)->SetPos( this->GetPos() );
+				this->SetVel(D3DXVECTOR2(0,0));
+			}
+		}
 	}
+}
+
+void PlayerShip::UseReveal( void )
+{
+	if(!m_Reveal || !m_Reveal->GetIsAlive())
+	{
+		ObjectFactory::GetInstance()->Create(&m_Reveal,Entity_Reveal);
+		((BaseEntity*)m_Reveal)->SetDir(this->GetWeapon()->GetDir());
+		((BaseEntity*)m_Reveal)->SetRot(this->GetWeapon()->GetRot());
+		((BaseEntity*)m_Reveal)->SetPos(this->GetPos()+this->GetImgCenter());
+	}
+
 }

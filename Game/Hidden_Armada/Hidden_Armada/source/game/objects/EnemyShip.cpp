@@ -4,6 +4,7 @@
 #include "../../engine/renderer/TextureManager.h"
 #include "Powerup.h"
 #include "Explosion.h"
+#include "PlayerShip.h"
 
 EnemyShip::EnemyShip( void )
 {
@@ -45,6 +46,8 @@ void EnemyShip::Update( float _dt )
 	if(this->GetHP() <= 0)
 	{
 		this->SetIsAlive(false);
+
+		((PlayerShip*)m_Target)->AddToScore( 100 );
 
 		IEntity* powerup;
 		ObjectFactory::GetInstance()->Create(&powerup,Entity_Powerup);

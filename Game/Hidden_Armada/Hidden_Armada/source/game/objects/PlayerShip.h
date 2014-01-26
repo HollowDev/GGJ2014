@@ -13,8 +13,8 @@ class PlayerShip : public Ship
 	// TODO:: Place controller here
 	InputController* m_Input;
 	Camera*			 m_Camera;
-
 	Shield*			m_Shield;
+	IEntity*		m_Reveal;
 
 	float			m_RespawnTimer;
 
@@ -32,9 +32,17 @@ public:
 
 	virtual Sphere GetSphere( void ) { return Sphere(GetPos()+this->GetImgCenter(), float(this->GetSize())); }
 	
-	const int GetScore(void) { return m_Score; }
-	void SetShield(Shield* _shield) { m_Shield = _shield; }
-	Shield* GetShield(void) { return m_Shield; }
+	void UseReveal( void );
+
+	// accessors
+	inline int GetScore( void ) { return m_Score; }
+	inline Shield* GetShield( void ) { return m_Shield; }
+
+	// mutators
+	inline void SetScore( int _score ) { m_Score = _score; }
+	inline void SetShield( Shield* _shield ) { m_Shield = _shield; }
+
+	inline void AddToScore( int _toAdd ) { m_Score += _toAdd; }
 };
 
 #endif

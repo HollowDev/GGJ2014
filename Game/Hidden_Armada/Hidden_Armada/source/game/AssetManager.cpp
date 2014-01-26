@@ -1,5 +1,6 @@
 #include "AssetManager.h"
 #include "../engine/renderer/TextureManager.h"
+#include "../engine/sound/SoundManager.h"
 
 AssetManager AssetManager::m_Instance;
 
@@ -43,7 +44,8 @@ void AssetManager::Initialize( void )
 	m_Assets[Asset_MachineGunProjectile] = TM->LoadTexture(L"assets/textures/playershipeffects/machinegun_projectiles.png");
 	m_Assets[Asset_MissleProjectile] = TM->LoadTexture(L"assets/textures/playershipeffects/missile_projectiles.png");
 	m_Assets[Asset_ShipThrust] = TM->LoadTexture(L"assets/textures/playershipeffects/playerships_thrust.png");
-	
+	m_Assets[Asset_Reveal] = TM->LoadTexture(L"assets/textures/playershipeffects/revealwave.png");
+
 	// POWERUPS FOLDER
 	m_Assets[Asset_Powerups01] = TM->LoadTexture(L"assets/textures/powerups/powerups1.png");
 
@@ -74,6 +76,17 @@ void AssetManager::Initialize( void )
 
 	// ROOT
 	m_Assets[Asset_Font] = TM->LoadTexture(L"assets/textures/font.png");
+
+
+	SoundManager* SM = SoundManager::GetInstance();
+	// LOAD SOUNDS
+	m_Assets[Asset_S_Explosion01] = SM->LoadSFX("assets/sounds/sfx/Explosions/Explosion01.wav");
+	m_Assets[Asset_S_Explosion02] = SM->LoadSFX("assets/sounds/sfx/Explosions/Explosion02.wav");
+	m_Assets[Asset_S_Explosion03] = SM->LoadSFX("assets/sounds/sfx/Explosions/Explosion03.wav");
+	m_Assets[Asset_S_Explosion04] = SM->LoadSFX("assets/sounds/sfx/Explosions/Explosion04.wav");
+	m_Assets[Asset_S_Explosion05] = SM->LoadSFX("assets/sounds/sfx/Explosions/Explosion05.wav");
+	m_Assets[Asset_S_Explosion06] = SM->LoadSFX("assets/sounds/sfx/Explosions/Explosion06.wav");
+	m_Assets[Asset_S_Explosion07] = SM->LoadSFX("assets/sounds/sfx/Explosions/Explosion07.wav");
 }
 
 void AssetManager::Release( void )

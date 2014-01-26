@@ -90,6 +90,8 @@ void InputController::CheckInput( PlayerShip* _player, BaseState* _state, Camera
 
 			if(GetAsyncKeyState(VK_LBUTTON))
 				_player->GetWeapon()->Fire(_player);
+			else if(GetAsyncKeyState(VK_RBUTTON))
+				_player->UseReveal();
 		}
 	}
 }
