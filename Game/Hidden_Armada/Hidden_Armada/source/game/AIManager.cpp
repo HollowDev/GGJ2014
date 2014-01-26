@@ -32,5 +32,6 @@ void AIManager::SpawnEnemy( D3DXVECTOR2 _pos )
 		((EnemyShip*)enemy)->SetTarget(m_Target);
 		((EnemyShip*)enemy)->SetHP(1);
 		((EnemyShip*)enemy)->SetMaxHP(1);
+		((EnemyShip*)enemy)->SetIsAlive(true);
 	}
 }

@@ -24,6 +24,11 @@ void ObjectFactory::Initialize( void )
 	{
 		m_OpenList[Entity_EnemyShip].push_back(i);
 	}
+
+	for(i = 0; i < MAX_POWERUPS; ++i)
+	{
+		m_OpenList[Entity_Powerup].push_back(i);
+	}
 }
 
 
@@ -58,7 +63,15 @@ bool ObjectFactory::Create( IEntity** _object, Entity_Type _id )
 			m_OM->AddObject(&m_EnemyShipArray[index],3);
 		}
 		break;
+	case Entity_Powerup:
+		{
+			MakeDefault(m_PowerupArray[index]);
+			*_object = &m_PowerupArray[index];
+			m_OM->AddObject(&m_PowerupArray[index],3);
+		}
+		break;
 	}
+	(*_object)->SetIsAlive(true);
 
 	return true;
 }
@@ -101,6 +114,16 @@ bool ObjectFactory::Destroy( IEntity* _object )
 
 			m_Destroyed[Entity_EnemyShip].push_back(&m_EnemyShipArray[test]);
 		}
+	case Entity_Powerup:
+		{
+			test = ((int)_object-(int)&m_PowerupArray[0]) / sizeof(Powerup);
+			if( test < 0 || test >= MAX_POWERUPS )
+				return false;
+			else if( !IsValid( Entity_Powerup, test ) )
+				return false;
+
+			m_Destroyed[Entity_Powerup].push_back(&m_PowerupArray[test]);
+		}
 		break;
 	}
 
@@ -137,6 +160,15 @@ void ObjectFactory::ProcessDestroy( void )
 		m_OM->RemoveObject(m_Destroyed[Entity_EnemyShip][i],3);
 	}
 	m_Destroyed[Entity_EnemyShip].clear();
+
+	size = m_Destroyed[Entity_Powerup].size();
+	for(i = 0; i < size; ++i)
+	{
+		index = ((int)m_Destroyed[Entity_Powerup][i]-(int)&m_PowerupArray[0])/sizeof(Powerup);
+		m_OpenList[Entity_Powerup].push_back(index);
+		m_OM->RemoveObject(m_Destroyed[Entity_Powerup][i],3);
+	}
+	m_Destroyed[Entity_Powerup].clear();
 }
 
 

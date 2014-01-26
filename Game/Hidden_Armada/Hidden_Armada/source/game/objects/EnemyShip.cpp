@@ -1,5 +1,9 @@
 #include "EnemyShip.h"
 
+#include "../ObjectFactory.h"
+#include "../../engine/renderer/TextureManager.h"
+#include "Powerup.h"
+
 EnemyShip::EnemyShip( void )
 {
 	this->m_Type = Entity_EnemyShip;
@@ -34,12 +38,18 @@ void EnemyShip::Update( float _dt )
 		D3DXVECTOR2 pos = m_Target->GetPos() + m_Target->GetImgCenter();
 		RotateWeaponToMouse((int)pos.x,(int)pos.y);
 
-		this->GetWeapon()->Fire(this);
+		//this->GetWeapon()->Fire(this);
 	}
 
 	if(this->GetHP() <= 0)
 	{
 		this->SetIsAlive(false);
+
+		IEntity* powerup;
+		ObjectFactory::GetInstance()->Create(&powerup,Entity_Powerup);
+		((BaseEntity*)powerup)->SetImgID(TextureManager::GetInstance()->LoadTexture(L"assets/textures/Hex.png"));
+		((BaseEntity*)powerup)->SetPos(this->GetPos());
+		((Powerup*)powerup)->SetLife(10.0f);
 	}
 }
 
@@ -70,6 +80,9 @@ void EnemyShip::TurnToTarget( float _dt )
 
 bool EnemyShip::CheckCollision( IEntity* _other )
 {
+	if(_other->GetType() == Entity_Powerup)
+		return false;
+
 	return true;
 }
 

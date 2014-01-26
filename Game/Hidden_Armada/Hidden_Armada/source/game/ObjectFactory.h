@@ -7,10 +7,12 @@ using std::vector;
 #include "objects\Asteroids.h"
 #include "objects\Projectile.h"
 #include "objects\EnemyShip.h"
+#include "objects\Powerup.h"
 
 #define MAX_ASTEROIDS	200
 #define MAX_ENEMYSHIPS	2000
 #define MAX_PROJECTILES	200
+#define MAX_POWERUPS		100
 
 class ObjectManager;
 class ObjectFactory
@@ -24,6 +26,7 @@ class ObjectFactory
 	Asteroids m_AsteroidArray[MAX_ASTEROIDS];
 	Projectile m_ProjectileArray[MAX_PROJECTILES];
 	EnemyShip m_EnemyShipArray[MAX_ENEMYSHIPS];
+	Powerup m_PowerupArray[MAX_POWERUPS];
 
 	static ObjectFactory m_Instance;
 

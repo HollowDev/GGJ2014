@@ -98,6 +98,7 @@
     <ClInclude Include="source\game\objects\EnemyShip.h" />
     <ClInclude Include="source\game\objects\IEntity.h" />
     <ClInclude Include="source\game\objects\PlayerShip.h" />
+    <ClInclude Include="source\game\objects\Powerup.h" />
     <ClInclude Include="source\game\objects\Projectile.h" />
     <ClInclude Include="source\game\objects\Ship.h" />
     <ClInclude Include="source\game\objects\Weapon.h" />
@@ -131,6 +132,7 @@
     <ClCompile Include="source\game\objects\BaseEntity.cpp" />
     <ClCompile Include="source\game\objects\EnemyShip.cpp" />
     <ClCompile Include="source\game\objects\PlayerShip.cpp" />
+    <ClCompile Include="source\game\objects\Powerup.cpp" />
     <ClCompile Include="source\game\objects\Projectile.cpp" />
     <ClCompile Include="source\game\objects\Ship.cpp" />
     <ClCompile Include="source\game\objects\Weapon.cpp" />
