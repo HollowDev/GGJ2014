@@ -16,6 +16,14 @@ void Asteroids::Initialize( void )
 	this->SetImgSource(source);
 	this->SetSize(30);
 	this->SetImgCenter(D3DXVECTOR2(32,32));
+	this->SetDir(D3DXVECTOR2(rand()%200 - 100, rand()%200 - 100));
+
+	if(rand()%2 == 0)
+		m_RotDir = -1.0f;
+	else
+		m_RotDir = 1.0f;
+
+	m_RotDir *= float(rand()%150)/100.0f;
 }
 
 void Asteroids::Release( void )
@@ -33,6 +41,10 @@ void Asteroids::Update( float _dt )
 	BaseEntity::Update(_dt);
 
 	this->SetVel(m_ConstantVel);
+
+	this->SetRot(this->GetRot() + m_RotDir*_dt);
+	D3DXVECTOR2 forward = Rotate2D( D3DXVECTOR2(0,-1), this->GetRot() );
+	this->SetDir(forward);
 }
 
 bool Asteroids::CheckCollision( IEntity* _other )

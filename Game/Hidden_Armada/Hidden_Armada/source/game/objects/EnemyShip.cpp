@@ -47,8 +47,8 @@ void EnemyShip::Update( float _dt )
 
 		IEntity* powerup;
 		ObjectFactory::GetInstance()->Create(&powerup,Entity_Powerup);
-		((BaseEntity*)powerup)->SetImgID(TextureManager::GetInstance()->LoadTexture(L"assets/textures/Hex.png"));
-		((BaseEntity*)powerup)->SetPos(this->GetPos());
+		((BaseEntity*)powerup)->SetImgID(TextureManager::GetInstance()->LoadTexture(L"assets/textures/powerups/powerups1.png"));
+		((BaseEntity*)powerup)->SetPos(this->GetPos()+this->GetImgCenter());
 		((Powerup*)powerup)->SetLife(10.0f);
 	}
 }

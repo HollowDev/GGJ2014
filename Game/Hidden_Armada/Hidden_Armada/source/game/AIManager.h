@@ -22,7 +22,7 @@ public:
 
 	static AIManager* GetInstance( void ) { return &m_Instance; }
 
-	void Initialize( IEntity* _target, int _smallID, int _mediumID, int _largeID, int _weaponID );
+	void Initialize( IEntity* _target );
 	void Release( void );
 
 	void SpawnEnemy( D3DXVECTOR2 _pos );

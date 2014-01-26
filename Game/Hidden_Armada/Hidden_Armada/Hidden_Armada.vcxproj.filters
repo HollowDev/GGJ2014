@@ -157,6 +157,9 @@
     <ClInclude Include="source\engine\renderer\BitmapFont.h">
       <Filter>engine\renderer</Filter>
     </ClInclude>
+    <ClInclude Include="source\game\AssetManager.h">
+      <Filter>game\managers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -258,6 +261,9 @@
     </ClCompile>
     <ClCompile Include="source\engine\renderer\BitmapFont.cpp">
       <Filter>engine\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\AssetManager.cpp">
+      <Filter>game\managers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

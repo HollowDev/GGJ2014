@@ -6,6 +6,7 @@
 #include "../renderer/TextureManager.h"
 #include "../sound/SoundManager.h"
 #include "../memory_macros.h"
+#include "../../game/AssetManager.h"
 
 WinApp::WinApp( void )
 {
@@ -64,6 +65,7 @@ void WinApp::Initialize( LPCWSTR _title, HINSTANCE _HInstance, BaseState* _start
 	// TODO:: Initialize handlers
 	D3D9Handler::Initialize(m_HWND, _windowed);
 	TextureManager::GetInstance()->Initialize(D3D9Handler::m_Device, D3D9Handler::m_Sprite);
+	AssetManager::GetInstance()->Initialize();
 	SoundManager::GetInstance()->Initialize();
 	StateSystem::GetInstance()->Initialize(this,_startState);
 	m_StateSystem = StateSystem::GetInstance();

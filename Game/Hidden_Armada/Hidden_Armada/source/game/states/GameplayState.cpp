@@ -11,6 +11,7 @@
 #include "MainMenuState.h"
 
 #include "../objects/EnemyShip.h"
+#include "../AssetManager.h"
 
 GameplayState::GameplayState( void )
 {
@@ -24,8 +25,8 @@ bool GameplayState::Initialize( WinApp* _app )
 	m_Input = new InputController();
 	m_Input->Initialize(m_App->GetHWND(), m_App->GetHINSTANCE());
 
-	int p1ID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/ships/Playership3.png");
-	int weaponID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/weapons/machinegun2.png");
+	int p1ID = AssetManager::GetInstance()->GetAsset(Asset_PlayerShip03);
+	int weaponID = AssetManager::GetInstance()->GetAsset(Asset_WeaponLaser03);
 	RECT source = {0,0,128,128};
 
 	m_Player1 = new PlayerShip();
@@ -36,19 +37,20 @@ bool GameplayState::Initialize( WinApp* _app )
 	ObjectManager::GetInstance()->AddObject(m_Player1,2);
 
 	ObjectFactory::GetInstance()->Initialize();
-	int asteroid = TextureManager::GetInstance()->LoadTexture(L"assets/textures/asteroids/asteroid001.png");
+	int asteroid[4] =
+	{
+		AssetManager::GetInstance()->GetAsset(Asset_Asteroid01),
+		AssetManager::GetInstance()->GetAsset(Asset_Asteroid02),
+		AssetManager::GetInstance()->GetAsset(Asset_Asteroid03),
+		AssetManager::GetInstance()->GetAsset(Asset_Asteroid04)		
+	};
 	for(int i = 0; i < 100; ++i)
 	{
 		ObjectFactory::GetInstance()->Create(&m_AsteroidTest[i], Entity_Asteroid);
-		((Asteroids*)m_AsteroidTest[i])->SetImgID(asteroid);
+		((Asteroids*)m_AsteroidTest[i])->SetImgID(asteroid[rand()%4]);
 	}
 
-	int weapon2ID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/playershipeffects/Missile.png");
-
-	int smallEnemyID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/enemyships/enemyship1.png");
-	int mediumEnemyID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/enemyships/enemyship2.png");
-	int largeEnemyID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/enemyships/enemyship3.png");
-	AIManager::GetInstance()->Initialize(m_Player1,smallEnemyID,mediumEnemyID,largeEnemyID,weaponID);
+	AIManager::GetInstance()->Initialize(m_Player1);
 
 	//RECT enemySource = {0,0,128,128};
 	//int enemyShipID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/enemyships/enemyship2.png");
@@ -56,8 +58,7 @@ bool GameplayState::Initialize( WinApp* _app )
 	//{
 	//	AIManager::GetInstance()->SpawnEnemy( D3DXVECTOR2(i*50,200) );
 	//}
-	int fontID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/font.png");
-	m_Font.Initialize(fontID,5*2,7*2,3,32);
+	m_Font.Initialize(AssetManager::GetInstance()->GetAsset(Asset_Font),5*2,7*2,3,32);
 	return true;
 }
 

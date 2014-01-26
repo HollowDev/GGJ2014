@@ -7,6 +7,8 @@ class Asteroids : public BaseEntity
 {
 	int m_HP;
 	D3DXVECTOR2 m_ConstantVel;
+	float m_RotDir;
+	float m_RotSpeed;
 
 public:
 	Asteroids( void );

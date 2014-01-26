@@ -92,6 +92,7 @@
     <ClInclude Include="source\engine\sound\SoundManager.h" />
     <ClInclude Include="source\engine\windows.h" />
     <ClInclude Include="source\game\AIManager.h" />
+    <ClInclude Include="source\game\AssetManager.h" />
     <ClInclude Include="source\game\ObjectFactory.h" />
     <ClInclude Include="source\game\ObjectManager.h" />
     <ClInclude Include="source\game\objects\Asteroids.h" />
@@ -128,6 +129,7 @@
     <ClCompile Include="source\engine\renderer\TextureManager.cpp" />
     <ClCompile Include="source\engine\sound\SoundManager.cpp" />
     <ClCompile Include="source\game\AIManager.cpp" />
+    <ClCompile Include="source\game\AssetManager.cpp" />
     <ClCompile Include="source\game\ObjectFactory.cpp" />
     <ClCompile Include="source\game\ObjectManager.cpp" />
     <ClCompile Include="source\game\objects\Asteroids.cpp" />

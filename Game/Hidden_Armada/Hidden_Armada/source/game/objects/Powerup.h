@@ -7,6 +7,8 @@ class Powerup : public BaseEntity
 {
 	int m_PowerType;
 	float m_Life;
+	float m_AnimTimer;
+	int m_Frame;
 public:
 	Powerup( void );
 	~Powerup( void ) { Release(); }

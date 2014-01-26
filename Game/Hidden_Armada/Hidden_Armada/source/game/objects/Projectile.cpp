@@ -1,4 +1,5 @@
 #include "Projectile.h"
+#include "../AssetManager.h"
 
 Projectile::Projectile( void )
 {
@@ -17,8 +18,8 @@ void Projectile::Initialize( void )
 	this->SetSize(8);
 	m_Life = 5.0f;
 	this->SetIsAlive(true);
-	this->SetImgID(3);
-	this->SetImgCenter(D3DXVECTOR2(8,16));
+	this->SetImgID(AssetManager::GetInstance()->GetAsset(Asset_MachineGunProjectile));
+	this->SetImgCenter(D3DXVECTOR2(8,4));
 }
 
 void Projectile::Release( void )
