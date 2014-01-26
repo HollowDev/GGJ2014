@@ -2,9 +2,17 @@
 #define _CREDITS_STATE_H_
 
 #include "../../engine/app/BaseState.h"
+#include "../../game/AssetManager.h"
+
+class InputController;
 
 class CreditsState : public BaseState
 {
+private:
+	float	m_Timer;
+	int		m_Img;
+	InputController* m_Input;
+
 public:
 	CreditsState( void );
 	~CreditsState( void ) { Release(); }

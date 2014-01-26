@@ -215,7 +215,7 @@ bool InputController::Input_StartPressed(void)
 	}
 	else
 	{
-		if(m_Keyboard->KeyPressed(DIK_RETURN))
+		if(m_Keyboard->KeyPressed(DIK_RETURN) || m_Keyboard->KeyPressed(DIK_ESCAPE))
 			return true;
 	}
 	return false;

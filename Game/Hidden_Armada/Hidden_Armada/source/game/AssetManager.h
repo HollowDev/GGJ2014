@@ -18,7 +18,7 @@ enum Assets
 	Asset_WeaponLaser01, Asset_WeaponLaser02, Asset_WeaponLaser03,
 	Asset_WeaponMachineGun01, Asset_WeaponMachineGun02, Asset_WeaponMachineGun03,
 	Asset_WeaponMissle01, Asset_WeaponMissle02, Asset_WeaponMissle03,
-	Asset_Font, Asset_Shield, Asset_BoostTrail,
+	Asset_Font, Asset_Shield, Asset_BoostTrail, Asset_Credits,
 
 	Asset_S_Explosion01,Asset_S_Explosion02,Asset_S_Explosion03,Asset_S_Explosion04,
 	Asset_S_Explosion05,Asset_S_Explosion06,Asset_S_Explosion07,Asset_S_ExplosionS,

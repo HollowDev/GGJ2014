@@ -176,7 +176,7 @@ bool GameplayState::Input( void )
 {
 	if(!m_isPaused)
 	{
-		if(m_Input->Input_Cancel() || m_Input->Input_StartPressed())
+		if(m_Input->Input_StartPressed())
 		{
 			if(!m_isPaused)
 			{
