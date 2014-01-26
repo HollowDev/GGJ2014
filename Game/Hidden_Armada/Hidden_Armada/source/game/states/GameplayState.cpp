@@ -178,7 +178,7 @@ void GameplayState::Render( void )
 					//sprintf_s(score, "%i", m_ScoreTally);
 					//m_Font.Print(score, m_App->GetWidth() / 2, m_App->GetHeight() / 2, D3DCOLOR_ARGB(255, 255, 255, 255));
 					int boardID = AssetManager::GetInstance()->GetAsset(Asset_FontNumbers);
-					ParseNumbers(m_Player1->GetScore());
+					ParseNumbers(m_ScoreTally);
 					for(int i = 0; i < 9; ++i)
 					{
 						int bPosX = int(m_BoardPos.x) + i*55;
@@ -247,7 +247,7 @@ void GameplayState::Update( float _dt )
 	{
 		// GAME OVER TIMER TEMPORARY!
 		// CHANGE ONCE ABLE TO COUNT UP SCORE
-		if(m_ScoreTally != m_Player1->GetScore())
+		//if(m_ScoreTally != m_Player1->GetScore())
 		{
 			m_GameOverTimer += _dt;
 			if(m_GameOverTimer > 0.001f)
@@ -256,7 +256,7 @@ void GameplayState::Update( float _dt )
 				m_ScoreTally += 10;
 			}
 		}
-		else
+		//else
 		{
 			m_LeaveGameTimer -= _dt;
 			if(m_LeaveGameTimer <= 0.0f)
