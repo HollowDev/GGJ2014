@@ -191,11 +191,12 @@ void SoundManager::Play( int _soundID, bool _isLooping, bool _startOver )
 {
 	Sounds* temp = m_Sounds[_soundID];
 
-	if(temp->isSFX)
+	if(temp->isSFX && IsPlaying(_soundID) == false)
 	{
 		temp->channel->setChannelGroup(m_ChannelSFX);
 		int index = 0;
 		temp->channel->getIndex(&index);
+		
 		m_System->playSound((FMOD_CHANNELINDEX)index, temp->sound, false, &temp->channel);
 	}
 	else
@@ -205,7 +206,7 @@ void SoundManager::Play( int _soundID, bool _isLooping, bool _startOver )
 	temp->channel->getPaused(&paused);
 	isplaying = IsPlaying(_soundID);
 
-	if((paused == false && isplaying == false) || _startOver == true)
+	if((temp->isSFX == false) && ((paused == false && isplaying == false) || _startOver == true))
 	{
 		int index = 0;
 		temp->channel->getIndex(&index);
