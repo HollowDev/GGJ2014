@@ -37,7 +37,7 @@ public:
 	}
 
 	void Initialize(PlayerShip* _player);
-	void Update(float _dt, PlayerShip* _player, WinApp* _app);
+	void Update(float _dt, PlayerShip* _player, WinApp* _app, int _rows, int _cols);
 };
 
 #endif

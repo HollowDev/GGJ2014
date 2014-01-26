@@ -32,6 +32,9 @@ public:
 
 	void Update( float _dt );
 	void Render( int _x, int _y );
+
+	const int GetRows(void) { return m_NumRows; }
+	const int GetCols(void) { return m_NumColumns; }
 };
 
 #endif

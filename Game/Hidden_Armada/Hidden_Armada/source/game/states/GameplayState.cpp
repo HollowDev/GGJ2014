@@ -64,7 +64,7 @@ bool GameplayState::Initialize( WinApp* _app )
 	m_Player1->GetShield()->SetMaxShield(15);
 	m_Player1->GetShield()->SetCurrShield(15);
 
-	m_AsteroidManager.Initialize(6,4,30,m_Player1);
+	m_AsteroidManager.Initialize(4,4,30,m_Player1);
 
 	//RECT enemySource = {0,0,128,128};
 	//int enemyShipID = TextureManager::GetInstance()->LoadTexture(L"assets/textures/enemyships/enemyship2.png");
@@ -137,7 +137,7 @@ void GameplayState::Update( float _dt )
 
 	ObjectFactory::GetInstance()->ProcessDestroy();
 
-	m_Camera->Update(_dt, m_Player1, m_App);
+	m_Camera->Update(_dt, m_Player1, m_App, m_AsteroidManager.GetRows(), m_AsteroidManager.GetCols());
 
 	m_AsteroidManager.Update(_dt);
 }
