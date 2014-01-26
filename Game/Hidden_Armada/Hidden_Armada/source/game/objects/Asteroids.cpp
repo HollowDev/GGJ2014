@@ -41,6 +41,28 @@ void Asteroids::Update( float _dt )
 {
 	BaseEntity::Update(_dt);
 
+	if(GetPos().x + GetSize() < 0)
+	{
+		SetPos(D3DXVECTOR2(0 + GetSize(), GetPos().y));
+		m_ConstantVel.x = -m_ConstantVel.x;
+	}
+	else if(GetPos().x + GetSize() * 4 > 1024 * 4)
+	{
+		SetPos(D3DXVECTOR2(1024*4 - GetSize() * 4, GetPos().y));
+		m_ConstantVel.x = -m_ConstantVel.x;
+	}
+
+	if(GetPos().y - GetSize() < 0)
+	{
+		SetPos(D3DXVECTOR2(GetPos().x, 0 + GetSize()));
+		m_ConstantVel.y = -m_ConstantVel.y;
+	}
+	else if(GetPos().y + GetSize() * 4 > 768 * 4)
+	{
+		SetPos(D3DXVECTOR2(GetPos().x, 768*4 - GetSize() * 4));
+		m_ConstantVel.y = -m_ConstantVel.y;
+	}
+
 	this->SetVel(m_ConstantVel);
 
 	this->SetRot(this->GetRot() + m_RotDir*_dt);
