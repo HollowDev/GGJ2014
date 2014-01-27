@@ -138,6 +138,7 @@ bool GameplayState::Initialize( WinApp* _app )
 
 void GameplayState::Release( void )
 {
+	ObjectManager::GetInstance()->Clear();
 	SAFE_DELETE(m_Player1);
 	SAFE_DELETE(m_Camera);
 	SAFE_DELETE(m_Input);

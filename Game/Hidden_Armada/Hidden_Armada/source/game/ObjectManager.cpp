@@ -105,5 +105,9 @@ void ObjectManager::RemoveObject( IEntity* _object, int _layer )
 void ObjectManager::Clear( void )
 {
 	for(int i = 0; i < NUM_LAYERS; ++i)
+	{
+		for(int x = 0; x < m_Objects[i].size(); ++x)
+			m_Objects[i][x]->SetIsAlive(false);
 		m_Objects[i].clear();
+	}
 }
