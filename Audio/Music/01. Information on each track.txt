@@ -1,0 +1,47 @@
+All tracks have been rerendered and renamed. Here is some useful information including exact track lengths and the proposed usage.
+
+TitleScreen_, Title Screen -
+	
+	Intro -
+		0:08:57 -- 0:8:57
+		Introduces TitleScreen_Loop.
+		The explosion was meant to compliment an animation at startup, so we can do any of these three things:
+
+			1. keep the explosion and do the animation
+			2. keep the explosion and not do the animation
+			3. Simply remove the explosion
+		
+		All are fine by me.
+	
+	Loop -
+		0:54:85 -- 1:03:42
+		The part of the song that continually loops when the title screen is up.
+
+Game1_, Infinite Space -
+
+	Intro -
+		0:27:42 -- 0:27:42
+		Introduces Game1_Loop.
+			
+	Loop - 
+		0:54:86 -- 1:22:28
+		The part of the song that continually loops when the player is playing a game but not fighting a boss.
+		
+BossL_, Boss Layzor -
+
+	Intro -
+		0:13:71 - 0:13:71
+		Introduces BossL_Loop.
+		
+	Loop - 
+		0:58:86 -- 1:08:57
+		The part of the song that continually loops when the player is fighting Layzor.
+
+BossM_, Boss CrimsonDOOM
+
+	Intro -
+		Introduces BossM_Loop.
+		
+	Loop -
+		
+		The part of the song that continually loops when the player is fighting CrimsonDOOM.
