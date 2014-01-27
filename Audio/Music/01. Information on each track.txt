@@ -26,7 +26,18 @@ Game1_, Infinite Space -
 	Loop - 
 		0:54:86 -- 1:22:28
 		The part of the song that continually loops when the player is playing a game but not fighting a boss.
+
+BossM_, Boss CrimsonDOOM
+
+	Intro -
+		1:00:00 -- 1:00:00
+		Introduces BossM_Loop.
 		
+	Loop -
+		0:54:85 -- 1:54:85
+		The part of the song that continually loops when the player is fighting CrimsonDOOM.
+                hehe, the intro is longer than the loop on this one.		
+
 BossL_, Boss Layzor -
 
 	Intro -
@@ -37,11 +48,5 @@ BossL_, Boss Layzor -
 		0:58:86 -- 1:08:57
 		The part of the song that continually loops when the player is fighting Layzor.
 
-BossM_, Boss CrimsonDOOM
 
-	Intro -
-		Introduces BossM_Loop.
-		
-	Loop -
-		
-		The part of the song that continually loops when the player is fighting CrimsonDOOM.
+~
