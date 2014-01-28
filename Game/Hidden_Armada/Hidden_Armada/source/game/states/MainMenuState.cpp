@@ -10,6 +10,8 @@
 #include "../../engine/input/InputController.h"
 
 #include "../AssetManager.h"
+#include "../ObjectFactory.h"
+#include "../ObjectManager.h"
 
 float lerp(float _start, float _end, float _percent)
 {
@@ -88,11 +90,27 @@ bool MainMenuState::Initialize( WinApp* _app )
 	m_MenuLoopMusic = SoundManager::GetInstance()->LoadMusic("assets/sounds/music/MainMenu_loop.mp3");
 	SoundManager::GetInstance()->Play(m_IntroMusic, false, true);
 
+	for(unsigned int i = 0; i < 2000; ++i)
+	{
+		D3DXVECTOR2 pos(rand()%1500-200,rand()%900-100);
+		IEntity* explosion;
+		ObjectFactory::GetInstance()->Create(&explosion,Entity_Explosion);
+		if(rand()%2 == 0)
+			((Explosion*)explosion)->Initialize(false);
+		else if(rand()%50 != 0)
+			((Explosion*)explosion)->Initialize(true);
+		else
+			((Explosion*)explosion)->Initialize(true,true);
+
+		((Explosion*)explosion)->SetPos(D3DXVECTOR2(rand()%1500-200,rand()%900-100));
+	}
 	return true;
 }
 
 void MainMenuState::Release( void )
 {
+	ObjectManager::GetInstance()->Clear();
+	ObjectFactory::GetInstance()->ProcessDestroy();
 	SoundManager::GetInstance()->Pause(m_IntroMusic);
 	SoundManager::GetInstance()->Pause(m_MenuLoopMusic);
 
@@ -112,19 +130,21 @@ void MainMenuState::Render( void )
 	{
 		D3D9Handler::m_Sprite->Begin( D3DXSPRITE_ALPHABLEND );
 		{
-				TextureManager::GetInstance()->Draw(m_Background, m_Buttons[BACKGROUND]->posX, m_Buttons[BACKGROUND]->posY, 1.0f, 1.0f, &m_Buttons[BACKGROUND]->sourceRect);
-				if(!isTitle)
-				{
-					TextureManager::GetInstance()->Draw(m_TextImg, m_Buttons[PLAY_GAME]->posX, m_Buttons[PLAY_GAME]->posY, 1.0f, 1.0f, &m_Buttons[PLAY_GAME]->sourceRect
-														, 0.0f, 0.0f, 0.0f, m_Buttons[PLAY_GAME]->color);
-					TextureManager::GetInstance()->Draw(m_TextImg, m_Buttons[OPTIONS]->posX, m_Buttons[OPTIONS]->posY, 1.0f, 1.0f, &m_Buttons[OPTIONS]->sourceRect
-														, 0.0f, 0.0f, 0.0f, m_Buttons[OPTIONS]->color);
-					TextureManager::GetInstance()->Draw(m_TextImg, m_Buttons[EXIT_GAME]->posX, m_Buttons[EXIT_GAME]->posY, 1.0f, 1.0f, &m_Buttons[EXIT_GAME]->sourceRect
-														, 0.0f, 0.0f, 0.0f, m_Buttons[EXIT_GAME]->color);
-				}
-				else
-					TextureManager::GetInstance()->Draw(m_TextImg, m_Buttons[PRESS_START]->posX, m_Buttons[PRESS_START]->posY, 1.0f, 1.0f, &m_Buttons[PRESS_START]->sourceRect
-														, 0.0f, 0.0f, 0.0f, m_Buttons[PRESS_START]->color);
+			TextureManager::GetInstance()->Draw(m_Background, m_Buttons[BACKGROUND]->posX, m_Buttons[BACKGROUND]->posY, 1.0f, 1.0f, &m_Buttons[BACKGROUND]->sourceRect);
+			if(!isTitle)
+			{
+				TextureManager::GetInstance()->Draw(m_TextImg, m_Buttons[PLAY_GAME]->posX, m_Buttons[PLAY_GAME]->posY, 1.0f, 1.0f, &m_Buttons[PLAY_GAME]->sourceRect
+													, 0.0f, 0.0f, 0.0f, m_Buttons[PLAY_GAME]->color);
+				TextureManager::GetInstance()->Draw(m_TextImg, m_Buttons[OPTIONS]->posX, m_Buttons[OPTIONS]->posY, 1.0f, 1.0f, &m_Buttons[OPTIONS]->sourceRect
+													, 0.0f, 0.0f, 0.0f, m_Buttons[OPTIONS]->color);
+				TextureManager::GetInstance()->Draw(m_TextImg, m_Buttons[EXIT_GAME]->posX, m_Buttons[EXIT_GAME]->posY, 1.0f, 1.0f, &m_Buttons[EXIT_GAME]->sourceRect
+													, 0.0f, 0.0f, 0.0f, m_Buttons[EXIT_GAME]->color);
+			}
+			else
+				TextureManager::GetInstance()->Draw(m_TextImg, m_Buttons[PRESS_START]->posX, m_Buttons[PRESS_START]->posY, 1.0f, 1.0f, &m_Buttons[PRESS_START]->sourceRect
+													, 0.0f, 0.0f, 0.0f, m_Buttons[PRESS_START]->color);
+			
+			ObjectManager::GetInstance()->Render(0,0);
 		}
 		D3D9Handler::m_Sprite->End();
 	}
@@ -134,6 +154,9 @@ void MainMenuState::Render( void )
 
 void MainMenuState::Update( float _dt )
 {
+	ObjectManager::GetInstance()->Update(_dt);
+	ObjectFactory::GetInstance()->ProcessDestroy();
+
 	m_Input->CheckInput(nullptr, this, nullptr);
 	if(isTitle)
 	{
@@ -204,12 +227,11 @@ void MainMenuState::Update( float _dt )
 				m_IsMoving = false;
 				m_MoveTimer = 0.0f;
 			}
-
 		}
 	}
 
 	m_MusicTimer += _dt;
-	if(m_MusicTimer > 8.0f)
+	if(m_MusicTimer > 8.57f)
 	{
 		SoundManager::GetInstance()->Play(m_MenuLoopMusic, true, false);
 	}
@@ -269,9 +291,9 @@ bool MainMenuState::Input( void )
 
 		if(m_Input->Input_DownDown())//GetAsyncKeyState(VK_DOWN))
 		{
-			m_Selected--;
-			if(m_Selected < 0)
-				m_Selected = 2;
+			m_Selected++;
+			if(m_Selected > 2)
+				m_Selected = 0;
 			m_IsMoving = true;
 			m_MoveTimer = 0.0f;
 			SoundManager::GetInstance()->Play(m_MoveSFX, false, false);
@@ -280,9 +302,9 @@ bool MainMenuState::Input( void )
 
 		if(m_Input->Input_UpDown())//GetAsyncKeyState(VK_UP))
 		{
-			m_Selected++;
-			if(m_Selected > 2)
-				m_Selected = 0;
+			m_Selected--;
+			if(m_Selected < 0)
+				m_Selected = 2;
 			m_IsMoving = true;
 			m_MoveTimer = 0.0f;
 			SoundManager::GetInstance()->Play(m_MoveSFX, false, false);

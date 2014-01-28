@@ -7,6 +7,7 @@
 #include "../sound/SoundManager.h"
 #include "../memory_macros.h"
 #include "../../game/AssetManager.h"
+#include "../../game/ObjectFactory.h"
 
 WinApp::WinApp( void )
 {
@@ -34,7 +35,7 @@ void WinApp::Initialize( LPCWSTR _title, HINSTANCE _HInstance, BaseState* _start
 	wcex.cbClsExtra		= 0;
 	wcex.cbWndExtra		= 0;
 	wcex.hInstance		= m_HInstance;
-	wcex.hIcon			= 0;
+	wcex.hIcon			= LoadIcon(0,IDC_ICON);
 	wcex.hCursor		= LoadCursor(0, IDC_ARROW);
 	wcex.hbrBackground	= (HBRUSH)GetStockObject(BLACK_BRUSH);
 	wcex.lpszMenuName	= 0;
@@ -67,6 +68,7 @@ void WinApp::Initialize( LPCWSTR _title, HINSTANCE _HInstance, BaseState* _start
 	TextureManager::GetInstance()->Initialize(D3D9Handler::m_Device, D3D9Handler::m_Sprite);
 	SoundManager::GetInstance()->Initialize();
 	AssetManager::GetInstance()->Initialize();
+	ObjectFactory::GetInstance()->Initialize();
 	
 	StateSystem::GetInstance()->Initialize(this,_startState);
 	m_StateSystem = StateSystem::GetInstance();

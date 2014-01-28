@@ -102,32 +102,46 @@ bool Keyboard::Update()
 bool Keyboard::ReadKeyboard()
 {
 	HRESULT hr;
-
 	memcpy(m_PrevKeyboardState, m_KeyboardState, sizeof(unsigned char) * 256);
 
-	hr = m_Keyboard->GetDeviceState(sizeof(m_KeyboardState), (LPVOID)&m_KeyboardState);
-	if(FAILED(hr))
+	if(m_Keyboard)
 	{
-		if((hr == DIERR_INPUTLOST) || (hr == DIERR_NOTACQUIRED))
-			m_Keyboard->Acquire();
-		else
-			return false;
+		hr = m_Keyboard->GetDeviceState(sizeof(m_KeyboardState), (LPVOID)&m_KeyboardState);
+		if(FAILED(hr))
+		{
+			if((hr == DIERR_INPUTLOST) || (hr == DIERR_NOTACQUIRED))
+				m_Keyboard->Acquire();
+			else
+				return false;
+		}
 	}
-
+	else
+	{
+		Initialize(m_hWnd,m_hInst);
+		return false;
+	}
 	return true;
 }
 
 bool Keyboard::ReadMouse()
 {
-	HRESULT hr = m_Mouse->GetDeviceState(sizeof(DIMOUSESTATE), (LPVOID)&m_MouseState);
-	if(FAILED(hr))
+	if(m_Mouse)
 	{
-		if((hr == DIERR_INPUTLOST) || (hr == DIERR_NOTACQUIRED))
-			m_Mouse->Acquire();
-		else
-			return false;
+		HRESULT hr = m_Mouse->GetDeviceState(sizeof(DIMOUSESTATE), (LPVOID)&m_MouseState);
+		if(FAILED(hr))
+		{
+			if((hr == DIERR_INPUTLOST) || (hr == DIERR_NOTACQUIRED))
+				m_Mouse->Acquire();
+			else
+				return false;
+		}
+		return true;
 	}
-	return true;
+	else
+	{
+		Initialize(m_hWnd,m_hInst);
+		return false;
+	}
 }
 
 void Keyboard::ProcessInput()

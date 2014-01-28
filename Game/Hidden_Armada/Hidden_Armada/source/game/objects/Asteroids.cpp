@@ -41,7 +41,7 @@ void Asteroids::Update( float _dt )
 {
 	BaseEntity::Update(_dt);
 
-	if(GetPos().x + GetSize() < 0)
+	if(GetPos().x - GetSize() < 0)
 	{
 		SetPos(D3DXVECTOR2((float)(0 + GetSize()), GetPos().y));
 		m_ConstantVel.x = -m_ConstantVel.x;

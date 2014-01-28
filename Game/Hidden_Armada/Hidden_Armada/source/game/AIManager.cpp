@@ -65,24 +65,24 @@ void AIManager::SpawnEnemy( D3DXVECTOR2 _pos )
 			((EnemyShip*)enemy)->Initialize("assets/data/ships/enemy01.txt",_pos,AssetManager::GetInstance()->GetAsset(Asset_WeaponMachineGun03));
 			((EnemyShip*)enemy)->SetImgID(AssetManager::GetInstance()->GetAsset(Asset_EnemyShip01));
 			((EnemyShip*)enemy)->SetSize(20);
-			((EnemyShip*)enemy)->SetHP(1);
-			((EnemyShip*)enemy)->SetMaxHP(1);
+			((EnemyShip*)enemy)->SetHP(3);
+			((EnemyShip*)enemy)->SetMaxHP(3);
 		}
 		else if(result == 1)
 		{
 			((EnemyShip*)enemy)->Initialize("assets/data/ships/enemy02.txt",_pos,AssetManager::GetInstance()->GetAsset(Asset_WeaponLaser03));
 			((EnemyShip*)enemy)->SetImgID(AssetManager::GetInstance()->GetAsset(Asset_EnemyShip02));
 			((EnemyShip*)enemy)->SetSize(20);
-			((EnemyShip*)enemy)->SetHP(2);
-			((EnemyShip*)enemy)->SetMaxHP(2);
+			((EnemyShip*)enemy)->SetHP(6);
+			((EnemyShip*)enemy)->SetMaxHP(6);
 		}
 		else
 		{
 			((EnemyShip*)enemy)->Initialize("assets/data/ships/enemy03.txt",_pos,AssetManager::GetInstance()->GetAsset(Asset_WeaponMissle01));
 			((EnemyShip*)enemy)->SetImgID(AssetManager::GetInstance()->GetAsset(Asset_EnemyShip03));
 			((EnemyShip*)enemy)->SetSize(45);
-			((EnemyShip*)enemy)->SetHP(5);
-			((EnemyShip*)enemy)->SetMaxHP(5);
+			((EnemyShip*)enemy)->SetHP(15);
+			((EnemyShip*)enemy)->SetMaxHP(15);
 		}
 		((EnemyShip*)enemy)->SetImgSource(source);
 		((EnemyShip*)enemy)->SetTarget(m_Target);

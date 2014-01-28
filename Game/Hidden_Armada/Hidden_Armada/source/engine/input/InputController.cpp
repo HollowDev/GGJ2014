@@ -59,15 +59,19 @@ void InputController::CheckInput( PlayerShip* _player, BaseState* _state, Camera
 			// LeftStick moved, MOVE!
 			if(m_Gamepad->m_LeftStickX != 0.0f || m_Gamepad->m_LeftStickY != 0.0f)
 			{
-				if(m_Gamepad->m_LeftStickY > 0.0f)
-					_player->SetVel(_player->GetVel() + D3DXVECTOR2(0, -_player->GetMaxSpeed()));
-				else if(m_Gamepad->m_LeftStickY < 0.0f)
-					_player->SetVel(_player->GetVel() + D3DXVECTOR2(0, _player->GetMaxSpeed()));
-				
-				if(m_Gamepad->m_LeftStickX < 0.0f)
-					_player->SetVel(_player->GetVel() + D3DXVECTOR2(-_player->GetMaxSpeed(), 0));
-				else if(m_Gamepad->m_LeftStickX > 0.0f)
-					_player->SetVel(_player->GetVel() + D3DXVECTOR2(_player->GetMaxSpeed(), 0));
+				D3DXVECTOR2 dir(m_Gamepad->m_LeftStickX,-m_Gamepad->m_LeftStickY);
+				dir *= _player->GetMaxSpeed();
+				_player->SetVel(_player->GetVel() + dir);
+
+				//if(m_Gamepad->m_LeftStickY > 0.0f)
+				//	_player->SetVel(_player->GetVel() + D3DXVECTOR2(0, -_player->GetMaxSpeed()));
+				//else if(m_Gamepad->m_LeftStickY < 0.0f)
+				//	_player->SetVel(_player->GetVel() + D3DXVECTOR2(0, _player->GetMaxSpeed()));
+				//
+				//if(m_Gamepad->m_LeftStickX < 0.0f)
+				//	_player->SetVel(_player->GetVel() + D3DXVECTOR2(-_player->GetMaxSpeed(), 0));
+				//else if(m_Gamepad->m_LeftStickX > 0.0f)
+				//	_player->SetVel(_player->GetVel() + D3DXVECTOR2(_player->GetMaxSpeed(), 0));
 			}
 
 			if(m_Gamepad->m_RightTrigger > 0.0f)

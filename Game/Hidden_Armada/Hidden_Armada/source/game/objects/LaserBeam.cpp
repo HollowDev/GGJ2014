@@ -55,7 +55,7 @@ void LaserBeam::Update( float _dt )
 
 	if(m_CanDamage <= 0.0f)
 	{
-		m_CanDamage = 0.25f;
+		m_CanDamage = 0.08f;
 	}
 
 	m_CanDamage -= _dt;
@@ -80,7 +80,8 @@ void LaserBeam::HandleCollision( IEntity* _other, float _dist, float _dirX, floa
 	}
 	else if(_other->GetType() == Entity_EnemyShip)
 	{
-		D3DXVECTOR2 offset(float(rand()%20-10),float(rand()%20-10));
+		int size = _other->GetSphere().radius;
+		D3DXVECTOR2 offset(float(rand()%(size*2)-size),float(rand()%(size*2)-size));
 
 		IEntity* explosion;
 		ObjectFactory::GetInstance()->Create(&explosion,Entity_Explosion);

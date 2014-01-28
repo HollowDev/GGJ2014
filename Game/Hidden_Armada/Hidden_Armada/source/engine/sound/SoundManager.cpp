@@ -91,10 +91,12 @@ bool SoundManager::Initialize( void )
 		return false;
 
 	result = m_System->createChannelGroup("music_channel", &m_ChannelMusic);
+	m_ChannelMusic->setVolume(1.0f);
 	if(!FMODCheckError(result))
 		return false;
 
 	result = m_System->createChannelGroup("effect_channel", &m_ChannelSFX);
+	m_ChannelSFX->setVolume(0.75f);
 	if(!FMODCheckError(result))
 		return false;
 

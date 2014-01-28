@@ -55,7 +55,6 @@ bool GameplayState::Initialize( WinApp* _app )
 
 	ObjectManager::GetInstance()->AddObject(m_Player1,2);
 
-	ObjectFactory::GetInstance()->Initialize();
 	int asteroid[4] =
 	{
 		AssetManager::GetInstance()->GetAsset(Asset_Asteroid01),
@@ -133,15 +132,21 @@ bool GameplayState::Initialize( WinApp* _app )
 
 	m_BoardPos = D3DXVECTOR2(286,400);
 
+	m_Player1->SetScore(10000);
+
 	return true;
 }
 
 void GameplayState::Release( void )
 {
 	ObjectManager::GetInstance()->Clear();
+	ObjectFactory::GetInstance()->ProcessDestroy();
 	SAFE_DELETE(m_Player1);
 	SAFE_DELETE(m_Camera);
 	SAFE_DELETE(m_Input);
+
+	SoundManager::GetInstance()->Pause(m_BGMusic);
+	SoundManager::GetInstance()->PauseAllSFX();
 }
 
 void GameplayState::Render( void )
@@ -208,6 +213,11 @@ void GameplayState::ParseNumbers( int _number )
 			m_ScoreBoard[i] = source;
 			copy -= value * divide;
 		}
+		else
+		{
+			RECT source = {0, 0, 41, 106};
+			m_ScoreBoard[i] = source;
+		}
 		divide /= 10;
 	}
 }
@@ -254,7 +264,7 @@ void GameplayState::Update( float _dt )
 			if(m_GameOverTimer > 0.001f)
 			{
 				m_GameOverTimer = 0.0f;
-				m_ScoreTally += 10;
+				m_ScoreTally += int(m_Player1->GetScore()*0.01f); // adds 1.0% of the player's score every increment. Scalar for bigger scores.
 			}
 		}
 		else

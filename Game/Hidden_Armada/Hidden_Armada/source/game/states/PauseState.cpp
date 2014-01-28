@@ -174,12 +174,12 @@ bool PauseState::Input( void )
 
 	if(m_Input->Input_DownDown())
 	{
-		m_Selected--;
-		if(m_Selected < 0)
-			m_Selected = 2;
+		m_Selected++;
+		if(m_Selected > 2)
+			m_Selected = 0;
 
 		if(m_Selected == 1)
-			m_Selected = 0;
+			m_Selected = 2;
 		m_IsMoving = true;
 		m_MoveTimer = 0.0f;
 		SoundManager::GetInstance()->Play(m_MoveSFX, false, false);
@@ -187,12 +187,12 @@ bool PauseState::Input( void )
 
 	if(m_Input->Input_UpDown())
 	{
-		m_Selected++;
-		if(m_Selected > 2)
-			m_Selected = 0;
+		m_Selected--;
+		if(m_Selected < 0)
+			m_Selected = 2;
 
 		if(m_Selected == 1)
-			m_Selected = 2;
+			m_Selected = 0;
 		m_IsMoving = true;
 		m_MoveTimer = 0.0f;
 		SoundManager::GetInstance()->Play(m_MoveSFX, false, false);

@@ -199,6 +199,7 @@
     <ClInclude Include="source\game\objects\BossEnemy.h">
       <Filter>game\objects</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -337,5 +338,15 @@
     <ClCompile Include="source\game\objects\BossEnemy.cpp">
       <Filter>game\objects</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Hidden_Armada.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon1.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
