@@ -1,0 +1,16 @@
+Controls: 
+Keyboard & Mouse:
+   WASD: Ship movement/Menu movement
+   Left Shift: Boost, leaves smoke trail that destroys enemy homing missiles.
+   Left Click: Fire weapon.
+   Right Click: Use reveal, destroys asteroids in front of you.
+   Mouse Move: Aim.
+   Escape Key: Pause game.
+   Enter: Select menu option.
+Gamepad:
+   Left-stick: Ship movement.
+   Right-stick: Aim & Fire weapon.
+   Right Trigger: Use reveal, destroys asteroids in front of you.
+   Left Trigger: Boost, leaves smoke trail that destroys enemy homing missiles.
+   D-Pad: Menu movement.
+   Start Button: Pause game.
