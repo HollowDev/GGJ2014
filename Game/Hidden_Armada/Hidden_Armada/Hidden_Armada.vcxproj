@@ -116,11 +116,12 @@
     <ClInclude Include="source\game\objects\Shield.h" />
     <ClInclude Include="source\game\objects\Ship.h" />
     <ClInclude Include="source\game\objects\Weapon.h" />
+    <ClInclude Include="source\game\Quadtree.h" />
     <ClInclude Include="source\game\states\CreditsState.h" />
     <ClInclude Include="source\game\states\GameModeState.h" />
     <ClInclude Include="source\game\states\GameplayState.h" />
     <ClInclude Include="source\game\states\MainMenuState.h" />
-    <ClInclude Include="source\game\states\OptionsState.h" />
+    <ClInclude Include="source\game\states\TestState.h" />
     <ClInclude Include="source\game\states\PauseState.h" />
     <ClInclude Include="source\game\states\SplashState.h" />
   </ItemGroup>
@@ -163,11 +164,12 @@
     <ClCompile Include="source\game\objects\Shield.cpp" />
     <ClCompile Include="source\game\objects\Ship.cpp" />
     <ClCompile Include="source\game\objects\Weapon.cpp" />
+    <ClCompile Include="source\game\Quadtree.cpp" />
     <ClCompile Include="source\game\states\CreditsState.cpp" />
     <ClCompile Include="source\game\states\GameModeState.cpp" />
     <ClCompile Include="source\game\states\GameplayState.cpp" />
     <ClCompile Include="source\game\states\MainMenuState.cpp" />
-    <ClCompile Include="source\game\states\OptionsState.cpp" />
+    <ClCompile Include="source\game\states\TestState.cpp" />
     <ClCompile Include="source\game\states\PauseState.cpp" />
     <ClCompile Include="source\game\states\SplashState.cpp" />
     <ClCompile Include="source\WinMain.cpp" />

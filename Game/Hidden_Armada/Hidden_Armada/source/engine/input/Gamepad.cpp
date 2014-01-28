@@ -11,14 +11,14 @@ bool Gamepad::CheckConnection()
 {
 	int cID = -1;
 
-	for(DWORD i = 0; i < XUSER_MAX_COUNT && cID == -1; ++i)
-	{
-		XINPUT_STATE state;
-		ZeroMemory(&state, sizeof(XINPUT_STATE));
-
-		if(XInputGetState(i, &state) == ERROR_SUCCESS)
-			cID = i;
-	}
+	//for(DWORD i = 0; i < XUSER_MAX_COUNT && cID == -1; ++i)
+	//{
+	//	XINPUT_STATE state;
+	//	ZeroMemory(&state, sizeof(XINPUT_STATE));
+	//
+	//	if(XInputGetState(i, &state) == ERROR_SUCCESS)
+	//		cID = i;
+	//}
 
 	m_cID = cID;
 

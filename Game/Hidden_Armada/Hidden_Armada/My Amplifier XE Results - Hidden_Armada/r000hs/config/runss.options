@@ -1,0 +1,17 @@
+-r
+C:\Users\Hollow\Documents\GitHub\GGJ2014\Game\Hidden_Armada\Hidden_Armada\My Amplifier XE Results - Hidden_Armada\r000hs
+--data-limit-mb=500
+--stack-stitching
+--follow-child
+--type=frame:counters
+--stackwalk=offline
+--mrte-mode=auto
+--type=cpu:counters
+--type=cpu:stack
+--interval=10
+--search-dir
+sym=C:\Users\Hollow\Documents\GitHub\GGJ2014\Game\Hidden_Armada\Release
+--search-dir
+sym=C:\Users\Hollow\Documents\GitHub\GGJ2014\Game\Hidden_Armada
+--
+C:\Users\Hollow\Documents\GitHub\GGJ2014\Game\Hidden_Armada\Release\Hidden_Armada.exe

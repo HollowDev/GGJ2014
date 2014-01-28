@@ -1,8 +1,17 @@
 #include "ObjectManager.h"
 #include "../engine/collision/CollisionLibrary.h"
 #include "ObjectFactory.h"
+#include "../engine/renderer/D3D9Handler.h"
 
 ObjectManager ObjectManager::m_Instance;
+
+
+void ObjectManager::InitQuadtree( int _maxLevels, int _maxObjects )
+{
+	m_Quadtree = Quadtree(_maxLevels,_maxObjects,0);
+	RECT bounds = {0,0,1024*4,768*4};
+	m_Quadtree.Init(bounds);
+}
 
 void ObjectManager::CheckChanges( void )
 {
@@ -28,6 +37,9 @@ void ObjectManager::Render( int _x, int _y )
 		for(unsigned int i = 0; i < m_Objects[x].size(); ++i)
 			if(m_Objects[x][i]->GetIsAlive())
 				m_Objects[x][i]->Render(_x,_y);
+
+	//D3D9Handler::m_Sprite->Flush();
+	//m_Quadtree.RenderDebug(_x,_y);
 }
 
 void ObjectManager::Update( float _dt )
@@ -48,42 +60,60 @@ void ObjectManager::Update( float _dt )
 
 void ObjectManager::CheckCollision( void )
 {
+	// Insert all items into the quad tree
+	m_Quadtree.Clear();
+	for(unsigned int x = 0; x < NUM_LAYERS; ++x)
+	{
+		for(unsigned int i = 0; i < m_Objects[x].size(); ++i)
+		{
+			IEntity* object = m_Objects[x][i];
+			m_Quadtree.Insert((BaseEntity*)object);
+		}
+	}
+
+	vector<BaseEntity*> returnObjects;
 	for(unsigned int x = 0; x < NUM_LAYERS; ++x)
 	{
 		for(unsigned int i = 0; i < m_Objects[x].size(); ++i)
 		{
 			IEntity* object1 = m_Objects[x][i];
-			for(unsigned int y = 0; y < NUM_LAYERS; ++y)
+			if(object1->GetType() != Entity_LaserBeam)
 			{
-				for(unsigned int j = 0; j < m_Objects[y].size(); ++j)
+				returnObjects.clear();
+				m_Quadtree.Retrieve(returnObjects,(BaseEntity*)object1);
+				for(int j = 0; j < returnObjects.size(); ++j)
 				{
-					IEntity* object2 = m_Objects[y][j];
+					IEntity* object2 = returnObjects[j];
 					if( object1 != object2 && object1->GetIsAlive() && object2->GetIsAlive() )
 					{
-						if(!m_Objects[x][i]->CheckCollision(m_Objects[y][j]) ||
-						   !m_Objects[y][j]->CheckCollision(m_Objects[x][i]) )
-						   continue;
+						if(!object1->CheckCollision(object2) ||
+						   !object2->CheckCollision(object1) )
+							continue;
 
-						if(object1->GetType() != Entity_LaserBeam && object2->GetType() != Entity_LaserBeam)
+						ColInfo rhs, lhs;
+						if(SphereToSphere(object1->GetSphere(), object2->GetSphere(), rhs, lhs))
 						{
-							ColInfo rhs, lhs;
-							if(SphereToSphere(object1->GetSphere(), object2->GetSphere(), rhs, lhs))
-							{
-								object1->HandleCollision(object2, rhs.offset, rhs.dir.x, rhs.dir.y);
-								object2->HandleCollision(object1, lhs.offset, lhs.dir.x, lhs.dir.y);
-							}
+							object1->HandleCollision(object2, rhs.offset, rhs.dir.x, rhs.dir.y);
+							object2->HandleCollision(object1, lhs.offset, lhs.dir.x, lhs.dir.y);
 						}
-						else
+					}
+				}
+			}
+			else
+			{
+				for(unsigned int y = 0; y < NUM_LAYERS; ++y)
+				{
+					for(unsigned int j = 0; j < m_Objects[y].size(); ++j)
+					{
+						IEntity* object2 = m_Objects[y][j];
+						if(!object1->CheckCollision(object2) || !object2->CheckCollision(object1) )
+							continue;
+
+						ColInfo rhs, lhs;
+						if(SegmentToSphere(((LaserBeam*)object1)->GetSegment(),object2->GetSphere(),rhs,lhs))
 						{
-							if(object1->GetType() == Entity_LaserBeam)
-							{
-								ColInfo rhs, lhs;
-								if(SegmentToSphere(((LaserBeam*)object1)->GetSegment(),object2->GetSphere(),rhs,lhs))
-								{
-									object1->HandleCollision(object2, rhs.offset, rhs.dir.x, rhs.dir.y);
-									object2->HandleCollision(object1, lhs.offset, lhs.dir.x, lhs.dir.y);
-								}
-							}
+							object1->HandleCollision(object2, rhs.offset, rhs.dir.x, rhs.dir.y);
+							object2->HandleCollision(object1, lhs.offset, lhs.dir.x, lhs.dir.y);
 						}
 					}
 				}
@@ -113,4 +143,6 @@ void ObjectManager::Clear( void )
 		}
 		m_Objects[i].clear();
 	}
+
+	m_Quadtree.Clear();
 }

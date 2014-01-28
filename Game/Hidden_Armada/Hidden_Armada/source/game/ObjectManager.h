@@ -2,6 +2,7 @@
 #define _OBJECT_MANAGER_H_
 
 #include "objects\IEntity.h"
+#include "Quadtree.h"
 
 #include <vector>
 using std::vector;
@@ -22,6 +23,8 @@ class ObjectManager
 		}
 	};
 
+	Quadtree m_Quadtree;
+
 	vector<IEntity*> m_Objects[NUM_LAYERS];
 
 	vector<ChangeObject> m_ToRemove;
@@ -36,6 +39,8 @@ class ObjectManager
 public:
 
 	static ObjectManager* GetInstance( void ) { return &m_Instance; }
+
+	void InitQuadtree( int _maxLevels, int _maxObjects );
 
 	void Render( int _x, int _y );
 	void Update( float _dt );

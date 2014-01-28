@@ -70,9 +70,6 @@
     <ClInclude Include="source\game\states\SplashState.h">
       <Filter>game\states</Filter>
     </ClInclude>
-    <ClInclude Include="source\game\states\OptionsState.h">
-      <Filter>game\states</Filter>
-    </ClInclude>
     <ClInclude Include="source\game\states\CreditsState.h">
       <Filter>game\states</Filter>
     </ClInclude>
@@ -200,6 +197,12 @@
       <Filter>game\objects</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="source\game\Quadtree.h">
+      <Filter>game</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game\states\TestState.h">
+      <Filter>game\states</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\engine\app\WinApp.cpp">
@@ -216,9 +219,6 @@
       <Filter>engine\renderer</Filter>
     </ClCompile>
     <ClCompile Include="source\game\states\SplashState.cpp">
-      <Filter>game\states</Filter>
-    </ClCompile>
-    <ClCompile Include="source\game\states\OptionsState.cpp">
       <Filter>game\states</Filter>
     </ClCompile>
     <ClCompile Include="source\game\states\CreditsState.cpp">
@@ -337,6 +337,12 @@
     </ClCompile>
     <ClCompile Include="source\game\objects\BossEnemy.cpp">
       <Filter>game\objects</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\Quadtree.cpp">
+      <Filter>game</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game\states\TestState.cpp">
+      <Filter>game\states</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

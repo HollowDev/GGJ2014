@@ -131,8 +131,8 @@ bool GameplayState::Initialize( WinApp* _app )
 		m_ScoreBoard[i] = board;
 
 	m_BoardPos = D3DXVECTOR2(286,400);
-
-	m_Player1->SetScore(10000);
+	
+	ObjectManager::GetInstance()->InitQuadtree(5,25);
 
 	return true;
 }

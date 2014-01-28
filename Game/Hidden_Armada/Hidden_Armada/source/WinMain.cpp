@@ -7,6 +7,7 @@
 
 #include "engine\app\WinApp.h"
 #include "game\states\MainMenuState.h"
+#include "game\states\TestState.h"
 
 #define GAME_WIDTH	1024
 #define GAME_HEIGHT	768

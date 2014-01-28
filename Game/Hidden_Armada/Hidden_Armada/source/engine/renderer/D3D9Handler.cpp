@@ -57,7 +57,7 @@ BOOL D3D9Handler::Initialize(HWND hWnd, BOOL windowed)
 	// Create the line
 	D3DXCreateLine(m_Device, &m_Line);
 	m_Line->SetAntialias(TRUE);
-	m_Line->SetWidth(1.0f);
+	m_Line->SetWidth(6.0f);
 	
 	return TRUE;
 }
